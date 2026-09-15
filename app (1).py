@@ -79,13 +79,13 @@ else:
 st.markdown("</div>", unsafe_allow_html=True)
 
 # 2. Tombol Saat Kangen
-st.markdown("<div class='love-card'><h3>💌 Lagi Kangen Ya?</h3><p>Klik tombol di bawah kalau pas lagi kangen tapi gengsi/jarak membatasi:</p>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>💌 Lagi Kerja ya? semangat ya, ingat pesan aku ini</h3><p>Klik tombol di bawah kalau pas lagi kangen tapi gengsi/jarak membatasi:</p>", unsafe_allow_html=True)
 
 pesan_kangen = [
     "Hei... jangan lupa makan, jangan terlalu kecapekan. Aku di sini.",
-    "Rindu ini ibarat ombak, kadang tenang kadang kencang, tapi tujuannya tetap ke pantai yang sama: kamu.",
-    "Walaupun gak ngabarin 24 jam, pikiranku sempat mampir ke senyummu hari ini kok.",
-    "Kasih sayang ini tidak akan putus cuma karena sibuk atau jarak. Tetap bernafas dengan tenang ya."
+    "Jangan buat aku cemburu please, aku gak kuat tapi mau gimana lagi:(.",
+    "Walaupun gak ngabarin, pikiranku sempat mampir ke senyummu hari ini kok.",
+    "Kasih sayang ini tidak akan putus cuma karena sibuk, jarak atauapapun itu. Tetap selalu bahagia ya."
 ]
 
 if st.button("Pencet Kalau suka:)", use_container_width=True):
