@@ -132,7 +132,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 
 # ⚠️ Ganti nomor '628xxxxxxxxxx' di bawah dengan nomor WhatsApp kamu (pakai format 62 di depan, jangan pakai angka 0)
-nomor_wa = "6285834241940" 
+nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, aku udah mampir dan baca web suratnya nih! 🤍✨"
 link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace('6281216464994', '%20')}"
 
