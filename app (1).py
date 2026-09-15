@@ -118,8 +118,7 @@ st.markdown("<br><hr>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang dan bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
  
 
-
-
-
-
  
+
+
+
