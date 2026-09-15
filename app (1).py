@@ -25,7 +25,7 @@ st.markdown("<p class='subtitle'>Kasih sayang yang tidak punya tombol 'off'</p>"
 
 # 1. Hari / Waktu Bersama (Counter)
 st.markdown("<div class='love-card'><h3>⏳ Menghitung Waktu Berharga</h3>", unsafe_allow_html=True)
-start_date = st.date_input("Kapan hari spesial/mulai dekat kita?", datetime.date(2023, 06, 11))
+start_date = st.date_input("Kapan hari spesial/mulai dekat kita?", datetime.date(2023, 6, 11))
 days_count = (datetime.date.today() - start_date).days
 st.metric(label="Hari Spesial:", value=f"{days_count:,} Hari")
 st.markdown("</div>", unsafe_allow_html=True)
