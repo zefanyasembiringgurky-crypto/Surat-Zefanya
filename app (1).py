@@ -72,8 +72,11 @@ if tipe_input == "Pilih Tanggal Kalender":
     today = datetime.date.today()
     days_count = (today - start_date).days
     st.metric(label="Hari penuh cerita terukir:", value=f"{days_count:,} Hari")
+    st.balloons()
 else:
-    custom_text = st.text_input("Ketik tanggal / catatan hari spesial kalian:", value="11 Juni 2023 - Awal mula cerita")
+    custom_text = st.text_input("Ketik tanggal / catatan hari spesial kalian:", value="11 Juni 2022 - Awal mula cerita")
+    if custom_text:
+        st.balloons()
     st.info(f"✨ Catatan tersimpan: **{custom_text}**")
 
 st.markdown("</div>", unsafe_allow_html=True)
@@ -99,7 +102,7 @@ alasan_list = [
     "aku rindu makan sushi, selama gak ada kamu gak pernah lagi makan sushi.",
     "Cara kamu ketawa dan senyum lepas pas dengar hal konyol.",
     "Ketulusan kamu waktu cerita hal-hal kecil yang bikin antusias.",
-     "Karna kamu cantik bangetttttt, masakan kamu juga enakkk.",
+    "Karna kamu cantik bangetttttt, masakan kamu juga enakkk.",
     "Cara bertahan kamu di hari-hari yang berat tanpa banyak mengeluh ke publik.",
     "Keberadaan kamu yang bikin tempat biasa jadi terasa 'rumah'."
 ]
@@ -113,6 +116,10 @@ st.markdown("</div>", unsafe_allow_html=True)
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang dan bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
-   
+ 
 
 
+
+
+
+ 
