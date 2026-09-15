@@ -88,7 +88,7 @@ pesan_kangen = [
     "Kasih sayang ini tidak akan putus cuma karena sibuk, jarak atauapapun itu. Tetap selalu bahagia ya."
 ]
 
-if st.button("Pencet Kalau suka kangen wkwkwk:)", use_container_width=True):
+if st.button("Pencet kalau kangen wkwkwk:)", use_container_width=True):
     st.balloons()
     st.success(random.choice(pesan_kangen))
 st.markdown("</div>", unsafe_allow_html=True)
@@ -99,6 +99,7 @@ alasan_list = [
     "aku rindu makan sushi, selama gak ada kamu gak pernah lagi makan sushi.",
     "Cara kamu ketawa dan senyum lepas pas dengar hal konyol.",
     "Ketulusan kamu waktu cerita hal-hal kecil yang bikin antusias.",
+     "Karna kamu cantik bangetttttt, masakan kamu juga enakkk.",
     "Cara bertahan kamu di hari-hari yang berat tanpa banyak mengeluh ke publik.",
     "Keberadaan kamu yang bikin tempat biasa jadi terasa 'rumah'."
 ]
@@ -111,7 +112,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu buka kapan saja rindu datang 🤍</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu buka kapan saja rindu datang dan bisa selalu update 🤍</p>", unsafe_allow_html=True)
    
 
 
