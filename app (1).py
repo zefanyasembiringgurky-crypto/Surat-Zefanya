@@ -59,17 +59,15 @@ st.markdown("""
 
 # Header Utama
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
-st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='subtitle'>Surat Harian Zefanya — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
 # 📅 ARsip Surat Harian (Tiap hari tinggal tambah di sini!)
 arsip_surat_harian = {
     "2026-09-15": "Hari ini harus banyak senyum ya, jangan skip makan walau sibuk kerja!",
-    "2026-09-14": "Kangen sushi lagi gak? Besok atau weekend semoga bisa makan bareng ya.",
-    "2026-09-13": "Minggu yang tenang, semoga istirahatmu cukup hari ini.",
-}
+   
 
 today_str = datetime.date.today().strftime("%Y-%m-%d")
-default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo kesayangan! Tetap semangat menjalani hari ini ya, aku selalu dukung dari sini 🤍")
+default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo Avrillia! Tetap semangat menjalani hari ini ya, aku selalu dukung dari sini 🤍")
 
 # 1. Kotak Surat Harian Otomatis
 st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini</h3>", unsafe_allow_html=True)
