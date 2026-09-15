@@ -104,9 +104,14 @@ alasan_list = [
 ]
 
 if st.button("Buka Satu Alasan Hari Ini 🎲", use_container_width=True):
+    # Efek love bertaburan visual + info alasan
+    st.markdown("<div style='font-size: 28px; text-align: center; margin: 10px 0;'>💖 💗 💓 💞 💘 💖 💗 💓</div>", unsafe_allow_html=True)
     st.info(random.choice(alasan_list))
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu buka kapan saja rindu datang 🤍</p>", unsafe_allow_html=True)
+   
+
+
