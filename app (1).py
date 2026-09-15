@@ -47,7 +47,6 @@ st.markdown("""
     .love-card p {
         color: #2d2d2d !important;
     }
-    /* Mengubah warna teks widget streamlit agar gelap/hitam */
     div[data-testid="stMarkdownContainer"] p, 
     div[data-testid="stRadio"] label, 
     div[data-testid="stTextInput"] label,
@@ -60,11 +59,32 @@ st.markdown("""
 
 # Header Utama
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
-st.markdown("<p class='subtitle'>Kasih sayang yang tidak punya tombol 'off'</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# 1. Hari / Waktu Bersama (Bisa diketik atau pilih kalender)
-st.markdown("<div class='love-card'><h3>⏳ Waktu Kita </h3>", unsafe_allow_html=True)
+# 📅 ARSIP SURAT HARIAN (TIAP HARI TINGGAL TAMBAH DI SINI!)
+# Format: "Tanggal": "Isi pesan"
+arsip_surat_harian = {
+    "2026-09-15": "Hari ini harus banyak senyum ya, jangan skip makan walau sibuk kerja!",
+    "2026-09-14": "Kangen sushi lagi gak? Besok atau weekend semoga bisa makan bareng ya.",
+    "2026-09-13": "Minggu yang tenang, semoga istirahatmu cukup hari ini.",
+    # ---> TINGGAL TAMBAHKAN TANGGAL BARU DI ATAS INI TIAP HARI <---
+}
 
+today_str = datetime.date.today().strftime("%Y-%m-%d")
+default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo kesayangan! Tetap semangat menjalani hari ini ya, aku selalu dukung dari sini 🤍")
+
+# 1. Kotak Surat Harian Otomatis
+st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini</h3>", unsafe_allow_html=True)
+st.info(f"✨ **Pesan untuk hari ini ({datetime.date.today().strftime('%d %b')}):**\n\n> {default_pesan_hari_ini}")
+
+# Pilihan lihat arsip/semua catatan harian
+with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
+    for tgl, psn in arsip_surat_harian.items():
+        st.write(f"- **{tgl}**: {psn}")
+st.markdown("</div>", unsafe_allow_html=True)
+
+# 2. Waktu Kita (Kalender/Input)
+st.markdown("<div class='love-card'><h3>⏳ Waktu Kita</h3>", unsafe_allow_html=True)
 tipe_input = st.radio("Pilih cara input hari spesial:", ["Pilih Tanggal Kalender", "Ketik Tanggal/Cerita Sendiri"])
 
 if tipe_input == "Pilih Tanggal Kalender":
@@ -74,15 +94,14 @@ if tipe_input == "Pilih Tanggal Kalender":
     st.metric(label="Hari penuh cerita terukir:", value=f"{days_count:,} Hari")
     st.balloons()
 else:
-    custom_text = st.text_input("Ketik tanggal / catatan hari spesial kalian:", value="11 Juni 2022 - awal mula KITA")
+    custom_text = st.text_input("Ketik tanggal / catatan hari spesial kalian:", value="11 Juni 2023 - Awal mula cerita")
     if custom_text:
         st.balloons()
     st.info(f"✨ Catatan tersimpan: **{custom_text}**")
-
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 2. Tombol Saat Kangen
-st.markdown("<div class='love-card'><h3>💌 Lagi Kerja ya? semangat ya, ingat pesan aku ini</h3><p>Klik tombol di bawah kalau pas lagi kangen tapi gengsi/jarak membatasi:</p>", unsafe_allow_html=True)
+# 3. Tombol Saat Kangen
+st.markdown("<div class='love-card'><h3>💌 Lagi Kerja ya? Semangat ya, ingat pesan aku ini</h3><p>Klik tombol di bawah kalau pas lagi kangen tapi gengsi/jarak membatasi:</p>", unsafe_allow_html=True)
 
 pesan_kangen = [
     "Hei... jangan lupa makan, jangan terlalu kecapekan, jaga kesehatan. Aku di sini.",
@@ -96,7 +115,7 @@ if st.button("Pencet kalau kangen wkwkwk:)", use_container_width=True):
     st.success(random.choice(pesan_kangen))
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 3. Alasan Kenapa Sayang
+# 4. Alasan Kenapa Sayang
 st.markdown("<div class='love-card'><h3>✨ Alasan Kenapa Aku Bisa Kagum & Sayang</h3>", unsafe_allow_html=True)
 alasan_list = [
     "aku rindu makan sushi, selama gak ada kamu gak pernah lagi makan sushi.",
@@ -108,17 +127,22 @@ alasan_list = [
 ]
 
 if st.button("Buka Satu Alasan Hari Ini 🎲", use_container_width=True):
-    # Efek love bertaburan visual + info alasan
     st.markdown("<div style='font-size: 28px; text-align: center; margin: 10px 0;'>💖 💗 💓 💞 💘 💖 💗 💓</div>", unsafe_allow_html=True)
     st.info(random.choice(alasan_list))
 st.markdown("</div>", unsafe_allow_html=True)
 
+# 5. Konfirmasi Dibaca
+st.markdown("<div class='love-card'><h3>✅ Konfirmasi Dibaca</h3><p>Udah selesai baca? Klik tombol ini biar aku tahu kamu udah mampir:</p>", unsafe_allow_html=True)
+if st.button("Udah dibaca kok! 💌", use_container_width=True):
+    st.balloons()
+    st.toast("Yeay! Makasih udah mampir ke sini 🤍", icon="✨")
+    st.success("Makasih udah buka ya, have a great day! 🤍")
+st.markdown("</div>", unsafe_allow_html=True)
+
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang dan bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
- 
-
- 
+st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
+  
 
 
 
