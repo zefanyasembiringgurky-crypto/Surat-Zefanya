@@ -59,7 +59,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Header Utama
-st.markdown("<h1 class='romantic-title'>For My Favorite Person 🤍</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Kasih sayang yang tidak punya tombol 'off'</p>", unsafe_allow_html=True)
 
 # 1. Hari / Waktu Bersama (Bisa diketik atau pilih kalender)
@@ -84,11 +84,11 @@ st.markdown("<div class='love-card'><h3>💌 Lagi Kerja ya? semangat ya, ingat p
 pesan_kangen = [
     "Hei... jangan lupa makan, jangan terlalu kecapekan. Aku di sini.",
     "Jangan buat aku cemburu please, aku gak kuat tapi mau gimana lagi:(.",
-    "Walaupun gak ngabarin, pikiranku sempat mampir ke senyummu hari ini kok.",
+    "Walaupun gak ngabarin, tapi kamu selalu masuk dalam mimpiku.",
     "Kasih sayang ini tidak akan putus cuma karena sibuk, jarak atauapapun itu. Tetap selalu bahagia ya."
 ]
 
-if st.button("Pencet Kalau suka:)", use_container_width=True):
+if st.button("Pencet Kalau suka kangen wkwkwk:)", use_container_width=True):
     st.balloons()
     st.success(random.choice(pesan_kangen))
 st.markdown("</div>", unsafe_allow_html=True)
