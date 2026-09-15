@@ -36,7 +36,7 @@ pesan = [
     "Rindu ini ibarat ombak, kadang tenang kadang kencang, tapi tujuannya tetap ke pantai yang sama: kamu.",
     "Walaupun gak ngabarin 24 jam, pikiranku sempat mampir ke senyummu hari ini kok."
 ]
-if st.button("Pencet Kalau Lagi Kangen 🥺", use_container_width=True):
+if st.button("Pencet kalau suka:)", use_container_width=True):
     st.balloons()
     st.success(random.choice(pesan))
 st.markdown("</div>", unsafe_allow_html=True)
