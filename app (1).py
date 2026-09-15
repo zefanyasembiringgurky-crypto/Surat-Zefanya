@@ -74,7 +74,7 @@ if tipe_input == "Pilih Tanggal Kalender":
     st.metric(label="Hari penuh cerita terukir:", value=f"{days_count:,} Hari")
     st.balloons()
 else:
-    custom_text = st.text_input("Ketik tanggal / catatan hari spesial kalian:", value="11 Juni 2022 - Awal mula cerita")
+    custom_text = st.text_input("Ketik tanggal / catatan hari spesial kalian:", value="11 Juni 2022 - Awal mula KITA")
     if custom_text:
         st.balloons()
     st.info(f"✨ Catatan tersimpan: **{custom_text}**")
