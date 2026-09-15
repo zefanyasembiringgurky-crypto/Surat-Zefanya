@@ -68,7 +68,7 @@ st.markdown("<div class='love-card'><h3>⏳ Menghitung Waktu Berharga</h3>", uns
 tipe_input = st.radio("Pilih cara input hari spesial:", ["Pilih Tanggal Kalender", "Ketik Tanggal/Cerita Sendiri"])
 
 if tipe_input == "Pilih Tanggal Kalender":
-    start_date = st.date_input("Kapan hari spesial/mulai dekat kita?", datetime.date(2023, 6, 11))
+    start_date = st.date_input("Kapan hari spesial/mulai dekat kita?", datetime.date(2021, 1, 16))
     today = datetime.date.today()
     days_count = (today - start_date).days
     st.metric(label="Hari penuh cerita terukir:", value=f"{days_count:,} Hari")
@@ -88,7 +88,7 @@ pesan_kangen = [
     "Kasih sayang ini tidak akan putus cuma karena sibuk atau jarak. Tetap bernafas dengan tenang ya."
 ]
 
-if st.button("Pencet Kalau Lagi Kangen 🥺", use_container_width=True):
+if st.button("Pencet Kalau suka:)", use_container_width=True):
     st.balloons()
     st.success(random.choice(pesan_kangen))
 st.markdown("</div>", unsafe_allow_html=True)
@@ -96,7 +96,8 @@ st.markdown("</div>", unsafe_allow_html=True)
 # 3. Alasan Kenapa Sayang
 st.markdown("<div class='love-card'><h3>✨ Alasan Kenapa Aku Bisa Kagum & Sayang</h3>", unsafe_allow_html=True)
 alasan_list = [
-    "Cara kamu ketawa lepas pas dengar hal konyol.",
+    "aku rindu makan sushi, selama gak ada kamu gak pernah lagi makan sushi.",
+    "Cara kamu ketawa dan senyum lepas pas dengar hal konyol.",
     "Ketulusan kamu waktu cerita hal-hal kecil yang bikin antusias.",
     "Cara bertahan kamu di hari-hari yang berat tanpa banyak mengeluh ke publik.",
     "Keberadaan kamu yang bikin tempat biasa jadi terasa 'rumah'."
