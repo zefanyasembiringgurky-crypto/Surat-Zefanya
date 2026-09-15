@@ -4,7 +4,7 @@ import random
 
 # Konfigurasi Halaman
 st.set_page_config(
-    page_title="Untuk Kamu yang Dirindukan 🤍", 
+    page_title="Surat Zefanya for Avrillia🤍", 
     page_icon="Avrillia💌", 
     layout="centered"
 )
