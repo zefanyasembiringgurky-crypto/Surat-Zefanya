@@ -82,7 +82,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("<div class='love-card'><h3>💌 Lagi Kerja ya? semangat ya, ingat pesan aku ini</h3><p>Klik tombol di bawah kalau pas lagi kangen tapi gengsi/jarak membatasi:</p>", unsafe_allow_html=True)
 
 pesan_kangen = [
-    "Hei... jangan lupa makan, jangan terlalu kecapekan. Aku di sini.",
+    "Hei... jangan lupa makan, jangan terlalu kecapekan, jaga kesehatan. Aku di sini.",
     "Jangan buat aku cemburu please, aku gak kuat tapi mau gimana lagi:(.",
     "Walaupun gak ngabarin, tapi kamu selalu masuk dalam mimpiku.",
     "Kasih sayang ini tidak akan putus cuma karena sibuk, jarak atauapapun itu. Tetap selalu bahagia ya."
