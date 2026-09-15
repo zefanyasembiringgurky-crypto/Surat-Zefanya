@@ -4,7 +4,7 @@ import random
 
 # Konfigurasi Halaman
 st.set_page_config(
-    page_title="Untuk Kamu yang Dirindukan 🤍",
+    page_title="Avrillia🤍",
     page_icon="💌",
     layout="centered"
 )
@@ -25,12 +25,12 @@ st.markdown("<p class='subtitle'>Kasih sayang yang tidak punya tombol 'off'</p>"
 
 # 1. Hari / Waktu Bersama (Counter)
 st.markdown("<div class='love-card'><h3>⏳ Menghitung Waktu Berharga</h3>", unsafe_allow_html=True)
-start_date = st.date_input("Kapan hari spesial/mulai dekat kita?", datetime.date(2023, 1, 1))
+start_date = st.date_input("Kapan hari spesial/mulai dekat kita?", datetime.date(2023, 06, 11))
 days_count = (datetime.date.today() - start_date).days
-st.metric(label="Hari penuh cerita terukir:", value=f"{days_count:,} Hari")
+st.metric(label="Hari Spesial:", value=f"{days_count:,} Hari")
 st.markdown("</div>", unsafe_allow_html=True)
 
-st.markdown("<div class='love-card'><h3>💌 Lagi Kangen Ya?</h3>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>💌 Jaga Kesehatan ya, kalau ada apa-apa, aku selalu ada?</h3>", unsafe_allow_html=True)
 pesan = [
     "Hei... jangan lupa makan, jangan terlalu kecapekan. Aku di sini.",
     "Rindu ini ibarat ombak, kadang tenang kadang kencang, tapi tujuannya tetap ke pantai yang sama: kamu.",
