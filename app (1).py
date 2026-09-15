@@ -61,13 +61,11 @@ st.markdown("""
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# 📅 ARSIP SURAT HARIAN (TIAP HARI TINGGAL TAMBAH DI SINI!)
-# Format: "Tanggal": "Isi pesan"
+# 📅 ARsip Surat Harian (Tiap hari tinggal tambah di sini!)
 arsip_surat_harian = {
     "2026-09-15": "Hari ini harus banyak senyum ya, jangan skip makan walau sibuk kerja!",
     "2026-09-14": "Kangen sushi lagi gak? Besok atau weekend semoga bisa makan bareng ya.",
     "2026-09-13": "Minggu yang tenang, semoga istirahatmu cukup hari ini.",
-    # ---> TINGGAL TAMBAHKAN TANGGAL BARU DI ATAS INI TIAP HARI <---
 }
 
 today_str = datetime.date.today().strftime("%Y-%m-%d")
@@ -77,13 +75,12 @@ default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo kesayangan! Tet
 st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini</h3>", unsafe_allow_html=True)
 st.info(f"✨ **Pesan untuk hari ini ({datetime.date.today().strftime('%d %b')}):**\n\n> {default_pesan_hari_ini}")
 
-# Pilihan lihat arsip/semua catatan harian
 with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
     for tgl, psn in arsip_surat_harian.items():
         st.write(f"- **{tgl}**: {psn}")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 2. Waktu Kita (Kalender/Input)
+# 2. Waktu Kita
 st.markdown("<div class='love-card'><h3>⏳ Waktu Kita</h3>", unsafe_allow_html=True)
 tipe_input = st.radio("Pilih cara input hari spesial:", ["Pilih Tanggal Kalender", "Ketik Tanggal/Cerita Sendiri"])
 
@@ -131,18 +128,28 @@ if st.button("Buka Satu Alasan Hari Ini 🎲", use_container_width=True):
     st.info(random.choice(alasan_list))
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 5. Konfirmasi Dibaca
-st.markdown("<div class='love-card'><h3>✅ Konfirmasi Dibaca</h3><p>Udah selesai baca? Klik tombol ini biar aku tahu kamu udah mampir:</p>", unsafe_allow_html=True)
-if st.button("Udah dibaca kok! 💌", use_container_width=True):
-    st.balloons()
-    st.toast("Yeay! Makasih udah mampir ke sini 🤍", icon="✨")
-    st.success("Makasih udah buka ya, have a great day! 🤍")
+# 5. Tombol Lapor ke WhatsApp Kamu
+st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+
+# ⚠️ Ganti nomor '628xxxxxxxxxx' di bawah dengan nomor WhatsApp kamu (pakai format 62 di depan, jangan pakai angka 0)
+nomor_wa = "6285834241940" 
+pesan_wa = "Halo Zefanya, aku udah mampir dan baca web suratnya nih! 🤍✨"
+link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace('6281216464994', '%20')}"
+
+st.markdown(f"""
+    <a href="{link_wa}" target="_blank">
+        <button style="width: 100%; background-color: #25D366; color: white; padding: 12px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer;">
+            📲 Klik di Sini Kalau Udah Dibaca (Lapor WA)
+        </button>
+    </a>
+""", unsafe_allow_html=True)
+
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
-  
+
 
 
 
