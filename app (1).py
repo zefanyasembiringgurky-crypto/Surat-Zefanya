@@ -63,7 +63,7 @@ st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=Tr
 st.markdown("<p class='subtitle'>Kasih sayang yang tidak punya tombol 'off'</p>", unsafe_allow_html=True)
 
 # 1. Hari / Waktu Bersama (Bisa diketik atau pilih kalender)
-st.markdown("<div class='love-card'><h3>⏳ Menghitung Waktu Berharga</h3>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>⏳ Waktu Kita </h3>", unsafe_allow_html=True)
 
 tipe_input = st.radio("Pilih cara input hari spesial:", ["Pilih Tanggal Kalender", "Ketik Tanggal/Cerita Sendiri"])
 
