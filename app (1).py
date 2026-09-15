@@ -59,15 +59,17 @@ st.markdown("""
 
 # Header Utama
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
-st.markdown(f"<p class='subtitle'>Surat Harian Zefanya — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
 # 📅 ARsip Surat Harian (Tiap hari tinggal tambah di sini!)
 arsip_surat_harian = {
     "2026-09-15": "Hari ini harus banyak senyum ya, jangan skip makan walau sibuk kerja!",
-   
+    "2026-09-14": "Kangen sushi lagi gak? Besok atau weekend semoga bisa makan bareng ya.",
+    "2026-09-13": "Minggu yang tenang, semoga istirahatmu cukup hari ini.",
+}
 
 today_str = datetime.date.today().strftime("%Y-%m-%d")
-default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo Avrillia! Tetap semangat menjalani hari ini ya, aku selalu dukung dari sini 🤍")
+default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo kesayangan! Tetap semangat menjalani hari ini ya, aku selalu dukung dari sini 🤍")
 
 # 1. Kotak Surat Harian Otomatis
 st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini</h3>", unsafe_allow_html=True)
@@ -130,9 +132,9 @@ st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 
 # ⚠️ Ganti nomor '628xxxxxxxxxx' di bawah dengan nomor WhatsApp kamu (pakai format 62 di depan, jangan pakai angka 0)
-nomor_wa = "6281216464994" 
-pesan_wa = "Halo Zefanya, aku udah mampir dan baca web suratnya nih! 🤍✨"
-link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace('6281216464994', '%20')}"
+nomor_wa = "6285834241940" 
+pesan_wa = "Halo sayang, aku udah mampir dan baca web suratnya nih! 🤍✨"
+link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
 st.markdown(f"""
     <a href="{link_wa}" target="_blank">
@@ -147,7 +149,3 @@ st.markdown("</div>", unsafe_allow_html=True)
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
-
-
-
-
