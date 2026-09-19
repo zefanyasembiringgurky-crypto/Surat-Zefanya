@@ -183,7 +183,7 @@ st.markdown("<small style='color: #555;'>*Nikmati alunan musiknya sambil membaca
 
 # 📅 Arsip Surat Harian
 arsip_surat_harian = {
-    "2026-09-19": "Hari ini harus banyak senyum ya, jalani hari dengan hati yang ringan!",
+    "2026-09-19": "Hari ini harus banyak senyum ya, soalnya senyumm kamu buat canduuuuu!",
     "2026-09-18": "Kangen sushi lagi gak? Semoga weekend ini ada waktu buat makan bareng ya.",
     "2026-09-17": "Semoga istirahatmu cukup dan harinya menyenangkan.",
 }
