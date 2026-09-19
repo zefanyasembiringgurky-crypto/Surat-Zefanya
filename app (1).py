@@ -28,6 +28,13 @@ def save_response(topik, jawaban):
     conn.commit()
     conn.close()
 
+def delete_response(resp_id):
+    conn = sqlite3.connect('jawaban_avrillia.db', check_same_thread=False)
+    c = conn.cursor()
+    c.execute('DELETE FROM responses WHERE id = ?', (resp_id,))
+    conn.commit()
+    conn.close()
+
 def get_responses():
     conn = sqlite3.connect('jawaban_avrillia.db', check_same_thread=False)
     try:
@@ -44,7 +51,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, & Animasi Kupu-Kupu / Balon
+# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, & Animasi Kupu-Kupu / Balon Terbang
 st.markdown("""
     <style>
     .stApp {
@@ -93,7 +100,7 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* --- STYLING TOMBOL SIMPAN (Jelas, kontras, tidak gelap) --- */
+    /* --- STYLING TOMBOL SIMPAN (Jelas, kontras, warna biru terang) --- */
     div.stButton > button {
         background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
         color: #ffffff !important;
@@ -109,7 +116,7 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* --- ANIMASI KUPU-KUPU & BALON TERBANG --- */
+    /* --- ANIMASI KUPU-KUPU & BALON TERBANG DI BACKGROUND --- */
     @keyframes floatUp {
         0% {
             transform: translateY(105vh) scale(0.7) rotate(0deg);
@@ -153,6 +160,11 @@ st.markdown("""
         <div class="floating-item" style="left: 85%; animation-duration: 12s; animation-delay: 2s;">🦋</div>
     </div>
 """, unsafe_allow_html=True)
+
+# 🎈 Efek Sambutan Meriah (Balon & Kupu-kupu muncul saat pertama kali masuk web)
+if 'welcomed' not in st.session_state:
+    st.balloons()
+    st.session_state['welcomed'] = True
 
 # Header Utama
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
@@ -224,7 +236,7 @@ if st.button("💾 Simpan Jawaban Kuis"):
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Tombol Lapor ke WhatsApp Kamu secara umum
-st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar biasa ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar biasa ke WhatsApp akur ya:</p>", unsafe_allow_html=True)
 
 nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, aku udah mampir dan baca web suratnya nih! 🤍✨"
@@ -240,7 +252,7 @@ st.markdown(f"""
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (MELIHAT JAWABAN)
+# 🔒 PANEL KHUSUS ZEFANYA (MELIHAT & MENGHAPUS JAWABAN)
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
 with st.expander("🔒 Panel Khusus Zefanya (Klik di sini untuk melihat jawaban Avrillia)"):
@@ -255,6 +267,17 @@ with st.expander("🔒 Panel Khusus Zefanya (Klik di sini untuk melihat jawaban 
         df_data = get_responses()
         if not df_data.empty:
             st.dataframe(df_data, use_container_width=True)
+            
+            st.markdown("---")
+            st.markdown("🗑️ **Hapus Jawaban:**")
+            id_to_delete = st.number_input("Masukkan Nomor ID (Kolom ID) dari jawaban yang ingin dihapus:", min_value=1, step=1)
+            if st.button("❌ Hapus Jawaban Ini"):
+                if id_to_delete in df_data['id'].values:
+                    delete_response(id_to_delete)
+                    st.success(f"Jawaban dengan ID {id_to_delete} berhasil dihapus! Silakan refresh halaman.")
+                    st.rerun()
+                else:
+                    st.error("Nomor ID tidak ditemukan di database.")
         else:
             st.info("Belum ada jawaban yang dikirim.")
     elif pin_input:
