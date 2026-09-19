@@ -1,6 +1,5 @@
 import streamlit as st
 import datetime
-import random
 
 # Konfigurasi Halaman
 st.set_page_config(
@@ -9,40 +8,40 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS: nuansa aesthetic/romantis dengan teks hitam jelas
+# Custom CSS: nuansa biru estetik & lembut dengan teks hitam jelas
 st.markdown("""
     <style>
     .stApp {
-        background: linear-gradient(135deg, #fff0f5 0%, #ffd1dc 50%, #ffc0cb 100%);
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
         color: #1a1a1a;
     }
     .romantic-title {
         text-align: center;
-        color: #8b1e41;
+        color: #0d47a1;
         font-family: 'Georgia', serif;
         font-weight: 400;
         padding-top: 10px;
     }
     .subtitle {
         text-align: center;
-        color: #3b2a26;
+        color: #1565c0;
         font-style: italic;
         margin-bottom: 30px;
         font-weight: 500;
     }
     .love-card {
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.90);
         padding: 24px;
         border-radius: 20px;
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
         backdrop-filter: blur(4px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         text-align: center;
         margin-bottom: 20px;
         color: #1a1a1a;
     }
     .love-card h3 {
-        color: #2b1b17 !important;
+        color: #0d47a1 !important;
     }
     .love-card p {
         color: #2d2d2d !important;
@@ -61,15 +60,16 @@ st.markdown("""
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# 🎵 1. Pemutar Musik (Hindia - Cincin)
-st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Cincin)</h3><p>Putar lagu ini dulu biar suasananya makin syahdu:</p>", unsafe_allow_html=True)
-# Embed audio/video YouTube untuk lagu Hindia - Cincin
+# 🎵 1. Pemutar Musik YouTube Langsung (Hindia - Cincin)
+st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Cincin)</h3><p>Putar lagu ini langsung di sini biar suasananya makin tenang:</p>", unsafe_allow_html=True)
 st.markdown("""
-    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1143491374&color=%238b1e41&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/5Uq8yY6n364" 
+        title="Hindia - Cincin" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen style="border-radius: 12px;">
     </iframe>
 """, unsafe_allow_html=True)
-st.markdown("<small style='color: #666;'>*Atau nikmati alunan nadanya sambil membaca surat hari ini.*</small></div>", unsafe_allow_html=True)
+st.markdown("<small style='color: #555;'>*Nikmati alunan musiknya sambil membaca surat hari ini.*</small></div>", unsafe_allow_html=True)
 
 # 📅 Arsip Surat Harian
 arsip_surat_harian = {
@@ -132,37 +132,6 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Tombol Saat Kangen
-st.markdown("<div class='love-card'><h3>💌 Lagi Kerja ya? Semangat ya, ingat pesan aku ini</h3><p>Klik tombol di bawah kalau pas lagi kangen tapi gengsi/jarak membatasi:</p>", unsafe_allow_html=True)
-
-pesan_kangen = [
-    "Hei... jangan lupa makan, jangan terlalu kecapekan, jaga kesehatan. Aku di sini.",
-    "Jangan buat aku cemburu please, aku gak kuat tapi mau gimana lagi:(.",
-    "Walaupun gak ngabarin, tapi kamu selalu masuk dalam mimpiku.",
-    "Kasih sayang ini tidak akan putus cuma karena sibuk, jarak atauapapun itu. Tetap selalu bahagia ya."
-]
-
-if st.button("Pencet kalau kangen wkwkwk:)", use_container_width=True):
-    st.balloons()
-    st.success(random.choice(pesan_kangen))
-st.markdown("</div>", unsafe_allow_html=True)
-
-# Alasan Kenapa Sayang
-st.markdown("<div class='love-card'><h3>✨ Alasan Kenapa Aku Bisa Kagum & Sayang</h3>", unsafe_allow_html=True)
-alasan_list = [
-    "aku rindu makan sushi, selama gak ada kamu gak pernah lagi makan sushi.",
-    "Cara kamu ketawa dan senyum lepas pas dengar hal konyol.",
-    "Ketulusan kamu waktu cerita hal-hal kecil yang bikin antusias.",
-    "Karna kamu cantik bangetttttt, masakan kamu juga enakkk.",
-    "Cara bertahan kamu di hari-hari yang berat tanpa banyak mengeluh ke publik.",
-    "Keberadaan kamu yang bikin tempat biasa jadi terasa 'rumah'."
-]
-
-if st.button("Buka Satu Alasan Hari Ini 🎲", use_container_width=True):
-    st.markdown("<div style='font-size: 28px; text-align: center; margin: 10px 0;'>💖 💗 💓 💞 💘 💖 💗 💓</div>", unsafe_allow_html=True)
-    st.info(random.choice(alasan_list))
-st.markdown("</div>", unsafe_allow_html=True)
-
 # Tombol Lapor ke WhatsApp Kamu secara umum
 st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar biasa ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 
@@ -181,4 +150,4 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #4a4a4a; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #333; font-size: 0.85em; font-weight: 500;'>Web ini online 24/7 buat kamu yang bisa selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
