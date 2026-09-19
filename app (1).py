@@ -1,6 +1,14 @@
 import streamlit as st
 import datetime
 
+# ==========================================
+# ⚙️ MASUKKAN LINK GOOGLE FORM KAMU DI SINI
+# ==========================================
+# (Pastikan lengkap diawali dengan https:// ya!)
+LINK_GFORM_WAKTU = "https://forms.gle/isigformwaktudisini" 
+LINK_GFORM_KUIS  = "https://forms.gle/isigformkuisdisini"
+# ==========================================
+
 # Konfigurasi Halaman
 st.set_page_config(
     page_title="Surat Zefanya for Avrillia🤍", 
@@ -95,14 +103,11 @@ st.markdown("<div class='love-card'><h3>⛰️ Semangat Kerja di Berastagi!</h3>
 st.info("✨ *'Semangat ya kerjanya di Berastagi! Walaupun udaranya dingin dan kadang bikin mager, ingat kalau kerja kerasmu hari ini adalah langkah hebat buat masa depan. Jangan lupa pakai jaket hangat, jaga kesehatan, dan jangan pernah skip makan ya! Aku selalu mendoakan dan mendukungmu dari sini.'* 🤍")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⏳ Waktu Kita (Google Form Baru)
+# ⏳ Waktu Kita (Google Form Waktu Terbaik)
 st.markdown("<div class='love-card'><h3>⏳ Waktu Kita</h3><p>Kapan waktu yang paling terbaik kita (sampai kamu senang banget)? Yuk ceritakan lewat Google Form di bawah ini! 👇</p>", unsafe_allow_html=True)
 
-# ⚠️ Ganti link 'LINK_GOOGLE_FORM_WAKTU_KITA_DISINI' dengan link Google Form khusus untuk pertanyaan ini
-link_gform_waktu = "LINK_GOOGLE_FORM_WAKTU_KITA_DISINI"
-
 st.markdown(f"""
-    <a href="{link_gform_waktu}" target="_blank">
+    <a href="{LINK_GFORM_WAKTU}" target="_blank">
         <button style="width: 100%; background-color: #0d47a1; color: white; padding: 14px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;">
             📝 Isi Google Form "Waktu Kita"
         </button>
@@ -110,14 +115,11 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🧠 Kuis Google Form Umum
+# 🧠 Kuis Google Form
 st.markdown("<div class='love-card'><h3>🧠 Kuis Kecil Buat Avrillia</h3><p>Yuk isi kuis singkat seputar kita lewat Google Form di bawah ini ya! 👇</p>", unsafe_allow_html=True)
 
-# ⚠️ Ganti link 'LINK_GOOGLE_FORM_KUIS_DISINI' dengan link Google Form kuis kamu
-link_gform_kuis = "LINK_GOOGLE_FORM_KUIS_DISINI"
-
 st.markdown(f"""
-    <a href="{link_gform_kuis}" target="_blank">
+    <a href="{LINK_GFORM_KUIS}" target="_blank">
         <button style="width: 100%; background-color: #0d47a1; color: white; padding: 14px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;">
             📝 Buka & Isi Google Form Kuis Kita
         </button>
