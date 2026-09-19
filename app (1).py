@@ -3,7 +3,7 @@ import datetime
 import sqlite3
 import pandas as pd
 
-# --- INISIALISASI DATABASE SQLITE (Penyimpanan Data di Web) ---
+# --- INISIALISASI DATABASE SQLITE ---
 def init_db():
     conn = sqlite3.connect('jawaban_avrillia.db', check_same_thread=False)
     c = conn.cursor()
@@ -44,12 +44,13 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS: nuansa biru estetik & lembut dengan teks hitam jelas
+# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, & Animasi Kupu-Kupu / Balon
 st.markdown("""
     <style>
     .stApp {
         background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
         color: #1a1a1a;
+        overflow-x: hidden;
     }
     .romantic-title {
         text-align: center;
@@ -75,6 +76,8 @@ st.markdown("""
         text-align: center;
         margin-bottom: 20px;
         color: #1a1a1a;
+        position: relative;
+        z-index: 2;
     }
     .love-card h3 {
         color: #0d47a1 !important;
@@ -89,7 +92,66 @@ st.markdown("""
         color: #1a1a1a !important;
         font-weight: 500;
     }
+    
+    /* --- STYLING TOMBOL SIMPAN (Jelas, kontras, tidak gelap) --- */
+    div.stButton > button {
+        background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+        color: #ffffff !important;
+        border-radius: 12px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+        width: 100%;
+    }
+    div.stButton > button:hover {
+        background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+        color: #ffffff !important;
+    }
+
+    /* --- ANIMASI KUPU-KUPU & BALON TERBANG --- */
+    @keyframes floatUp {
+        0% {
+            transform: translateY(105vh) scale(0.7) rotate(0deg);
+            opacity: 0;
+        }
+        20% {
+            opacity: 0.8;
+        }
+        80% {
+            opacity: 0.8;
+        }
+        100% {
+            transform: translateY(-10vh) scale(1.2) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    .floating-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .floating-item {
+        position: absolute;
+        bottom: -50px;
+        font-size: 26px;
+        animation: floatUp 12s infinite linear;
+    }
     </style>
+
+    <!-- Elemen Animasi Kupu-Kupu & Balon -->
+    <div class="floating-bg">
+        <div class="floating-item" style="left: 10%; animation-duration: 11s; animation-delay: 0s;">🦋</div>
+        <div class="floating-item" style="left: 25%; animation-duration: 14s; animation-delay: 3s;">🎈</div>
+        <div class="floating-item" style="left: 45%; animation-duration: 10s; animation-delay: 1s;">🦋</div>
+        <div class="floating-item" style="left: 65%; animation-duration: 13s; animation-delay: 4s;">🎈</div>
+        <div class="floating-item" style="left: 85%; animation-duration: 12s; animation-delay: 2s;">🦋</div>
+    </div>
 """, unsafe_allow_html=True)
 
 # Header Utama
@@ -135,7 +197,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("<div class='love-card'><h3>⏳ Waktu Kita</h3><p>Kapan waktu yang paling terbaik kita (sampai kamu senang banget)? Ketik di bawah ya:</p>", unsafe_allow_html=True)
 
 jawaban_waktu = st.text_input("Tulis momen terbaik kita di sini:", key="input_waktu_kita")
-if st.button("💾 Simpan Jawaban Waktu Kita", use_container_width=True):
+if st.button("💾 Simpan Jawaban Waktu Kita"):
     if jawaban_waktu.strip():
         save_response("Waktu Kita (Terbaik)", jawaban_waktu)
         st.success("Yeay! Jawabanmu sudah tersimpan rapi untuk Zefanya 🤍")
@@ -151,7 +213,7 @@ quiz_1 = st.text_input("1. Kapan tanggal ulang tahunku?", key="q_ultah")
 quiz_2 = st.text_input("2. Apa makanan kesukaanku?", key="q_makanan")
 quiz_3 = st.text_input("3. Apa kelebihanku di mata kamu?", key="q_kelebihan")
 
-if st.button("💾 Simpan Jawaban Kuis", use_container_width=True):
+if st.button("💾 Simpan Jawaban Kuis"):
     if quiz_1.strip() or quiz_2.strip() or quiz_3.strip():
         teks_gabungan = f"Ultah: {quiz_1} | Makanan: {quiz_2} | Kelebihan: {quiz_3}"
         save_response("Kuis Kecil", teks_gabungan)
@@ -185,7 +247,7 @@ with st.expander("🔒 Panel Khusus Zefanya (Klik di sini untuk melihat jawaban 
     st.markdown("Masukkan PIN rahasia untuk melihat data jawaban yang masuk:")
     pin_input = st.text_input("PIN Rahasia:", type="password")
     
-    # PIN rahasia kamu atur di sini (misal: 1601 atau tanggal penting kalian)
+    # PIN rahasia kamu (bisa diubah sesuai keinginan)
     PIN_RAHASIA = "2021" 
     
     if pin_input == PIN_RAHASIA:
