@@ -1,11 +1,41 @@
 import streamlit as st
 import datetime
+import sqlite3
+import pandas as pd
 
-# ==========================================
-# ⚙️ GANTI DENGAN EMAIL GMAIL KAMU DI SINI
-# ==========================================
-EMAIL_TUJUAN = "zefanyasembiringgurky@gmail.com"
-# ==========================================
+# --- INISIALISASI DATABASE SQLITE (Penyimpanan Data di Web) ---
+def init_db():
+    conn = sqlite3.connect('jawaban_avrillia.db', check_same_thread=False)
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS responses (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            topik TEXT,
+            jawaban TEXT,
+            waktu TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+init_db()
+
+def save_response(topik, jawaban):
+    conn = sqlite3.connect('jawaban_avrillia.db', check_same_thread=False)
+    c = conn.cursor()
+    waktu_str = datetime.datetime.now().strftime("%d %B %Y - %H:%M:%S")
+    c.execute('INSERT INTO responses (topik, jawaban, waktu) VALUES (?, ?, ?)', (topik, jawaban, waktu_str))
+    conn.commit()
+    conn.close()
+
+def get_responses():
+    conn = sqlite3.connect('jawaban_avrillia.db', check_same_thread=False)
+    try:
+        df_resp = pd.read_sql_query('SELECT * FROM responses ORDER BY id DESC', conn)
+    except:
+        df_resp = pd.DataFrame(columns=['id', 'topik', 'jawaban', 'waktu'])
+    conn.close()
+    return df_resp
 
 # Konfigurasi Halaman
 st.set_page_config(
@@ -101,42 +131,34 @@ st.markdown("<div class='love-card'><h3>⛰️ Semangat Kerja di Berastagi!</h3>
 st.info("✨ *'Semangat ya kerjanya di Berastagi! Walaupun udaranya dingin dan kadang bikin mager, ingat kalau kerja kerasmu hari ini adalah langkah hebat buat masa depan. Jangan lupa pakai jaket hangat, jaga kesehatan, dan jangan pernah skip makan ya! Aku selalu mendoakan dan mendukungmu dari sini.'* 🤍")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⏳ Waktu Kita (Input Langsung -> Kirim ke Gmail)
+# ⏳ Waktu Kita (Input Langsung di Web & Simpan ke Database)
 st.markdown("<div class='love-card'><h3>⏳ Waktu Kita</h3><p>Kapan waktu yang paling terbaik kita (sampai kamu senang banget)? Ketik di bawah ya:</p>", unsafe_allow_html=True)
 
-jawaban_waktu = st.text_input("Tulis momen terbaik kita di sini:")
-
-subjek_waktu = "Jawaban Waktu Kita - Dari Avrillia 🤍"
-isi_waktu = f"Halo Zefanya, ini momen waktu terbaik kita versi aku:\n\n{jawaban_waktu}"
-link_email_waktu = f"mailto:{EMAIL_TUJUAN}?subject={subjek_waktu.replace(' ', '%20')}&body={isi_waktu.replace(' ', '%20').replace(chr(10), '%0A')}"
-
-st.markdown(f"""
-    <a href="{link_email_waktu}" target="_blank">
-        <button style="width: 100%; background-color: #0d47a1; color: white; padding: 12px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 10px;">
-            📧 Kirim Jawabannya ke Gmail Zefanya
-        </button>
-    </a>
-""", unsafe_allow_html=True)
+jawaban_waktu = st.text_input("Tulis momen terbaik kita di sini:", key="input_waktu_kita")
+if st.button("💾 Simpan Jawaban Waktu Kita", use_container_width=True):
+    if jawaban_waktu.strip():
+        save_response("Waktu Kita (Terbaik)", jawaban_waktu)
+        st.success("Yeay! Jawabanmu sudah tersimpan rapi untuk Zefanya 🤍")
+        st.balloons()
+    else:
+        st.warning("Tulis dulu ya pesannya...")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🧠 Kuis Kecil (Input Langsung -> Kirim ke Gmail)
+# 🧠 Kuis Kecil (Input Langsung di Web & Simpan ke Database)
 st.markdown("<div class='love-card'><h3>🧠 Kuis Kecil Buat Avrillia</h3><p>Jawab pertanyaan di bawah ini ya:</p>", unsafe_allow_html=True)
 
-quiz_1 = st.text_input("1. Kapan tanggal ulang tahunku?")
-quiz_2 = st.text_input("2. Apa makanan kesukaanku?")
-quiz_3 = st.text_input("3. Apa kelebihanku di mata kamu?")
+quiz_1 = st.text_input("1. Kapan tanggal ulang tahunku?", key="q_ultah")
+quiz_2 = st.text_input("2. Apa makanan kesukaanku?", key="q_makanan")
+quiz_3 = st.text_input("3. Apa kelebihanku di mata kamu?", key="q_kelebihan")
 
-subjek_kuis = "Jawaban Kuis Avrillia 🤍"
-isi_kuis = f"Halo Zefanya, ini jawaban kuis dari aku:\n\n1. Tanggal ulang tahunmu: {quiz_1}\n2. Makanan kesukaanmu: {quiz_2}\n3. Kelebihanmu: {quiz_3}"
-link_email_kuis = f"mailto:{EMAIL_TUJUAN}?subject={subjek_kuis.replace(' ', '%20')}&body={isi_kuis.replace(' ', '%20').replace(chr(10), '%0A')}"
-
-st.markdown(f"""
-    <a href="{link_email_kuis}" target="_blank">
-        <button style="width: 100%; background-color: #0d47a1; color: white; padding: 12px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 10px;">
-            📧 Kirim Jawaban Kuis ke Gmail Zefanya
-        </button>
-    </a>
-""", unsafe_allow_html=True)
+if st.button("💾 Simpan Jawaban Kuis", use_container_width=True):
+    if quiz_1.strip() or quiz_2.strip() or quiz_3.strip():
+        teks_gabungan = f"Ultah: {quiz_1} | Makanan: {quiz_2} | Kelebihan: {quiz_3}"
+        save_response("Kuis Kecil", teks_gabungan)
+        st.success("Terima kasih sayang, jawaban kuisnya sudah tersimpan! 🤍")
+        st.balloons()
+    else:
+        st.warning("Isi dulu minimal salah satu pertanyaannya ya...")
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Tombol Lapor ke WhatsApp Kamu secara umum
@@ -153,8 +175,28 @@ st.markdown(f"""
         </button>
     </a>
 """, unsafe_allow_html=True)
-
 st.markdown("</div>", unsafe_allow_html=True)
+
+# ==========================================
+# 🔒 PANEL KHUSUS ZEFANYA (MELIHAT JAWABAN)
+# ==========================================
+st.markdown("<br><hr>", unsafe_allow_html=True)
+with st.expander("🔒 Panel Khusus Zefanya (Klik di sini untuk melihat jawaban Avrillia)"):
+    st.markdown("Masukkan PIN rahasia untuk melihat data jawaban yang masuk:")
+    pin_input = st.text_input("PIN Rahasia:", type="password")
+    
+    # PIN rahasia kamu atur di sini (misal: 1601 atau tanggal penting kalian)
+    PIN_RAHASIA = "2021" 
+    
+    if pin_input == PIN_RAHASIA:
+        st.success("PIN benar! Berikut adalah daftar jawaban dari Avrillia:")
+        df_data = get_responses()
+        if not df_data.empty:
+            st.dataframe(df_data, use_container_width=True)
+        else:
+            st.info("Belum ada jawaban yang dikirim.")
+    elif pin_input:
+        st.error("PIN salah! Coba ingat-ingat lagi ya.")
 
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
