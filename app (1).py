@@ -170,11 +170,11 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# 🎵 1. Pemutar Musik YouTube (Hindia - Cincin)
-st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Cincin)</h3><p>Putar lagu ini langsung di sini biar suasananya makin tenang:</p>", unsafe_allow_html=True)
+# 🎵 1. Pemutar Musik YouTube (Hindia - Bayangkan Jika Kita Tidak Menyerah)
+st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Bayangkan Jika Kita Tidak Menyerah)</h3><p>Putar lagu ini langsung di sini biar suasananya makin tenang:</p>", unsafe_allow_html=True)
 st.markdown("""
-    <iframe width="100%" height="210" src="https://www.youtube.com/embed/S0Kez6MERGE" 
-        title="Hindia - Cincin (Official Lyric Video)" frameborder="0" 
+    <iframe width="100%" height="210" src="https://www.youtube.com/embed/rSTO0VrV38Y" 
+        title="Hindia - Bayangkan Jika Kita Tidak Menyerah (Official Lyric Video)" frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen style="border-radius: 12px;">
     </iframe>
@@ -183,7 +183,7 @@ st.markdown("<small style='color: #555;'>*Nikmati alunan musiknya sambil membaca
 
 # 📅 Arsip Surat Harian
 arsip_surat_harian = {
-    "2026-09-19": "Hari ini harus banyak senyum ya, soalnya senyum kamu bikin canduuuuu !",
+    "2026-09-19": "Hari ini harus banyak senyum ya, jalani hari dengan hati yang ringan!",
     "2026-09-18": "Kangen sushi lagi gak? Semoga weekend ini ada waktu buat makan bareng ya.",
     "2026-09-17": "Semoga istirahatmu cukup dan harinya menyenangkan.",
 }
@@ -202,7 +202,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 # ⛰️ Kata-kata Semangat Kerja di Berastagi
 st.markdown("<div class='love-card'><h3>⛰️ Semangat Kerja di Berastagi!</h3><p>Pesan khusus untuk penyemangat aktivitasmu di sana:</p>", unsafe_allow_html=True)
-st.info("✨ *'Semangat ya kerjanya di Berastagi! Walaupun udaranya dingin atau mungkin ada kecapekan dalam pekerjaan atau ada yang gosipin kamu, ingat kalau kerja kerasmu hari ini adalah langkah hebat buat masa depan dan jangan hiraukan apa kata orang ya. Jangan lupa pakai jaket hangat, jaga kesehatan, dan jangan pernah skip makan ya! Aku selalu mendoakan dan mendukungmu dari sini.'* 🤍")
+st.info("✨ *'Semangat ya kerjanya di Berastagi! Walaupun udaranya dingin dan kadang bikin mager, ingat kalau kerja kerasmu hari ini adalah langkah hebat buat masa depan. Jangan lupa pakai jaket hangat, jaga kesehatan, dan jangan pernah skip makan ya! Aku selalu mendoakan dan mendukungmu dari sini.'* 🤍")
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ⏳ Waktu Kita (Input Langsung di Web & Simpan ke Database)
@@ -236,7 +236,7 @@ if st.button("💾 Simpan Jawaban Kuis"):
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Tombol Lapor ke WhatsApp Kamu secara umum
-st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar biasa ke WhatsApp akur ya:</p>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar biasa ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 
 nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, aku udah mampir dan baca web suratnya nih! 🤍✨"
