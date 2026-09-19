@@ -60,11 +60,11 @@ st.markdown("""
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# 🎵 1. Pemutar Musik YouTube Langsung (Hindia - Cincin)
+# 🎵 1. Pemutar Musik YouTube (Hindia - Cincin) - Diperbaiki
 st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Cincin)</h3><p>Putar lagu ini langsung di sini biar suasananya makin tenang:</p>", unsafe_allow_html=True)
 st.markdown("""
-    <iframe width="100%" height="200" src="https://www.youtube.com/embed/5Uq8yY6n364" 
-        title="Hindia - Cincin" frameborder="0" 
+    <iframe width="100%" height="210" src="https://www.youtube.com/embed/S0Kez6MERGE" 
+        title="Hindia - Cincin (Official Lyric Video)" frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen style="border-radius: 12px;">
     </iframe>
@@ -112,21 +112,16 @@ else:
     st.info(f"✨ Catatan tersimpan: **{custom_text}**")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 3. Kuis Kecil-kecilan (Jawaban otomatis terkirim ke WhatsApp Kamu!)
-st.markdown("<div class='love-card'><h3>🧠 Kuis Kecil Buat Avrillia</h3><p>Coba isi pertanyaan di bawah ini, lalu klik tombol kirim supaya aku tahu jawaban kamu ya! 👇</p>", unsafe_allow_html=True)
+# 3. Kuis Google Form (Ganti link GForm kamu di bawah ini)
+st.markdown("<div class='love-card'><h3>🧠 Kuis Kecil Buat Avrillia</h3><p>Yuk isi kuis singkat seputar kita lewat Google Form di bawah ini ya! 👇</p>", unsafe_allow_html=True)
 
-jawaban_1 = st.text_input("1. Kapan tanggal ulang tahunku?")
-jawaban_2 = st.text_input("2. Apa makanan kesukaanku?")
-jawaban_3 = st.text_input("3. Apa kelebihanku di mata kamu?")
-
-nomor_wa = "6281216464994" 
-pesan_kuis = f"Halo Zefanya! Aku udah jawab kuis di webnya nih:\n\n1. Ulang tahun kamu: {jawaban_1}\n2. Makanan kesukaan kamu: {jawaban_2}\n3. Kelebihan kamu: {jawaban_3}\n\n🤍✨"
-link_wa_kuis = f"https://wa.me/{nomor_wa}?text={pesan_kuis.replace(' ', '%20').replace(chr(10), '%0A')}"
+# ⚠️ Ganti link 'https://forms.gle/isigformkamudisini' dengan link Google Form asli buatanmu
+link_gform = "https://forms.gle/isigformkamudisini"
 
 st.markdown(f"""
-    <a href="{link_wa_kuis}" target="_blank">
-        <button style="width: 100%; background-color: #25D366; color: white; padding: 12px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;">
-            📤 Kirim Jawabannya ke WhatsApp Zefanya
+    <a href="{link_gform}" target="_blank">
+        <button style="width: 100%; background-color: #0d47a1; color: white; padding: 14px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;">
+            📝 Buka & Isi Google Form Kuis Kita
         </button>
     </a>
 """, unsafe_allow_html=True)
@@ -135,6 +130,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 # Tombol Lapor ke WhatsApp Kamu secara umum
 st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar biasa ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 
+nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, aku udah mampir dan baca web suratnya nih! 🤍✨"
 link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
