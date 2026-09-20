@@ -184,13 +184,13 @@ st.markdown("<small style='color: #555;'>*Nikmati alunan musiknya sambil membaca
 
 # 📅 1. Surat Hari Ini (Edisi Hari Minggu / Libur)
 arsip_surat_harian = {
-    "2026-09-20": "Selamat hari Minggu dan selamat menikmati hari liburmu ya kesayangan! Semoga hari ini benar-benar jadi waktu yang pas buat recharge energi, istirahat yang tenang, dan melakukan hal-hal yang bikin kamu happy. Jangan mikirin kerjaan dulu ya hari ini, nikmati waktu santaimu secukupnya. I'm always cheering for you! 🤍",
+    "2026-09-20": "Selamat hari Minggu dan selamat menikmati hari liburmu ya! Semoga hari ini benar-benar jadi waktu yang pas buat recharge energi, istirahat yang tenang, dan melakukan hal-hal yang bikin kamu happy. Jangan mikirin kerjaan dulu ya hari ini, nikmati waktu santaimu secukupnya. I'm always cheering for you! 🤍",
     "2026-09-19": "Hari ini harus banyak senyum ya, jalani hari dengan hati yang ringan!",
     "2026-09-18": "Kangen sushi lagi gak? Semoga weekend ini ada waktu buat makan bareng ya.",
 }
 
 today_str = datetime.date.today().strftime("%Y-%m-%d")
-default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo kesayangan! Selamat hari Minggu, nikmati liburmu dengan senyuman paling manis ya 🤍")
+default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo Avrillia! Selamat hari Minggu, nikmati liburmu dengan senyuman paling manis ya 🤍")
 
 st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini (Edisi Hari Minggu ☀️)</h3>", unsafe_allow_html=True)
 st.info(f"✨ **Pesan untuk hari ini ({datetime.date.today().strftime('%d %b')}):**\n\n> {default_pesan_hari_ini}")
@@ -202,7 +202,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 # 🚌 3. Perjalanan Medan ke Berastagi (Foto dari GitHub: foto_perjalanan.jpeg)
 st.markdown("<div class='love-card'><h3>🚌 Hati-Hati di Perjalanan ke Berastagi</h3><p>Pesan khusus untuk perjalananmu siang ini:</p>", unsafe_allow_html=True)
-st.info("✨ *'Sayang, selamat menikmati hari di Medan ya pagi ini. Nanti siang pas mau balik ke Berastagi naik bus, tolong jaga diri baik-baik ya, jangan tidur pulas di jalan, pasang jaket yang hangat karena udaranya nanti dingin, dan kabari aku kalau sudah sampai dengan selamat. Have a safe trip, my love!'* 🤍")
+st.info("✨ *'Avrillia, selamat menikmati hari di Medan ya pagi ini. Nanti siang pas mau balik ke Berastagi naik bus, tolong jaga diri baik-baik ya, jangan tidur pulas di jalan, pasang jaket yang hangat karena udaranya nanti dingin, dan kabari aku kalau sudah sampai dengan selamat. Have a safe trip, my love!'* 🤍")
 
 if os.path.exists("foto_perjalanan.jpeg"):
     st.image("foto_perjalanan.jpeg", caption="Momen Perjalanan Hari Ini 🤍", use_container_width=True)
@@ -240,7 +240,7 @@ if st.session_state['show_gratitude']:
         <div style='background: rgba(255,255,255,0.95); padding: 22px; border-radius: 15px; text-align: left; color: #1a1a1a; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 5px solid #0d47a1;'>
         <h4 style='color: #0d47a1; margin-top: 0;'>Terima Kasih Banyak, Avrillia 🤍</h4>
         <p>Sambil mendengarkan alunan musik ini, aku ingin mengucapkan terima kasih yang sebesar-besarnya dari lubuk hatiku.</p>
-        <p>Kamu sudah banyak sekali membantuku dalam segala hal, terutama di masa-masa kita berjuang bersama saat masih mahasiswa—dari urusan tugas, skripsi, dukungan moral, sampai kesabaranmu menghadapi masa-masa lelah dan penuh tekanan.</p>
+        <p>Kamu sudah banyak sekali membantuku dalam segala hal, terutama di masa-masa kita berjuang bersama saat masih mahasiswa dari urusan tugas, skripsi, dukungan moral, sampai kesabaranmu menghadapi masa-masa lelah dan penuh tekanan.</p>
         <p>Aku tidak akan bisa melaluinya dengan mudah kalau bukan karena kehadiran, ketulusan, dan bantuanmu. Terima kasih sudah selalu jadi tempat berpulang yang paling tenang dan hebat mendampingiku. Aku sangat bersyukur memiliki kamu.</p>
         </div>
     """, unsafe_allow_html=True)
