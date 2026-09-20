@@ -147,7 +147,7 @@ st.markdown("""
     .floating-item {
         position: absolute;
         top: -60px;
-        font-size: 42px; /* Ukuran besar sama untuk balon dan kupu-kupu */
+        font-size: 42px;
         animation: floatDown 10s infinite linear;
     }
     </style>
@@ -200,23 +200,27 @@ with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
         st.write(f"- **{tgl}**: {psn}")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🚌 3. Perjalanan Medan ke Berastagi (Foto otomatis dari GitHub: foto_perjalanan.jpg)
+# 🚌 3. Perjalanan Medan ke Berastagi (Foto dari GitHub: foto_perjalanan.jpeg)
 st.markdown("<div class='love-card'><h3>🚌 Hati-Hati di Perjalanan ke Berastagi</h3><p>Pesan khusus untuk perjalananmu siang ini:</p>", unsafe_allow_html=True)
 st.info("✨ *'Sayang, selamat menikmati hari di Medan ya pagi ini. Nanti siang pas mau balik ke Berastagi naik bus, tolong jaga diri baik-baik ya, jangan tidur pulas di jalan, pasang jaket yang hangat karena udaranya nanti dingin, dan kabari aku kalau sudah sampai dengan selamat. Have a safe trip, my love!'* 🤍")
 
-if os.path.exists("foto_perjalanan.jpg"):
+if os.path.exists("foto_perjalanan.jpeg"):
+    st.image("foto_perjalanan.jpeg", caption="Momen Perjalanan Hari Ini 🤍", use_container_width=True)
+elif os.path.exists("foto_perjalanan.jpg"):
     st.image("foto_perjalanan.jpg", caption="Momen Perjalanan Hari Ini 🤍", use_container_width=True)
 else:
-    st.info("💡 *Tips untuk Zefanya: Upload file foto bernama `foto_perjalanan.jpg` ke repository GitHub kamu agar foto ini langsung tampil di sini.*")
+    st.warning("⚠️ File foto `foto_perjalanan.jpeg` tidak ditemukan di repository GitHub.")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⏳ 4. Waktu Kita (Galeri Foto Otomatis dari GitHub: foto_waktu_kita.jpg)
+# ⏳ 4. Waktu Kita (Galeri Foto dari GitHub: foto_waktu_kita.jpeg)
 st.markdown("<div class='love-card'><h3>⏳ Waktu Kita (Galeri Kenangan)</h3><p>Waktu terbaik kita yang selalu jadi tempat berpulang paling nyaman 🤍</p>", unsafe_allow_html=True)
 
-if os.path.exists("foto_waktu_kita.jpg"):
+if os.path.exists("foto_waktu_kita.jpeg"):
+    st.image("foto_waktu_kita.jpeg", caption="Waktu Terindah Kita Berdua 🤍✨", use_container_width=True)
+elif os.path.exists("foto_waktu_kita.jpg"):
     st.image("foto_waktu_kita.jpg", caption="Waktu Terindah Kita Berdua 🤍✨", use_container_width=True)
 else:
-    st.info("💡 *Tips untuk Zefanya: Upload file foto bernama `foto_waktu_kita.jpg` ke repository GitHub kamu agar foto kenangan ini langsung tampil di sini.*")
+    st.warning("⚠️ File foto `foto_waktu_kita.jpeg` tidak ditemukan di repository GitHub.")
 
 st.markdown("<p style='margin-top: 15px; font-style: italic; color: #333;'>'Setiap detik waktu yang kita habiskan bersama selalu punya cerita manisnya sendiri. Terima kasih sudah jadi bagian terindah dalam hidupku.' ✨</p>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
