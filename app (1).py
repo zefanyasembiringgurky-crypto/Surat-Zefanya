@@ -2,6 +2,7 @@ import streamlit as st
 import datetime
 import sqlite3
 import pandas as pd
+import os
 
 # --- INISIALISASI DATABASE SQLITE ---
 def init_db():
@@ -51,7 +52,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, & Animasi Kupu-Kupu / Balon Terbang
+# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, & Animasi Balon/Kupu-Kupu Besar dari Atas ke Bawah
 st.markdown("""
     <style>
     .stApp {
@@ -100,7 +101,7 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* --- STYLING TOMBOL SIMPAN (Jelas, kontras, warna biru terang) --- */
+    /* --- STYLING TOMBOL SIMPAN / AKSI --- */
     div.stButton > button {
         background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
         color: #ffffff !important;
@@ -116,20 +117,20 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* --- ANIMASI KUPU-KUPU & BALON TERBANG DI BACKGROUND --- */
-    @keyframes floatUp {
+    /* --- ANIMASI BALON & KUPU-KUPU BESAR (DARI ATAS KE BAWAH) --- */
+    @keyframes floatDown {
         0% {
-            transform: translateY(105vh) scale(0.7) rotate(0deg);
+            transform: translateY(-10vh) scale(1) rotate(0deg);
             opacity: 0;
         }
-        20% {
-            opacity: 0.8;
+        15% {
+            opacity: 0.85;
         }
-        80% {
-            opacity: 0.8;
+        85% {
+            opacity: 0.85;
         }
         100% {
-            transform: translateY(-10vh) scale(1.2) rotate(360deg);
+            transform: translateY(105vh) scale(1.2) rotate(360deg);
             opacity: 0;
         }
     }
@@ -145,23 +146,23 @@ st.markdown("""
     }
     .floating-item {
         position: absolute;
-        bottom: -50px;
-        font-size: 26px;
-        animation: floatUp 12s infinite linear;
+        top: -60px;
+        font-size: 42px; /* Ukuran besar sama untuk balon dan kupu-kupu */
+        animation: floatDown 10s infinite linear;
     }
     </style>
 
-    <!-- Elemen Animasi Kupu-Kupu & Balon -->
+    <!-- Elemen Animasi Balon & Kupu-Kupu Besar dari Atas ke Bawah -->
     <div class="floating-bg">
-        <div class="floating-item" style="left: 10%; animation-duration: 11s; animation-delay: 0s;">🦋</div>
-        <div class="floating-item" style="left: 25%; animation-duration: 14s; animation-delay: 3s;">🎈</div>
-        <div class="floating-item" style="left: 45%; animation-duration: 10s; animation-delay: 1s;">🦋</div>
-        <div class="floating-item" style="left: 65%; animation-duration: 13s; animation-delay: 4s;">🎈</div>
-        <div class="floating-item" style="left: 85%; animation-duration: 12s; animation-delay: 2s;">🦋</div>
+        <div class="floating-item" style="left: 10%; animation-duration: 9s; animation-delay: 0s;">🦋</div>
+        <div class="floating-item" style="left: 28%; animation-duration: 12s; animation-delay: 2s;">🎈</div>
+        <div class="floating-item" style="left: 48%; animation-duration: 10s; animation-delay: 1s;">🦋</div>
+        <div class="floating-item" style="left: 68%; animation-duration: 11s; animation-delay: 3s;">🎈</div>
+        <div class="floating-item" style="left: 88%; animation-duration: 8s; animation-delay: 1.5s;">🦋</div>
     </div>
 """, unsafe_allow_html=True)
 
-# 🎈 Efek Sambutan Meriah (Balon & Kupu-kupu muncul saat pertama kali masuk web)
+# 🎈 Efek Sambutan Meriah (Balon muncul saat pertama kali masuk web)
 if 'welcomed' not in st.session_state:
     st.balloons()
     st.session_state['welcomed'] = True
@@ -170,29 +171,28 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# 🎵 1. Pemutar Musik YouTube (Hindia - Bayangkan Jika Kita Tidak Menyerah)
-st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Bayangkan Jika Kita Tidak Menyerah)</h3><p>Putar lagu ini langsung di sini biar suasananya makin tenang:</p>", unsafe_allow_html=True)
+# 🎵 1. Pemutar Musik YouTube (Hindia - Everything You Are)
+st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Everything You Are)</h3><p>Putar lagu ini langsung di sini biar suasananya makin tenang:</p>", unsafe_allow_html=True)
 st.markdown("""
-    <iframe width="100%" height="210" src="https://www.youtube.com/embed/rSTO0VrV38Y" 
-        title="Hindia - Bayangkan Jika Kita Tidak Menyerah (Official Lyric Video)" frameborder="0" 
+    <iframe width="100%" height="210" src="https://www.youtube.com/embed/lB8ASupNtlw" 
+        title="Hindia - Everything You Are (Official Lyric Video)" frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen style="border-radius: 12px;">
     </iframe>
 """, unsafe_allow_html=True)
 st.markdown("<small style='color: #555;'>*Nikmati alunan musiknya sambil membaca surat hari ini.*</small></div>", unsafe_allow_html=True)
 
-# 📅 Arsip Surat Harian
+# 📅 1. Surat Hari Ini (Edisi Hari Minggu / Libur)
 arsip_surat_harian = {
-    "2026-09-19": "Hari ini harus banyak senyum ya, soalnya senyumm kamu buat canduuuuu!",
+    "2026-09-20": "Selamat hari Minggu dan selamat menikmati hari liburmu ya kesayangan! Semoga hari ini benar-benar jadi waktu yang pas buat recharge energi, istirahat yang tenang, dan melakukan hal-hal yang bikin kamu happy. Jangan mikirin kerjaan dulu ya hari ini, nikmati waktu santaimu secukupnya. I'm always cheering for you! 🤍",
+    "2026-09-19": "Hari ini harus banyak senyum ya, jalani hari dengan hati yang ringan!",
     "2026-09-18": "Kangen sushi lagi gak? Semoga weekend ini ada waktu buat makan bareng ya.",
-    "2026-09-17": "Semoga istirahatmu cukup dan harinya menyenangkan.",
 }
 
 today_str = datetime.date.today().strftime("%Y-%m-%d")
-default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo kesayangan! Tetap semangat menjalani hari ini ya, aku selalu dukung dari sini 🤍")
+default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo kesayangan! Selamat hari Minggu, nikmati liburmu dengan senyuman paling manis ya 🤍")
 
-# Kotak Surat Harian Otomatis
-st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini</h3>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini (Edisi Hari Minggu ☀️)</h3>", unsafe_allow_html=True)
 st.info(f"✨ **Pesan untuk hari ini ({datetime.date.today().strftime('%d %b')}):**\n\n> {default_pesan_hari_ini}")
 
 with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
@@ -200,46 +200,54 @@ with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
         st.write(f"- **{tgl}**: {psn}")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⛰️ Kata-kata Semangat Kerja di Berastagi
-st.markdown("<div class='love-card'><h3>⛰️ Semangat Kerja di Berastagi!</h3><p>Pesan khusus untuk penyemangat aktivitasmu di sana:</p>", unsafe_allow_html=True)
-st.info("✨ *'Semangat ya kerjanya di Berastagi! Walaupun udaranya dingin dan kadang bikin mager, ingat kalau kerja kerasmu hari ini adalah langkah hebat buat masa depan. Jangan lupa pakai jaket hangat, jaga kesehatan, dan jangan pernah skip makan ya! Aku selalu mendoakan dan mendukungmu dari sini.'* 🤍")
+# 🚌 3. Perjalanan Medan ke Berastagi (Foto otomatis dari GitHub: foto_perjalanan.jpg)
+st.markdown("<div class='love-card'><h3>🚌 Hati-Hati di Perjalanan ke Berastagi</h3><p>Pesan khusus untuk perjalananmu siang ini:</p>", unsafe_allow_html=True)
+st.info("✨ *'Sayang, selamat menikmati hari di Medan ya pagi ini. Nanti siang pas mau balik ke Berastagi naik bus, tolong jaga diri baik-baik ya, jangan tidur pulas di jalan, pasang jaket yang hangat karena udaranya nanti dingin, dan kabari aku kalau sudah sampai dengan selamat. Have a safe trip, my love!'* 🤍")
+
+if os.path.exists("foto_perjalanan.jpg"):
+    st.image("foto_perjalanan.jpg", caption="Momen Perjalanan Hari Ini 🤍", use_container_width=True)
+else:
+    st.info("💡 *Tips untuk Zefanya: Upload file foto bernama `foto_perjalanan.jpg` ke repository GitHub kamu agar foto ini langsung tampil di sini.*")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⏳ Waktu Kita (Input Langsung di Web & Simpan ke Database)
-st.markdown("<div class='love-card'><h3>⏳ Waktu Kita</h3><p>Kapan waktu yang paling terbaik kita (sampai kamu senang banget)? Ketik di bawah ya:</p>", unsafe_allow_html=True)
+# ⏳ 4. Waktu Kita (Galeri Foto Otomatis dari GitHub: foto_waktu_kita.jpg)
+st.markdown("<div class='love-card'><h3>⏳ Waktu Kita (Galeri Kenangan)</h3><p>Waktu terbaik kita yang selalu jadi tempat berpulang paling nyaman 🤍</p>", unsafe_allow_html=True)
 
-jawaban_waktu = st.text_input("Tulis momen terbaik kita di sini:", key="input_waktu_kita")
-if st.button("💾 Simpan Jawaban Waktu Kita"):
-    if jawaban_waktu.strip():
-        save_response("Waktu Kita (Terbaik)", jawaban_waktu)
-        st.success("Yeay! Jawabanmu sudah tersimpan rapi untuk Zefanya 🤍")
-        st.balloons()
-    else:
-        st.warning("Tulis dulu ya pesannya...")
+if os.path.exists("foto_waktu_kita.jpg"):
+    st.image("foto_waktu_kita.jpg", caption="Waktu Terindah Kita Berdua 🤍✨", use_container_width=True)
+else:
+    st.info("💡 *Tips untuk Zefanya: Upload file foto bernama `foto_waktu_kita.jpg` ke repository GitHub kamu agar foto kenangan ini langsung tampil di sini.*")
+
+st.markdown("<p style='margin-top: 15px; font-style: italic; color: #333;'>'Setiap detik waktu yang kita habiskan bersama selalu punya cerita manisnya sendiri. Terima kasih sudah jadi bagian terindah dalam hidupku.' ✨</p>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🧠 Kuis Kecil (Input Langsung di Web & Simpan ke Database)
-st.markdown("<div class='love-card'><h3>🧠 Kuis Kecil Buat Avrillia</h3><p>Jawab pertanyaan di bawah ini ya:</p>", unsafe_allow_html=True)
+# 🕰️ 5. Time Capsule: Ungkapan Terima Kasih (Klik untuk Membuka)
+st.markdown("<div class='love-card'><h3>🕰️ Time Capsule: Pesan & Ungkapan Hati</h3><p>Ada pesan khusus yang tersimpan di sini. Klik tombol di bawah untuk membukanya: 👇</p>", unsafe_allow_html=True)
 
-quiz_1 = st.text_input("1. Kapan tanggal ulang tahunku?", key="q_ultah")
-quiz_2 = st.text_input("2. Apa makanan kesukaanku?", key="q_makanan")
-quiz_3 = st.text_input("3. Apa kelebihanku di mata kamu?", key="q_kelebihan")
+if 'show_gratitude' not in st.session_state:
+    st.session_state['show_gratitude'] = False
 
-if st.button("💾 Simpan Jawaban Kuis"):
-    if quiz_1.strip() or quiz_2.strip() or quiz_3.strip():
-        teks_gabungan = f"Ultah: {quiz_1} | Makanan: {quiz_2} | Kelebihan: {quiz_3}"
-        save_response("Kuis Kecil", teks_gabungan)
-        st.success("Terima kasih sayang, jawaban kuisnya sudah tersimpan! 🤍")
-        st.balloons()
-    else:
-        st.warning("Isi dulu minimal salah satu pertanyaannya ya...")
+if st.button("✨ Klik untuk Membuka Pesan Spesial"):
+    st.session_state['show_gratitude'] = True
+    st.balloons()
+
+if st.session_state['show_gratitude']:
+    st.markdown("""
+        <div style='background: rgba(255,255,255,0.95); padding: 22px; border-radius: 15px; text-align: left; color: #1a1a1a; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 5px solid #0d47a1;'>
+        <h4 style='color: #0d47a1; margin-top: 0;'>Terima Kasih Banyak, Avrillia 🤍</h4>
+        <p>Sambil mendengarkan alunan musik ini, aku ingin mengucapkan terima kasih yang sebesar-besarnya dari lubuk hatiku.</p>
+        <p>Kamu sudah banyak sekali membantuku dalam segala hal, terutama di masa-masa kita berjuang bersama saat masih mahasiswa—dari urusan tugas, skripsi, dukungan moral, sampai kesabaranmu menghadapi masa-masa lelah dan penuh tekanan.</p>
+        <p>Aku tidak akan bisa melaluinya dengan mudah kalau bukan karena kehadiran, ketulusan, dan bantuanmu. Terima kasih sudah selalu jadi tempat berpulang yang paling tenang dan hebat mendampingiku. Aku sangat bersyukur memiliki kamu.</p>
+        </div>
+    """, unsafe_allow_html=True)
+
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Tombol Lapor ke WhatsApp Kamu secara umum
-st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar biasa ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 
 nomor_wa = "6281216464994" 
-pesan_wa = "Halo Zefanya, aku udah mampir dan baca web suratnya nih! 🤍✨"
+pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat hari Minggu ini! 🤍✨"
 link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
 st.markdown(f"""
@@ -252,36 +260,35 @@ st.markdown(f"""
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (MELIHAT & MENGHAPUS JAWABAN)
+# 🔒 PANEL KHUSUS ZEFANYA
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
-with st.expander("🔒 Panel Khusus Zefanya (Klik di sini untuk melihat jawaban Avrillia)"):
-    st.markdown("Masukkan PIN rahasia untuk melihat data jawaban yang masuk:")
+with st.expander("🔒 Panel Khusus Zefanya"):
+    st.markdown("Masukkan PIN rahasia:")
     pin_input = st.text_input("PIN Rahasia:", type="password")
     
-    # PIN rahasia kamu (bisa diubah sesuai keinginan)
     PIN_RAHASIA = "2021" 
     
     if pin_input == PIN_RAHASIA:
-        st.success("PIN benar! Berikut adalah daftar jawaban dari Avrillia:")
+        st.success("PIN benar!")
         df_data = get_responses()
         if not df_data.empty:
             st.dataframe(df_data, use_container_width=True)
             
             st.markdown("---")
             st.markdown("🗑️ **Hapus Jawaban:**")
-            id_to_delete = st.number_input("Masukkan Nomor ID (Kolom ID) dari jawaban yang ingin dihapus:", min_value=1, step=1)
+            id_to_delete = st.number_input("Masukkan Nomor ID:", min_value=1, step=1)
             if st.button("❌ Hapus Jawaban Ini"):
                 if id_to_delete in df_data['id'].values:
                     delete_response(id_to_delete)
-                    st.success(f"Jawaban dengan ID {id_to_delete} berhasil dihapus! Silakan refresh halaman.")
+                    st.success(f"ID {id_to_delete} berhasil dihapus!")
                     st.rerun()
                 else:
-                    st.error("Nomor ID tidak ditemukan di database.")
+                    st.error("ID tidak ditemukan.")
         else:
-            st.info("Belum ada jawaban yang dikirim.")
+            st.info("Belum ada data.")
     elif pin_input:
-        st.error("PIN salah! Coba ingat-ingat lagi ya.")
+        st.error("PIN salah.")
 
 # Footer manis
 st.markdown("<br><hr>", unsafe_allow_html=True)
