@@ -101,19 +101,13 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* --- BINGKAI FOTO ROMANTIS ---. */
-    .img-container {
-        display: flex;
-        justify-content: center;
-        margin: 15px 0;
-    }
+    /* --- BINGKAI FOTO ROMANTIS --- */
     .img-frame {
         background: #ffffff;
-        padding: 10px;
+        padding: 8px;
         border-radius: 16px;
         box-shadow: 0 6px 20px rgba(13, 71, 161, 0.15);
         border: 3px solid rgba(13, 71, 161, 0.15);
-        display: inline-block;
     }
 
     /* --- STYLING TOMBOL SIMPAN / AKSI --- */
@@ -215,37 +209,54 @@ with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
         st.write(f"- **{tgl}**: {psn}")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🚌 3. Perjalanan Medan ke Berastagi (Foto Ukuran Kecil dengan Bingkai Romantis)
+# 🚌 3. Perjalanan Medan ke Berastagi (Layout Dua Kolom: Foto & Pesan Kecantikan/Senyuman)
 st.markdown("<div class='love-card'><h3>🚌 Hati-Hati di Perjalanan ke Berastagi</h3><p>Pesan khusus untuk perjalananmu siang ini:</p>", unsafe_allow_html=True)
 st.info("✨ *'Avrillia, selamat menikmati hari di Medan ya pagi ini. Nanti siang pas mau balik ke Berastagi naik bus, tolong jaga diri baik-baik ya, jangan tidur pulas di jalan, pasang jaket yang hangat karena udaranya nanti dingin, dan kabari aku kalau sudah sampai dengan selamat. Have a safe trip, my love!'* 🤍")
 
-if os.path.exists("foto_perjalanan.jpeg"):
-    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
-    st.image("foto_perjalanan.jpeg", caption="Momen Perjalanan Hari Ini 🤍", width=280)
-    st.markdown('</div></div>', unsafe_allow_html=True)
-elif os.path.exists("foto_perjalanan.jpg"):
-    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
-    st.image("foto_perjalanan.jpg", caption="Momen Perjalanan Hari Ini 🤍", width=280)
-    st.markdown('</div></div>', unsafe_allow_html=True)
+img_path_1 = "foto_perjalanan.jpeg" if os.path.exists("foto_perjalanan.jpeg") else ("foto_perjalanan.jpg" if os.path.exists("foto_perjalanan.jpg") else None)
+
+if img_path_1:
+    col_img1, col_txt1 = st.columns([1, 1], gap="medium")
+    with col_img1:
+        st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+        st.image(img_path_1, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+    with col_txt1:
+        st.markdown("""
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
+                <h4 style="color: #0d47a1; margin-bottom: 8px;">Cantik & Manisnya Kamu... ✨</h4>
+                <p style="color: #2d2d2d; font-size: 0.95em; line-height: 1.6;">
+                Tau gak? Setiap kali aku lihat foto kamu, aku selalu kagum sama betapa cantiknya kamu. Senyuman manis kamu itu selalu berhasil jadi penenang sekaligus pemandangan paling indah buat aku. Tetap senyum terus ya, kesayanganku! 🤍
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
 else:
-    st.warning("⚠️ File foto `foto_perjalanan.jpeg` tidak ditemukan di repository GitHub.")
+    st.warning("⚠️ File foto perjalanan tidak ditemukan di repository GitHub.")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⏳ 4. Waktu Kita (Galeri Foto Ukuran Kecil dengan Bingkai Romantis)
+# ⏳ 4. Waktu Kita (Layout Dua Kolom: Foto & Pesan Pelukan Hangat)
 st.markdown("<div class='love-card'><h3>⏳ Waktu Kita (Galeri Kenangan)</h3><p>Waktu terbaik kita yang selalu jadi tempat berpulang paling nyaman 🤍</p>", unsafe_allow_html=True)
 
-if os.path.exists("foto_waktu_kita.jpeg"):
-    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
-    st.image("foto_waktu_kita.jpeg", caption="Waktu Terindah Kita Berdua 🤍✨", width=280)
-    st.markdown('</div></div>', unsafe_allow_html=True)
-elif os.path.exists("foto_waktu_kita.jpg"):
-    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
-    st.image("foto_waktu_kita.jpg", caption="Waktu Terindah Kita Berdua 🤍✨", width=280)
-    st.markdown('</div></div>', unsafe_allow_html=True)
-else:
-    st.warning("⚠️ File foto `foto_waktu_kita.jpeg` tidak ditemukan di repository GitHub.")
+img_path_2 = "foto_waktu_kita.jpeg" if os.path.exists("foto_waktu_kita.jpeg") else ("foto_waktu_kita.jpg" if os.path.exists("foto_waktu_kita.jpg") else None)
 
-st.markdown("<p style='margin-top: 15px; font-style: italic; color: #333;'>'Setiap detik waktu yang kita habiskan bersama selalu punya cerita manisnya sendiri. Terima kasih sudah jadi bagian terindah dalam hidupku.' ✨</p>", unsafe_allow_html=True)
+if img_path_2:
+    col_img2, col_txt2 = st.columns([1, 1], gap="medium")
+    with col_img2:
+        st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+        st.image(img_path_2, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+    with col_txt2:
+        st.markdown("""
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
+                <h4 style="color: #0d47a1; margin-bottom: 8px;">Pelukan Hangat Paling Nyaman... 🤗🤍</h4>
+                <p style="color: #2d2d2d; font-size: 0.95em; line-height: 1.6;">
+                Tidak ada tempat yang lebih menenangkan di dunia ini selain berada di dalam dekapan pelukan hangatmu. Setiap detik waktu yang kita lewati berdua selalu jadi memori terindah yang paling aku syukuri. Pelukan itu yang selalu bikin aku merasa utuh. 🫂✨
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+else:
+    st.warning("⚠️ File foto waktu kita tidak ditemukan di repository GitHub.")
+
 st.markdown("</div>", unsafe_allow_html=True)
 
 # 🕰️ 5. Time Capsule: Ungkapan Terima Kasih (Klik untuk Membuka)
