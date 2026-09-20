@@ -52,7 +52,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, & Animasi Balon/Kupu-Kupu Besar dari Atas ke Bawah
+# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, Bingkai Foto, & Animasi Balon/Kupu-Kupu Besar
 st.markdown("""
     <style>
     .stApp {
@@ -101,6 +101,21 @@ st.markdown("""
         font-weight: 500;
     }
     
+    /* --- BINGKAI FOTO ROMANTIS ---. */
+    .img-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+    }
+    .img-frame {
+        background: #ffffff;
+        padding: 10px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(13, 71, 161, 0.15);
+        border: 3px solid rgba(13, 71, 161, 0.15);
+        display: inline-block;
+    }
+
     /* --- STYLING TOMBOL SIMPAN / AKSI --- */
     div.stButton > button {
         background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
@@ -200,25 +215,33 @@ with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
         st.write(f"- **{tgl}**: {psn}")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🚌 3. Perjalanan Medan ke Berastagi (Foto dari GitHub: foto_perjalanan.jpeg)
+# 🚌 3. Perjalanan Medan ke Berastagi (Foto Ukuran Kecil dengan Bingkai Romantis)
 st.markdown("<div class='love-card'><h3>🚌 Hati-Hati di Perjalanan ke Berastagi</h3><p>Pesan khusus untuk perjalananmu siang ini:</p>", unsafe_allow_html=True)
 st.info("✨ *'Avrillia, selamat menikmati hari di Medan ya pagi ini. Nanti siang pas mau balik ke Berastagi naik bus, tolong jaga diri baik-baik ya, jangan tidur pulas di jalan, pasang jaket yang hangat karena udaranya nanti dingin, dan kabari aku kalau sudah sampai dengan selamat. Have a safe trip, my love!'* 🤍")
 
 if os.path.exists("foto_perjalanan.jpeg"):
-    st.image("foto_perjalanan.jpeg", caption="Momen Perjalanan Hari Ini 🤍", use_container_width=True)
+    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
+    st.image("foto_perjalanan.jpeg", caption="Momen Perjalanan Hari Ini 🤍", width=280)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 elif os.path.exists("foto_perjalanan.jpg"):
-    st.image("foto_perjalanan.jpg", caption="Momen Perjalanan Hari Ini 🤍", use_container_width=True)
+    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
+    st.image("foto_perjalanan.jpg", caption="Momen Perjalanan Hari Ini 🤍", width=280)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 else:
     st.warning("⚠️ File foto `foto_perjalanan.jpeg` tidak ditemukan di repository GitHub.")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⏳ 4. Waktu Kita (Galeri Foto dari GitHub: foto_waktu_kita.jpeg)
+# ⏳ 4. Waktu Kita (Galeri Foto Ukuran Kecil dengan Bingkai Romantis)
 st.markdown("<div class='love-card'><h3>⏳ Waktu Kita (Galeri Kenangan)</h3><p>Waktu terbaik kita yang selalu jadi tempat berpulang paling nyaman 🤍</p>", unsafe_allow_html=True)
 
 if os.path.exists("foto_waktu_kita.jpeg"):
-    st.image("foto_waktu_kita.jpeg", caption="Waktu Terindah Kita Berdua 🤍✨", use_container_width=True)
+    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
+    st.image("foto_waktu_kita.jpeg", caption="Waktu Terindah Kita Berdua 🤍✨", width=280)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 elif os.path.exists("foto_waktu_kita.jpg"):
-    st.image("foto_waktu_kita.jpg", caption="Waktu Terindah Kita Berdua 🤍✨", use_container_width=True)
+    st.markdown('<div class="img-container"><div class="img-frame">', unsafe_allow_html=True)
+    st.image("foto_waktu_kita.jpg", caption="Waktu Terindah Kita Berdua 🤍✨", width=280)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 else:
     st.warning("⚠️ File foto `foto_waktu_kita.jpeg` tidak ditemukan di repository GitHub.")
 
@@ -240,10 +263,22 @@ if st.session_state['show_gratitude']:
         <div style='background: rgba(255,255,255,0.95); padding: 22px; border-radius: 15px; text-align: left; color: #1a1a1a; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 5px solid #0d47a1;'>
         <h4 style='color: #0d47a1; margin-top: 0;'>Terima Kasih Banyak, Avrillia 🤍</h4>
         <p>Sambil mendengarkan alunan musik ini, aku ingin mengucapkan terima kasih yang sebesar-besarnya dari lubuk hatiku.</p>
-        <p>Kamu sudah banyak sekali membantuku dalam segala hal, terutama di masa-masa kita berjuang bersama saat masih mahasiswa dari urusan tugas, skripsi, dukungan moral, sampai kesabaranmu menghadapi masa-masa lelah dan penuh tekanan.</p>
+        <p>Kamu sudah banyak sekali membantuku dalam segala hal, terutama di masa-masa kita berjuang bersama saat masih mahasiswa—dari urusan tugas, skripsi, dukungan moral, sampai kesabaranmu menghadapi masa-masa lelah dan penuh tekanan.</p>
         <p>Aku tidak akan bisa melaluinya dengan mudah kalau bukan karena kehadiran, ketulusan, dan bantuanmu. Terima kasih sudah selalu jadi tempat berpulang yang paling tenang dan hebat mendampingiku. Aku sangat bersyukur memiliki kamu.</p>
         </div>
     """, unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# ✨ 6. Penilaian Kebahagiaan Membaca Surat (Tersimpan ke Panel Zefanya)
+st.markdown("<div class='love-card'><h3>💖 Seberapa Senang Kamu Baca Surat Ini?</h3><p>Pilih ekspresi kebahagiaanmu hari ini ya:</p>", unsafe_allow_html=True)
+
+pilihan_senang = st.radio("Pilih tingkat kebahagiaan:", ["happy", "happyyy", "happyyyyyyy bgttttt"])
+
+if st.button("💾 Simpan Perasaanku"):
+    save_response("Tingkat Kebahagiaan Membaca Surat", pilihan_senang)
+    st.success("Yeay! Perasaan senangnya sudah tersimpan untuk Zefanya 🤍")
+    st.balloons()
 
 st.markdown("</div>", unsafe_allow_html=True)
 
