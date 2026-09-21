@@ -418,22 +418,20 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🕰️ 7. KAPSUL WAKTU MINGGU INI (TIME-LOCK CALENDAR — POSISI PALING BAWAH SEBELUM PANEL)
-st.markdown("<div class='love-card'><h3>🕰️ Kapsul Waktu Minggu Ini (Time-Lock Calendar)</h3><p>Hari yang sudah lewat bisa dibuka kembali. Hari depan otomatis terkunci rapi! 👇</p>", unsafe_allow_html=True)
+# 🕰️ 7. KAPSUL WAKTU MINGGU INI (DI-BUKA SEMUA UNTUK TESTING)
+st.markdown("<div class='love-card'><h3>🕰️ Kapsul Waktu Minggu Ini (Time-Lock Calendar - Mode Testing)</h3><p>Semua hari dibuka agar kamu bisa mengeceknya satu per satu! 👇</p>", unsafe_allow_html=True)
 
 for idx, data in weekly_schedule.items():
     tgl_surat = data["tanggal"]
     nama_hari = data["nama"]
     
-    if tgl_surat <= today:
-        with st.expander(f"📖 {nama_hari} ({tgl_surat.strftime('%d %b %Y')}) — 🔓 Terbuka"):
-            st.markdown(f"**{data['tema']}**")
-            st.write(data['pesan'])
-            if nama_hari == "Senin" and os.path.exists(data["foto"]):
-                st.image(data["foto"], width=250)
-    else:
-        with st.expander(f"🔒 {nama_hari} ({tgl_surat.strftime('%d %b %Y')}) — 🔒 Terkunci"):
-            st.warning(f"Sabar ya sayang! Surat untuk hari **{nama_hari}** ini masih terkunci dan baru bisa dibuka tanggal **{tgl_surat.strftime('%d %B %Y')}**! 🤫🤍")
+    # Sengaja dibuka semua (if True) agar kamu bisa testing
+    with st.expander(f"📖 {nama_hari} ({tgl_surat.strftime('%d %b %Y')}) — 🔓 Terbuka (Testing Mode)"):
+        st.markdown(f"**{data['tema']}**")
+        st.write(data['pesan'])
+        # Foto hanya muncul di hari Senin sesuai permintaanmu
+        if nama_hari == "Senin" and os.path.exists(data["foto"]):
+            st.image(data["foto"], width=250)
 
 st.markdown("</div>", unsafe_allow_html=True)
 
