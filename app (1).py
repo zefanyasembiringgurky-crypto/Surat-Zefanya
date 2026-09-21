@@ -4,6 +4,7 @@ import sqlite3
 import pandas as pd
 import os
 import random
+import time
 
 # --- INISIALISASI DATABASE SQLITE ---
 def init_db():
@@ -215,15 +216,6 @@ css_template = """
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
     }
-    /* Animasi Ledakan & Asap */
-    @keyframes smokeAnim {
-        0% { transform: scale(0.8); opacity: 0.5; }
-        50% { transform: scale(1.1); opacity: 1; }
-        100% { transform: scale(1); opacity: 0.9; }
-    }
-    .smoke-explosion {
-        animation: smokeAnim 0.6s ease-in-out;
-    }
     </style>
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
@@ -305,7 +297,7 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN BOM ASAP RINDU)
+# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN EFEK ASAP KILAT)
 if current_data["fitur_spesial"] == "fake_error":
     if 'bomb_triggered' not in st.session_state:
         st.session_state['bomb_triggered'] = False
@@ -320,15 +312,17 @@ if current_data["fitur_spesial"] == "fake_error":
         """, unsafe_allow_html=True)
         
         if st.button("💣 DETEKSI BOM ZEFANYA"):
+            with st.spinner("💨 Ssssttt... Bom berasap rindu sedang mengepul di udara..."):
+                time.sleep(1.2)  # Efek jeda asap muncul sebentar
             st.session_state['bomb_triggered'] = True
             st.rerun()
     else:
         st.markdown("""
-            <div class="smoke-explosion" style="background: #2b2d42; padding: 22px; border-radius: 16px; border: 3px solid #ef233c; text-align: center; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(239,35,60,0.3);">
-                <h1 style="font-size: 2.8em; margin-bottom: 5px;">💥🔥 💨 ☁️</h1>
+            <div style="background: #2b2d42; padding: 22px; border-radius: 16px; border: 3px solid #ef233c; text-align: center; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(239,35,60,0.3);">
+                <h1 style="font-size: 2.5em; margin-bottom: 5px;">💨☁️ 💥 🔥</h1>
                 <h3 style="color: #ff4d4d; margin-bottom: 10px;">BOOOM! Hayo kaget yaaa! 😜</h3>
                 <p style="color: #ffffff !important; font-weight: 700; font-size: 1.15em; line-height: 1.5;">
-                    Hahaha, tenang aja! Itu bukan bom beneran kok, tapi <b>Bom Asap Rindu</b> dari Zefanya yang sengaja diledakkan biar ruangan penuh sama bayangan senyuman manis kamu! 💨🤍✨
+                    Hahaha, tenang aja! Asapnya udah hilang, sekarang tinggal sisa rasa kangen dari Zefanya yang siap bikin hari Selasamu makin happy! 🤍✨
                 </p>
             </div>
         """, unsafe_allow_html=True)
