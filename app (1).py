@@ -53,105 +53,109 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- SISTEM WAKTU & 3 WARNA CERAH GRADASI HARIAN ---
+# --- SISTEM WAKTU & TEMA WARNA HARIAN SPesifik ---
 today = datetime.date.today()
 current_hour = datetime.datetime.now().hour
 hari_ini_inggris = today.strftime("%A")
 
-# Pemetaan gradasi 3 warna cerah per hari
-bg_colors = {
-    "Monday": "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #fbc2eb 100%)",     # Sky Blue - Pink Soft
-    "Tuesday": "linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%)",    # Peach - Warm Coral
-    "Wednesday": "linear-gradient(135deg, #d4fc79 0%, #96e6a1 50%, #8fd3f4 100%)",  # Fresh Mint - Soft Blue
-    "Thursday": "linear-gradient(135deg, #fbc531 0%, #e84118 50%, #f5cd79 100%)",   # Gold - Vibrant Sunset
-    "Friday": "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%)",     # Pink Pastel - Sky
-    "Saturday": "linear-gradient(135deg, #f6d365 0%, #fda085 50%, #fbc531 100%)",   # Sunny Orange - Yellow
-    "Sunday": "linear-gradient(135deg, #84fab0 0%, #8fd3f4 50%, #a1c4fd 100%)"      # Mint - Cyan Blue
+# Pemetaan Tema Warna Mingguan (Background & Font)
+themes = {
+    "Monday": {"bg": "#FFD166", "font": "#073B4C", "accent": "#FFFFFF", "nama_tema": "Summer Citrus"},
+    "Tuesday": {"bg": "#06D6A0", "font": "#1D3557", "accent": "#F1FAEE", "nama_tema": "Minty Fresh"},
+    "Wednesday": {"bg": "#FFFFFF", "font": "#118AB2", "accent": "#EF476F", "nama_tema": "Electric Neon"},
+    "Thursday": {"bg": "#4EA8DE", "font": "#560BAD", "accent": "#F4E285", "nama_tema": "Ocean Breeze"},
+    "Friday": {"bg": "#FFB703", "font": "#241400", "accent": "#FEFAE0", "nama_tema": "Peach Blossom"},
+    "Saturday": {"bg": "#FFADAD", "font": "#4A0E4E", "accent": "#CAFFBF", "nama_tema": "Pastel Pop"},
+    "Sunday": {"bg": "#B5E2FA", "font": "#3A0CA3", "accent": "#F72585", "nama_tema": "Lavender Dream"}
 }
-current_bg = bg_colors.get(hari_ini_inggris, "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #fbc2eb 100%)")
+
+current_theme = themes.get(hari_ini_inggris, themes["Monday"])
+current_bg = current_theme["bg"]
+current_font = current_theme["font"]
 
 # Cek Night-Mode Otomatis (Jika di atas jam 18:00)
 if current_hour >= 18:
-    current_bg = "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)"
+    current_bg = "#0f2027"
+    current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Kardus Putih Solid, Teks Hitam Jelas, Input Kontras)
-css_style = """
+# Custom CSS & Styling
+css_style = f"""
     <style>
-    .stApp {
-        background: """ + current_bg + """;
-        color: #111111;
+    .stApp {{
+        background: {current_bg};
+        color: {current_font};
         overflow-x: hidden;
-    }
-    .romantic-title {
+    }}
+    .romantic-title {{
         text-align: center;
-        color: #0b3c5d;
+        color: {current_font};
         font-family: 'Georgia', serif;
         font-weight: 900;
         font-size: 2.8em;
         padding-top: 10px;
-        text-shadow: 0 2px 8px rgba(255,255,255,0.9);
-    }
-    .subtitle {
+        text-shadow: 0 2px 8px rgba(255,255,255,0.6);
+    }}
+    .subtitle {{
         text-align: center;
-        color: #1d2731;
+        color: {current_font};
         font-style: italic;
         margin-bottom: 30px;
         font-weight: 800;
         font-size: 1.15em;
-    }
-    .love-card {
+    }}
+    .love-card {{
         background: #ffffff !important;
         padding: 26px;
         border-radius: 22px;
         box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
-        border: 3px solid #0b3c5d;
+        border: 3px solid {current_font};
         text-align: center;
         margin-bottom: 24px;
         color: #111111 !important;
         position: relative;
         z-index: 2;
     }
-    .love-card h3 {
-        color: #0b3c5d !important;
+    .love-card h3 {{
+        color: {current_font} !important;
         font-weight: 900 !important;
-    }
-    .love-card h4 {
-        color: #1d2731 !important;
+    }}
+    .love-card h4 {{
+        color: {current_font} !important;
         font-weight: 800 !important;
-    }
-    .love-card p, .love-card label, .love-card span {
+    }}
+    .love-card p, .love-card label, .love-card span {{
         color: #111111 !important;
         font-weight: 700 !important;
         font-size: 1.1em;
-    }
+    }}
     
-    /* --- MEMPERJELAS KOTAK INPUT, TEXT AREA, & SELECTBOX --- */
-    .stTextInput input, .stTextArea textarea {
+    /* --- INPUT & TEXT AREA --- */
+    .stTextInput input, .stTextArea textarea {{
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid #0b3c5d !important;
+        border: 2px solid {current_font} !important;
         border-radius: 10px !important;
-    }
-    div[data-baseweb="select"] > div {
+    }}
+    div[data-baseweb="select"] > div {{
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid #0b3c5d !important;
-    }
-    
-    /* --- BINGKAI FOTO ROMANTIS --- */
-    .img-frame {
+        border: 2px solid {current_font} !important;
+    }}
+
+    /* --- BINGKAI FOTO --- */
+    .img-frame {{
         background: #ffffff;
         padding: 10px;
         border-radius: 18px;
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
-        border: 4px solid #0b3c5d;
-    }
+        border: 4px solid {current_font};
+    }}
 
-    /* --- TOMBOL KONTRAS TINGGI & JELAS --- */
-    div.stButton > button {
-        background: linear-gradient(135deg, #0b3c5d 0%, #328cc1 100%);
+    /* --- TOMBOL --- */
+    div.stButton > button {{
+        background: {current_font};
         color: #ffffff !important;
         border-radius: 14px;
         font-weight: 800;
@@ -161,34 +165,34 @@ css_style = """
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         width: 100%;
         cursor: pointer;
-    }
-    div.stButton > button:hover {
-        background: linear-gradient(135deg, #328cc1 0%, #1d2731 100%);
+    }}
+    div.stButton > button:hover {{
+        opacity: 0.9;
         border-color: #ffd700;
-    }
+    }}
 
     /* --- ANIMASI HURUF, BUNGA PINK, BALON & KUPU-KUPU --- */
-    @keyframes floatDown {
-        0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }
-        15% { opacity: 0.95; }
-        85% { opacity: 0.95; }
-        100% { transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }
-    }
-    .floating-bg {
+    @keyframes floatDown {{
+        0% {{ transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }}
+        15% {{ opacity: 0.95; }}
+        85% {{ opacity: 0.95; }}
+        100% {{ transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }}
+    }}
+    .floating-bg {{
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
         overflow: hidden; pointer-events: none; z-index: 1;
-    }
-    .floating-item {
+    }}
+    .floating-item {{
         position: absolute; top: -60px;
         font-size: 34px; font-weight: bold;
-        color: rgba(11, 60, 93, 0.85);
+        color: {current_font};
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
-    }
+    }}
     </style>
 
-    <!-- Elemen Animasi Latar Belakang -->
+    <!-- Animasi Latar Belakang -->
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
         <div class="floating-item" style="left: 12%; animation-duration: 11s; animation-delay: 2s;">🌸</div>
@@ -226,7 +230,7 @@ if 'welcomed' not in st.session_state:
 
 # Header Utama
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
-st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {today.strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} — Update per {today.strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
 # --- JADWAL MINGGUAN ---
 start_of_week = today - datetime.timedelta(days=today.weekday())
@@ -301,41 +305,36 @@ elif current_data["fitur_spesial"] == "running_button":
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🎵 2. JUKEBOX SEMUA LAGU HINDIA & .F.E.A.S.T (MENGGUNAKAN ST.VIDEO AGAR 100% BISA DIPUTAR)
+# 🎵 2. JUKEBOX 7 LAGU HINDIA (ST.VIDEO - LANGSUNG PUTAR DI WEB)
 st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & .F.E.A.S.T)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
 
 pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
-    "Secukupnya — Lagu kebangsaan bangkit dari penat & lelah bekerja",
-    "Rumah ke Rumah — Perjalanan hidup & pendewasaan yang adiktif",
-    "Evaluasi — Dorongan mental bertahan di hari yang berat",
-    "Mata Air — Merayakan diri sendiri & mencintai diri apa adanya",
-    "Basmi (bersama .F.E.A.S.T) — Lagu rock alternatif penuh energi berapi-api",
-    "Peradaban (bersama .F.E.A.S.T) — Anthem perjuangan sosial yang membakar semangat",
-    "Segala Bunga — Nuansa segar & asyik untuk tetap produktif",
-    "Apapun yang Terjadi — Penguat diri menghadapi ketidakpastian masa depan"
+    "1. Secukupnya — Kebangkitan dari penat & lelah bekerja",
+    "2. Rumah ke Rumah — Perjalanan hidup & pendewasaan",
+    "3. Evaluasi — Dorongan mental di hari yang berat",
+    "4. Mata Air — Energi positif merayakan diri sendiri",
+    "5. Basmi (feat. .F.E.A.S.T) — Lagu rock alternatif penuh semangat",
+    "6. Peradaban (feat. .F.E.A.S.T) — Anthem perjuangan sosial",
+    "7. Apapun yang Terjadi — Motivasi menghadapi masa depan"
 ])
 
-# Pemetaan Link URL YouTube Resmi yang Valid untuk st.video()
-if "Secukupnya" in pilihan_lagu:
+# 7 URL YouTube Resmi Hindia yang Pasti Bisa Diputar
+if "1." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=wnAKxtEi78c"
-elif "Rumah ke Rumah" in pilihan_lagu:
+elif "2." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
-elif "Evaluasi" in pilihan_lagu:
+elif "3." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
-elif "Mata Air" in pilihan_lagu:
+elif "4." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=i0aE3fHHitY"
-elif "Basmi" in pilihan_lagu:
+elif "5." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
-elif "Peradaban" in pilihan_lagu:
+elif "6." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=8c0IzngvGEw"
-elif "Segala Bunga" in pilihan_lagu:
-    yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
 else:
     yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
 
-# Render Pemutar Video Asli Streamlit (Dijamin Jalan & Bisa Diputar Langsung)
 st.video(yt_url)
-
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ⛰️ 3. FOTO UTAMA HARIAN
@@ -357,16 +356,16 @@ if img_path_1:
         st.image(img_path_1, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
     with col_txt1:
-        st.markdown("""
+        st.markdown(f"""
             <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
-                <h4 style="color: #0b3c5d; margin-bottom: 8px;">Bidadari Berastagi Paling Bersinar... ✨</h4>
+                <h4 style="color: {current_font}; margin-bottom: 8px;">Bidadari Berastagi Paling Bersinar... ✨</h4>
                 <p style="color: #111111; font-size: 1.05em; line-height: 1.6; font-weight: 700;">
                 Sejauh apapun jarak kita atau sibuknya hari ini, energiku langsung terisi lagi cuma karena bayangin senyuman kamu. Proud of you! 🤍
                 </p>
             </div>
         """, unsafe_allow_html=True)
 else:
-    st.warning("⚠️ File foto harian belum di-upload di GitHub (sediakan `foto_senin.jpeg`, dll atau `foto_dirimu.jpeg`).")
+    st.warning("⚠️ File foto harian belum di-upload di GitHub.")
 st.markdown("</div>", unsafe_allow_html=True)
 
 # 📥 4. KOTAK CURHAT (SECRET INBOX)
@@ -466,4 +465,4 @@ with st.expander("🔒 Panel Khusus Zefanya"):
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #111; font-size: 0.9em; font-weight: bold;'>Web ini online 24/7 buat kamu yang selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align: center; color: {current_font}; font-size: 0.9em; font-weight: bold;'>Web ini online 24/7 buat kamu yang selalu update, semoga happy 🤍</p>", unsafe_allow_html=True)
