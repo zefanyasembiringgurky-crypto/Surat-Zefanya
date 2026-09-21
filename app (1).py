@@ -268,10 +268,9 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🧘‍♀️ 5. Pojok Sehat & Kotak Gombalan Manis (Ganti Video Link & Gombalan Tidak Garing)
+# 🧘‍♀️ 5. Pojok Sehat & Kotak Gombalan Manis
 st.markdown("<div class='love-card'><h3>🧘‍♀️ Pojok Sehat & Kotak Gombalan Manis</h3><p>Luangkan waktu 1 menit buat peregangan biar nggak pegal-pegal:</p>", unsafe_allow_html=True)
 
-# Tombol Link YouTube Shorts yang Dijamin Bisa Dibuka
 st.markdown("""
     <a href="https://youtube.com/shorts/DWwsx-VmCQQ?si=H_9Efq4-h-O6tJCR" target="_blank">
         <button style="width: 100%; background-color: #ff0000; color: white; padding: 12px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer; margin-bottom: 15px;">
@@ -299,18 +298,18 @@ if st.button("✨ Buka Kartu Gombalan Manis"):
 st.info(st.session_state['random_quote'])
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ✨ 6. Penilaian Kebahagiaan Membaca Surat (Isi Versi Lucu & Menghibur)
-st.markdown("<div class='love-card'><h3>💖 Seberapa Senang Kamu Baca Surat Ini?</h3><p>Pilih tingkat kebahagiaanmu dengan jujur (atau kena denda senyum):</p>", unsafe_allow_html=True)
+# ✨ 6. Penilaian Kebahagiaan Membaca Surat (Versi Lucu & Bahasa Medan)
+st.markdown("<div class='love-card'><h3>💖 Seberapa Senang Kamu Baca Surat Ini?</h3><p>Pilih tingkat kebahagiaanmu jujur-jujur ya:</p>", unsafe_allow_html=True)
 
 pilihan_senang = st.radio("Pilih ekspresi kamu sekarang:", [
-    "Senang banget kayak menang doorprize kulkas dua pintu 🧊", 
-    "Bahagia pol sampe mau minta traktir sushi 🍣", 
-    "Senyum-senyum sendiri dikira orang gila sama teman sekantor 🤪"
+    "Bahagia kalilah rasa a, serasa menang tender ganti rugi jalan tol! 🛞😂", 
+    "Senyum-senyum sendiri aku nengoknya, kayak orang gila di Medan Mall! 🤪", 
+    "Kalak karona (manis) kali suratnya, jadi rindu mau kuajak nge-teh manis berdua! ☕✨"
 ])
 
 if st.button("💾 Simpan Perasaanku"):
     save_response("Tingkat Kebahagiaan Membaca Surat", pilihan_senang)
-    st.success("Yeay! Jawaban gemasmu sudah sukses masuk ke Panel Zefanya 🤍")
+    st.success("Mantap kali! Jawabannya udah sukses masuk ke Panel Zefanya 🤍")
     st.balloons()
 
 st.markdown("</div>", unsafe_allow_html=True)
