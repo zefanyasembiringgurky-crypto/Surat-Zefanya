@@ -69,16 +69,36 @@ themes = {
     "Sunday": {"bg": "#B5E2FA", "font": "#3A0CA3", "accent": "#F72585", "nama_tema": "Lavender Dream"}
 }
 
-current_theme = themes.get(hari_ini_inggris, themes["Monday"])
+# Mapping nama hari Indonesia ke Inggris untuk selector
+indo_to_eng = {
+    "Senin": "Monday",
+    "Selasa": "Tuesday",
+    "Rabu": "Wednesday",
+    "Kamis": "Thursday",
+    "Jumat": "Friday",
+    "Sabtu": "Saturday",
+    "Minggu": "Sunday"
+}
+
+eng_to_indo = {v: k for k, v in indo_to_eng.items()}
+default_indo = eng_to_indo.get(hari_ini_inggris, "Senin")
+
+# --- FITUR PEMILIH HARI (UNTUK TESTING & EKSPLORASI PENUH) ---
+st.markdown("<div style='background: rgba(255,255,255,0.85); padding: 12px; border-radius: 12px; margin-bottom: 20px; text-align: center;'>", unsafe_allow_html=True)
+selected_hari_indo = st.selectbox("📅 Pilih Hari yang Ingin Ditampilkan:", ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"], index=["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"].index(default_indo))
+st.markdown("</div>", unsafe_allow_html=True)
+
+selected_hari_eng = indo_to_eng[selected_hari_indo]
+current_theme = themes.get(selected_hari_eng, themes["Monday"])
 current_bg = current_theme["bg"]
 current_font = current_theme["font"]
 
-# Cek Night-Mode Otomatis (Jika di atas jam 18:00)
-if current_hour >= 18:
+# Cek Night-Mode Otomatis (Jika di atas jam 18:00 dan melihat hari ini)
+if current_hour >= 18 and selected_hari_eng == hari_ini_inggris:
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Teks hitam pekat di dalam pesan agar sangat jelas dibaca)
+# Custom CSS & Styling
 css_style = """
     <style>
     .stApp {
@@ -246,56 +266,49 @@ if 'welcomed' not in st.session_state:
 
 # Header Utama
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
-st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} — Update per {today.strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} ({selected_hari_indo})</p>", unsafe_allow_html=True)
 
-# --- JADWAL MINGGUAN & LAGU SPESIFIK HARI INI (1 HARI 1 LAGU) ---
+# --- DATA JADWAL MINGGUAN & LAGU SPESIFIK ---
 start_of_week = today - datetime.timedelta(days=today.weekday())
 
 weekly_schedule = {
-    0: { 
-        "nama": "Senin", "tanggal": start_of_week + datetime.timedelta(days=0),
+    "Senin": { 
         "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
         "pesan": "Selamat hari Senin, Avrillia! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam dan ingat dompetmu butuh asupan saldo sehat. Senyum dong biar monitor kantor silau sama cantiknya kamu! 🤍💪",
         "foto": "foto_senin.jpeg", "fitur_spesial": "weather_note",
         "lagu_judul": "Secukupnya — Hindia", "lagu_url": "https://www.youtube.com/watch?v=wnAKxtEi78c"
     },
-    1: { 
-        "nama": "Selasa", "tanggal": start_of_week + datetime.timedelta(days=1),
+    "Selasa": { 
         "tema": "🌿 Edisi Selasa: Waktunya Me-Time & Santai",
         "pesan": "Selamat hari Selasa! Waktunya menikmati hari dengan rileks dan santai. Jangan terlalu diforsir kerjanya ya Avrillia! ✨",
         "foto": "foto_selasa.jpeg", "fitur_spesial": "fake_error",
         "lagu_judul": "Mata Air — Hindia", "lagu_url": "https://www.youtube.com/watch?v=i0aE3fHHitY"
     },
-    2: { 
-        "nama": "Rabu", "tanggal": start_of_week + datetime.timedelta(days=2),
+    "Rabu": { 
         "tema": "✨ Edisi Rabu: Mid-Week Hug (Setengah Perjalanan)",
         "pesan": "Udah hari Rabu nih! Nggak terasa udah setengah jalan menuju weekend. Tetap semangat ya bidadari Berastagi! Kerjaan sebanyak apapun pasti kelar kalau dikerjakan pakai senyuman manismu. 🫂🤍",
         "foto": "foto_rabu.jpeg", "fitur_spesial": "mood_tracker",
         "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=8c0IzngvGEw"
     },
-    3: { 
-        "nama": "Kamis", "tanggal": start_of_week + datetime.timedelta(days=3),
+    "Kamis": { 
         "tema": "🌸 Edisi Kamis: Kamisan Manis Menuju Weekend",
         "pesan": "Selamat hari Kamis! Sikit lagi mau weekend, tahan dikit lagi ya! Tetap fokus, jaga kesehatan, dan ingat ada aku yang selalu dukung kamu dari jauh. Semangat pejuang rupiah! 🤍",
         "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge",
         "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
     },
-    4: { 
-        "nama": "Jumat", "tanggal": start_of_week + datetime.timedelta(days=4),
+    "Jumat": { 
         "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
         "pesan": "Yeay, Jumat berkah! Hari terakhir kerja sebelum weekend. Selesaikan sisa tugasmu dengan senyuman paling cerah ya! Sebentar lagi mau santai-santai. Pokoknya hari ini harus happy! 🤍",
         "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification",
         "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
     },
-    5: { 
-        "nama": "Sabtu", "tanggal": start_of_week + datetime.timedelta(days=5),
+    "Sabtu": { 
         "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
         "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Kalau ada yang nyebelin, senyumin aja karena cantiknya kamu nggak ada tandingan. Semangat! 🤍",
         "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
         "lagu_judul": "Cincin — Hindia", "lagu_url": "https://www.youtube.com/watch?v=2q8X93a9n6o"
     },
-    6: { 
-        "nama": "Minggu", "tanggal": start_of_week + datetime.timedelta(days=6),
+    "Minggu": { 
         "tema": "☕ Edisi Minggu: Sweet & Lazy Sunday",
         "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya, dan siapin mood buat menyambut minggu baru. Have a wonderful Sunday, kesayangan! 🤍☕",
         "foto": "foto_minggu.jpeg", "fitur_spesial": "secret_inbox",
@@ -303,10 +316,10 @@ weekly_schedule = {
     }
 }
 
-current_data = weekly_schedule.get(today.weekday(), weekly_schedule[0])
+current_data = weekly_schedule[selected_hari_indo]
 
 # 📬 1. SURAT HARI INI
-st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({current_data['nama']}, {current_data['tanggal'].strftime('%d %b %Y')})</h3>", unsafe_allow_html=True)
+st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_indo})</h3>", unsafe_allow_html=True)
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
@@ -329,13 +342,11 @@ elif current_data["fitur_spesial"] == "running_button":
 st.markdown("</div>", unsafe_allow_html=True)
 
 # 🎵 2. LAGU SPESIAL HARI INI (1 HARI 1 LAGU KHUSUS)
-st.markdown(f"<div class='love-card'><h3>🎵 Soundtrack Hari Ini</h3><p>Lagu pilihan spesial buat menemani hari {current_data['nama']}:</p>", unsafe_allow_html=True)
+st.markdown(f"<div class='love-card'><h3>🎵 Soundtrack Hari Ini</h3><p>Lagu pilihan spesial buat menemani hari {selected_hari_indo}:</p>", unsafe_allow_html=True)
 st.markdown(f"**♪ {current_data['lagu_judul']}**")
 
-# Pemutar Video Streamlit
 st.video(current_data['lagu_url'])
 
-# Tombol Cadangan Langsung ke YouTube
 st.markdown(f"""
     <a href="{current_data['lagu_url']}" target="_blank">
         <button style="margin-top: 10px; width: 100%; background: #ff0000; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
@@ -347,7 +358,7 @@ st.markdown(f"""
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ⛰️ 3. FOTO UTAMA HARIAN (KHUSUS HARI SENIN)
-if current_data["nama"] == "Senin":
+if selected_hari_indo == "Senin":
     st.markdown("<div class='love-card'><h3>⛰️ Pesan & Foto Spesial Berastagi</h3>", unsafe_allow_html=True)
     target_foto = current_data["foto"]
     if os.path.exists(target_foto):
@@ -418,23 +429,6 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🕰️ 7. KAPSUL WAKTU MINGGU INI (DI-BUKA SEMUA UNTUK TESTING)
-st.markdown("<div class='love-card'><h3>🕰️ Kapsul Waktu Minggu Ini (Time-Lock Calendar - Mode Testing)</h3><p>Semua hari dibuka agar kamu bisa mengeceknya satu per satu! 👇</p>", unsafe_allow_html=True)
-
-for idx, data in weekly_schedule.items():
-    tgl_surat = data["tanggal"]
-    nama_hari = data["nama"]
-    
-    # Sengaja dibuka semua (if True) agar kamu bisa testing
-    with st.expander(f"📖 {nama_hari} ({tgl_surat.strftime('%d %b %Y')}) — 🔓 Terbuka (Testing Mode)"):
-        st.markdown(f"**{data['tema']}**")
-        st.write(data['pesan'])
-        # Foto hanya muncul di hari Senin sesuai permintaanmu
-        if nama_hari == "Senin" and os.path.exists(data["foto"]):
-            st.image(data["foto"], width=250)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
 # ==========================================
 # 🔒 PANEL KHUSUS ZEFANYA
 # ==========================================
@@ -450,7 +444,6 @@ with st.expander("🔒 Panel Khusus Zefanya"):
         if not df_data.empty:
             st.dataframe(df_data, use_container_width=True)
             
-            # Grafik Riwayat Mood / Respons
             st.markdown("---")
             st.markdown("📊 **Grafik Riwayat Aktivitas/Mood Avrillia:**")
             mood_counts = df_data['topik'].value_counts()
