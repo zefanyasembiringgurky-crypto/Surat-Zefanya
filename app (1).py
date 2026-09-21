@@ -215,6 +215,15 @@ css_template = """
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
     }
+    /* Animasi Ledakan & Asap */
+    @keyframes smokeAnim {
+        0% { transform: scale(0.8); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 1; }
+        100% { transform: scale(1); opacity: 0.9; }
+    }
+    .smoke-explosion {
+        animation: smokeAnim 0.6s ease-in-out;
+    }
     </style>
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
@@ -296,7 +305,7 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN DETEKSI BOM ZEFANYA)
+# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN BOM ASAP RINDU)
 if current_data["fitur_spesial"] == "fake_error":
     if 'bomb_triggered' not in st.session_state:
         st.session_state['bomb_triggered'] = False
@@ -305,7 +314,7 @@ if current_data["fitur_spesial"] == "fake_error":
         st.markdown("""
             <div style="background: #fff3cd; padding: 16px; border-radius: 12px; border-left: 6px solid #ffc107; text-align: center; margin-bottom: 15px;">
                 <p style="color: #856404; font-weight: bold; margin-bottom: 12px; font-size: 1.1em;">
-                    ⚠️ PERINGATAN SISTEM: Terdeteksi Bom Rindu berkedip di sistem! Jangan panik...
+                    ⚠️ PERINGATAN SISTEM: Terdeteksi Bom Asap Rindu di jaringan Berastagi!
                 </p>
             </div>
         """, unsafe_allow_html=True)
@@ -314,12 +323,12 @@ if current_data["fitur_spesial"] == "fake_error":
             st.session_state['bomb_triggered'] = True
             st.rerun()
     else:
-        st.balloons()
         st.markdown("""
-            <div style="background: #ffe6e6; padding: 18px; border-radius: 14px; border: 2px solid #ff4d4d; text-align: center; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(255,77,77,0.2);">
-                <h3 style="color: #d90429; margin-bottom: 8px;">💥 BOOOM! Hayo kaget yaaa! 😜</h3>
-                <p style="color: #111111; font-weight: 700; font-size: 1.1em; line-height: 1.5;">
-                    Hahaha, tenang aja! Itu bukan bom beneran kok, tapi <b>Bom Kangen</b> dari Zefanya yang siap meledakkan senyuman di wajah cantikmu hari ini! 💣🤍✨
+            <div class="smoke-explosion" style="background: #2b2d42; padding: 22px; border-radius: 16px; border: 3px solid #ef233c; text-align: center; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(239,35,60,0.3);">
+                <h1 style="font-size: 2.8em; margin-bottom: 5px;">💥🔥 💨 ☁️</h1>
+                <h3 style="color: #ff4d4d; margin-bottom: 10px;">BOOOM! Hayo kaget yaaa! 😜</h3>
+                <p style="color: #ffffff !important; font-weight: 700; font-size: 1.15em; line-height: 1.5;">
+                    Hahaha, tenang aja! Itu bukan bom beneran kok, tapi <b>Bom Asap Rindu</b> dari Zefanya yang sengaja diledakkan biar ruangan penuh sama bayangan senyuman manis kamu! 💨🤍✨
                 </p>
             </div>
         """, unsafe_allow_html=True)
@@ -342,7 +351,6 @@ if current_data["fitur_spesial"] == "fake_error":
         """, unsafe_allow_html=True)
         
         if st.button("🏆 Klaim Gelar Pawang Sekarang"):
-            st.balloons()
             st.markdown("""
                 <div style="background-color: #2b9348; padding: 14px; border-radius: 12px; color: #ffffff !important; font-weight: bold; text-align: center; margin-top: 12px; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                     Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨
