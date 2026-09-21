@@ -74,11 +74,11 @@ current_bg = bg_colors.get(hari_ini_inggris, "linear-gradient(135deg, #e3f2fd 0%
 if current_hour >= 18:
     current_bg = "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)"
 
-# Custom CSS & Styling (Tombol kontras tinggi, animasi huruf, bunga pink, balon, kupu-kupu)
-st.markdown(f"""
+# Custom CSS & Styling (Menggunakan format() untuk mengelakkan ralat f-string brace)
+css_template = """
     <style>
     .stApp {{
-        background: {current_bg};
+        background: {bg_val};
         color: #1a1a1a;
         overflow-x: hidden;
     }}
@@ -181,7 +181,9 @@ st.markdown(f"""
         <div class="floating-item" style="left: 88%; animation-duration: 9s; animation-delay: 2.2s;">I</div>
         <div class="floating-item" style="left: 95%; animation-duration: 10s; animation-delay: 1.2s;">A</div>
     </div>
-""", unsafe_allow_html=True)
+"""
+
+st.markdown(css_template.format(bg_val=current_bg), unsafe_allow_html=True)
 
 # Easter Egg Title Script (Tab browser berubah saat ditinggal)
 st.markdown("""
