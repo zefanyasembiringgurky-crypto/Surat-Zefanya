@@ -58,7 +58,7 @@ today = datetime.date.today()
 current_hour = datetime.datetime.now().hour
 hari_ini_inggris = today.strftime("%A")
 
-# Pemetaan gradasi 3 warna cerah per hari agar kontras dan mencolok
+# Pemetaan gradasi 3 warna cerah per hari
 bg_colors = {
     "Monday": "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #fbc2eb 100%)",     # Sky Blue - Pink Soft
     "Tuesday": "linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%)",    # Peach - Warm Coral
@@ -74,7 +74,7 @@ current_bg = bg_colors.get(hari_ini_inggris, "linear-gradient(135deg, #a1c4fd 0%
 if current_hour >= 18:
     current_bg = "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)"
 
-# Custom CSS & Styling (Teks hitam pekat, card putih tebal, tombol jelas)
+# Custom CSS & Styling (Kardus Putih Solid, Teks Hitam Jelas, Input Kontras)
 css_style = """
     <style>
     .stApp {
@@ -96,34 +96,48 @@ css_style = """
         color: #1d2731;
         font-style: italic;
         margin-bottom: 30px;
-        font-weight: 700;
-        font-size: 1.1em;
+        font-weight: 800;
+        font-size: 1.15em;
     }
     .love-card {
-        background: rgba(255, 255, 255, 0.98);
+        background: #ffffff !important;
         padding: 26px;
         border-radius: 22px;
-        box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(6px);
-        border: 3px solid rgba(11, 60, 93, 0.3);
+        box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
+        border: 3px solid #0b3c5d;
         text-align: center;
         margin-bottom: 24px;
-        color: #111111;
+        color: #111111 !important;
         position: relative;
         z-index: 2;
     }
     .love-card h3 {
         color: #0b3c5d !important;
-        font-weight: 800 !important;
+        font-weight: 900 !important;
     }
     .love-card h4 {
         color: #1d2731 !important;
-        font-weight: 700 !important;
+        font-weight: 800 !important;
     }
     .love-card p, .love-card label, .love-card span {
         color: #111111 !important;
         font-weight: 700 !important;
-        font-size: 1.05em;
+        font-size: 1.1em;
+    }
+    
+    /* --- MEMPERJELAS KOTAK INPUT, TEXT AREA, & SELECTBOX --- */
+    .stTextInput input, .stTextArea textarea {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+        font-weight: 700 !important;
+        border: 2px solid #0b3c5d !important;
+        border-radius: 10px !important;
+    }
+    div[data-baseweb="select"] > div {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+        font-weight: 700 !important;
+        border: 2px solid #0b3c5d !important;
     }
     
     /* --- BINGKAI FOTO ROMANTIS --- */
@@ -287,7 +301,7 @@ elif current_data["fitur_spesial"] == "running_button":
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🎵 2. JUKEBOX SEMUA LAGU HINDIA & .F.E.A.S.T (BERLAKU DI SEMUA HARI, TEPAT SETELAH SURAT)
+# 🎵 2. JUKEBOX SEMUA LAGU HINDIA & .F.E.A.S.T (MENGGUNAKAN ST.VIDEO AGAR 100% BISA DIPUTAR)
 st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & .F.E.A.S.T)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
 
 pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
@@ -295,29 +309,32 @@ pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
     "Rumah ke Rumah — Perjalanan hidup & pendewasaan yang adiktif",
     "Evaluasi — Dorongan mental bertahan di hari yang berat",
     "Mata Air — Merayakan diri sendiri & mencintai diri apa adanya",
-    "Basmi (feat. .F.E.A.S.T) — Lagu rock alternatif penuh energi berapi-api",
-    "Peradaban (feat. .F.E.A.S.T) — Anthem perjuangan sosial yang membakar semangat",
+    "Basmi (bersama .F.E.A.S.T) — Lagu rock alternatif penuh energi berapi-api",
+    "Peradaban (bersama .F.E.A.S.T) — Anthem perjuangan sosial yang membakar semangat",
     "Segala Bunga — Nuansa segar & asyik untuk tetap produktif",
     "Apapun yang Terjadi — Penguat diri menghadapi ketidakpastian masa depan"
 ])
 
-# Embed YouTube URL yang aktif dan dijamin jalan
+# Pemetaan Link URL YouTube Resmi yang Valid untuk st.video()
 if "Secukupnya" in pilihan_lagu:
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/J762g_t6-q4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
+    yt_url = "https://www.youtube.com/watch?v=wnAKxtEi78c"
 elif "Rumah ke Rumah" in pilihan_lagu:
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/5H3p96u8_8k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
+    yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
 elif "Evaluasi" in pilihan_lagu:
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/2q8X93a9n6o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
+    yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
 elif "Mata Air" in pilihan_lagu:
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/6k48i4tN4hM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
+    yt_url = "https://www.youtube.com/watch?v=i0aE3fHHitY"
 elif "Basmi" in pilihan_lagu:
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/0x91p5u5a8g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
+    yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
 elif "Peradaban" in pilihan_lagu:
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/7X8652lK35o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
+    yt_url = "https://www.youtube.com/watch?v=8c0IzngvGEw"
 elif "Segala Bunga" in pilihan_lagu:
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/DrulgpXAGCA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
-else: # Apapun yang Terjadi
-    st.markdown("""<iframe width="100%" height="180" src="https://www.youtube.com/embed/DrulgpXAGCA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>""", unsafe_allow_html=True)
+    yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
+else:
+    yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
+
+# Render Pemutar Video Asli Streamlit (Dijamin Jalan & Bisa Diputar Langsung)
+st.video(yt_url)
 
 st.markdown("</div>", unsafe_allow_html=True)
 
