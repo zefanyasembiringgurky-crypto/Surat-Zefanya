@@ -3,6 +3,7 @@ import datetime
 import sqlite3
 import pandas as pd
 import os
+import random
 
 # --- INISIALISASI DATABASE SQLITE ---
 def init_db():
@@ -267,26 +268,29 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🕰️ 5. Time Capsule Ide Terbaik (Pesan Rahasia Penuh Makna & Motivasi)
-st.markdown("<div class='love-card'><h3>🕰️ Time Capsule: Kapsul Waktu Pejuang Masa Depan</h3><p>Klik tombol di bawah untuk membuka suntikan semangat khusus hari ini: 👇</p>", unsafe_allow_html=True)
+# 🧘‍♀️ 5. Time Capsule: Video Peregangan Kerja & Mini Game "Kotak Kejutan Cinta"
+st.markdown("<div class='love-card'><h3>🧘‍♀️ Pojok Sehat & Refreshing Kerja</h3><p>Yuk luangkan waktu sebentar buat stretching biar badannya tidak kaku, tonton video di bawah ya: 👇</p>", unsafe_allow_html=True)
 
-if 'show_gratitude' not in st.session_state:
-    st.session_state['show_gratitude'] = False
+# Embed YouTube Short untuk peregangan kerja
+st.video("https://youtube.com/shorts/DWwsx-VmCQQ")
 
-if st.button("✨ Buka Kapsul Waktu Hari Ini"):
-    st.session_state['show_gratitude'] = True
+st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<h4>🎁 Kotak Kejutan Cinta (Mini Game)</h4><p>Pencet tombol di bawah untuk ambil kartu semangat acak khusus buat kamu:</p>", unsafe_allow_html=True)
+
+if 'random_quote' not in st.session_state:
+    st.session_state['random_quote'] = "Pencet tombol di bawah dulu ya sayang! 👇"
+
+if st.button("🎲 Ambil Kartu Semangat Acak"):
+    quotes_list = [
+        "✨ 'Kamu hebat banget hari ini! Jangan lupa senyum dan minum air putih ya.'",
+        "🦖 'Pawang kerjaku nomor satu! Kalau capek, bayangin aku lagi bawain es krim kesukaanmu.'",
+        "🤍 'Jarak boleh jauh, tapi doa dan sayangku selalu nemenin kamu di Berastagi.'",
+        "💪 'Deadline aja bisa kamu taklukkan, apalagi cuma hari Senin! Semangat jagoan!'"
+    ]
+    st.session_state['random_quote'] = random.choice(quotes_list)
     st.balloons()
 
-if st.session_state['show_gratitude']:
-    st.markdown("""
-        <div style='background: rgba(255,255,255,0.95); padding: 22px; border-radius: 15px; text-align: left; color: #1a1a1a; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 5px solid #0d47a1;'>
-        <h4 style='color: #0d47a1; margin-top: 0;'>Pesan dari Masa Depan untuk Avrillia 🤍</h4>
-        <p>Hai kamu yang lagi baca ini di sela-sela kesibukan kerjaanmu...</p>
-        <p>Ingatlah bahwa setiap lelah, setiap tetes keringat, dan setiap usaha keras yang kamu keluarkan hari ini sedang membangun versi hidup kita yang paling bahagia di masa depan. Kamu tidak sedang berjuang sendirian; ada aku yang selalu mendukungmu di setiap langkah.</p>
-        <p>Tarik napas, kerjakan pelan-pelan, dan kalau sudah selesai, kabari aku ya. Kamu hebat, hari ini dan selamanya!</p>
-        </div>
-    """, unsafe_allow_html=True)
-
+st.info(st.session_state['random_quote'])
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ✨ 6. Penilaian Kebahagiaan Membaca Surat (Isi Versi Lucu & Menghibur)
