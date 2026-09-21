@@ -268,24 +268,30 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🧘‍♀️ 5. Time Capsule: Video Peregangan Kerja & Mini Game "Kotak Kejutan Cinta"
-st.markdown("<div class='love-card'><h3>🧘‍♀️ Pojok Sehat & Refreshing Kerja</h3><p>Yuk luangkan waktu sebentar buat stretching biar badannya tidak kaku, tonton video di bawah ya: 👇</p>", unsafe_allow_html=True)
+# 🧘‍♀️ 5. Pojok Sehat & Kotak Gombalan Manis (Ganti Video Link & Gombalan Tidak Garing)
+st.markdown("<div class='love-card'><h3>🧘‍♀️ Pojok Sehat & Kotak Gombalan Manis</h3><p>Luangkan waktu 1 menit buat peregangan biar nggak pegal-pegal:</p>", unsafe_allow_html=True)
 
-# Embed YouTube Short untuk peregangan kerja
-st.video("https://youtube.com/shorts/DWwsx-VmCQQ")
+# Tombol Link YouTube Shorts yang Dijamin Bisa Dibuka
+st.markdown("""
+    <a href="https://youtube.com/shorts/DWwsx-VmCQQ?si=H_9Efq4-h-O6tJCR" target="_blank">
+        <button style="width: 100%; background-color: #ff0000; color: white; padding: 12px 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer; margin-bottom: 15px;">
+            ▶️ Klik di Sini untuk Video Peregangan Badan (YouTube Shorts)
+        </button>
+    </a>
+""", unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<h4>🎁 Kotak Kejutan Cinta (Mini Game)</h4><p>Pencet tombol di bawah untuk ambil kartu semangat acak khusus buat kamu:</p>", unsafe_allow_html=True)
+st.markdown("<hr style='border: 0.5px solid rgba(0,0,0,0.1); margin: 15px 0;'>", unsafe_allow_html=True)
+st.markdown("<h4>💌 Kotak Gombalan Spesial Buat Kamu</h4><p>Pencet tombol di bawah untuk membuktikan seberapa candunya aku sama kamu:</p>", unsafe_allow_html=True)
 
 if 'random_quote' not in st.session_state:
-    st.session_state['random_quote'] = "Pencet tombol di bawah dulu ya sayang! 👇"
+    st.session_state['random_quote'] = "Pencet tombol di bawah dulu ya buat buka pesannya! 👇"
 
-if st.button("🎲 Ambil Kartu Semangat Acak"):
+if st.button("✨ Buka Kartu Gombalan Manis"):
     quotes_list = [
-        "✨ 'Kamu hebat banget hari ini! Jangan lupa senyum dan minum air putih ya.'",
-        "🦖 'Pawang kerjaku nomor satu! Kalau capek, bayangin aku lagi bawain es krim kesukaanmu.'",
-        "🤍 'Jarak boleh jauh, tapi doa dan sayangku selalu nemenin kamu di Berastagi.'",
-        "💪 'Deadline aja bisa kamu taklukkan, apalagi cuma hari Senin! Semangat jagoan!'"
+        "🤍 'Kamu tahu nggak bedanya kamu sama jam 12 siang? Kalau jam 12 siang kesiangan bikin puyeng, kalau kamu... kesayangan bikin seisi dunia jadi terang.'",
+        "☕ 'Kopi secangkir pagi ini rasanya kurang manis... mungkin karena kurang, atau karena aku belum dapet senyuman kamu hari ini.'",
+        "🗺️ 'Orang bilang bumi itu bulat, tapi kok pas aku lihat kamu, duniaku rasanya berhenti berputar ya?'",
+        "🧲 'Kamu itu mirip gravitasi ya? Soalnya tiap hari, pikiran aku selalu otomatis jatuh ke kamu terus.'"
     ]
     st.session_state['random_quote'] = random.choice(quotes_list)
     st.balloons()
