@@ -300,19 +300,19 @@ weekly_schedule = {
         "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
         "pesan": "Yeay, Jumat berkah! Hari terakhir kerja sebelum weekend. Selesaikan sisa tugasmu dengan senyuman paling cerah ya! Sebentar lagi mau santai-santai. Pokoknya hari ini harus happy! 🤍",
         "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification",
-        "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
+        "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://youtu.be/pjhOjHDX0A8?si=WoT0iibKJKNdI3gp"
     },
     "Sabtu": { 
         "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
         "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Kalau ada yang nyebelin, senyumin aja karena cantiknya kamu nggak ada tandingan. Semangat! 🤍",
         "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
-        "lagu_judul": "Cincin — Hindia", "lagu_url": "https://www.youtube.com/watch?v=2q8X93a9n6o"
+        "lagu_judul": "Peradapan", "lagu_url": "https://youtu.be/qf1W5iIRTe8?si=37LNbqRIvYTZUbUJ"
     },
     "Minggu": { 
         "tema": "☕ Edisi Minggu: Sweet & Lazy Sunday",
         "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya, dan siapin mood buat menyambut minggu baru. Have a wonderful Sunday, kesayangan! 🤍☕",
         "foto": "foto_minggu.jpeg", "fitur_spesial": "secret_inbox",
-        "lagu_judul": "Evaluasi — Hindia", "lagu_url": "https://www.youtube.com/watch?v=2q8X93a9n6o"
+        "lagu_judul": "Evaluasi — Hindia", "lagu_url": "https://youtu.be/cWrSjCZ5AeE?si=kz_Co5GKhCSRiai5"
     }
 }
 
