@@ -97,7 +97,7 @@ if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or (selected_h
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Dilengkapi Animasi Typewriter yang Sempurna)
+# Custom CSS & Styling
 css_template = """
     <style>
     .stApp {
@@ -215,26 +215,6 @@ css_template = """
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
     }
-    
-    /* --- EFEK KETIK KOMPUTER (TYPEWRITER) YANG AKURAT --- */
-    @keyframes typing {
-        from { width: 0; }
-        to { width: 44ch; }
-    }
-    @keyframes blink-caret {
-        from, to { border-color: transparent; }
-        50% { border-color: #856404; }
-    }
-    .typewriter-text {
-        font-family: 'Courier New', Courier, monospace;
-        display: inline-block;
-        overflow: hidden;
-        white-space: nowrap;
-        border-right: 3px solid #856404;
-        width: 44ch;
-        animation: typing 3s steps(44, end), blink-caret 0.75s step-end infinite;
-        max-width: 100%;
-    }
     </style>
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
@@ -316,40 +296,58 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN TYPEWRITER & SERTIFIKAT)
+# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN DETEKSI BOM ZEFANYA)
 if current_data["fitur_spesial"] == "fake_error":
-    st.markdown("""
-        <div style="background: #fff3cd; padding: 12px 18px; border-radius: 10px; border-left: 5px solid #ffc107; margin-bottom: 15px;">
-            <p style="color: #856404; font-weight: bold; margin: 0; font-size: 1.05em;">
-                ⚠️ <b>SYSTEM ALERT:</b> <span class="typewriter-text">Koneksi Berastagi terlalu menawan, nyaris crash karena rindu!</span>
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Desain Piagam Sertifikat Resmi Klasik
-    st.markdown("""
-        <div style="background: #ffffff; border: 5px double #1D3557; padding: 25px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 8px 25px rgba(0,0,0,0.15); margin-top: 15px; margin-bottom: 15px;">
-            <div style="position: absolute; top: 15px; right: 20px; background: #e63946; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; transform: rotate(8deg);">
-                Approved by Zefanya 🏆
-            </div>
-            <h3 style="color: #1D3557; font-family: 'Georgia', serif; margin-bottom: 5px; font-size: 1.4em;">📜 SERTIFIKAT RESMI PAWANG 📜</h3>
-            <p style="color: #6c757d; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">Diberikan dengan penuh rasa rindu dan bangga</p>
-            <hr style="border: 1px solid #dee2e6; width: 80%; margin: 0 auto 15px auto;">
-            <p style="color: #111111; font-size: 1.1em; font-weight: 700; line-height: 1.5;">
-                Sertifikat kehormatan ini diberikan kepada:<br>
-                <span style="color: #e63946; font-size: 1.3em; font-family: 'Georgia', serif;">Avrillia 🤍</span><br>
-                Sebagai <b>Pawang Kerja Anti-Mager Paling Hebat se-Sumatera Utara!</b>
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    if st.button("🏆 Klaim Gelar Pawang Sekarang"):
-        st.balloons()
+    if 'bomb_triggered' not in st.session_state:
+        st.session_state['bomb_triggered'] = False
+
+    if not st.session_state['bomb_triggered']:
         st.markdown("""
-            <div style="background-color: #2b9348; padding: 14px; border-radius: 12px; color: #ffffff !important; font-weight: bold; text-align: center; margin-top: 12px; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨
+            <div style="background: #fff3cd; padding: 16px; border-radius: 12px; border-left: 6px solid #ffc107; text-align: center; margin-bottom: 15px;">
+                <p style="color: #856404; font-weight: bold; margin-bottom: 12px; font-size: 1.1em;">
+                    ⚠️ PERINGATAN SISTEM: Terdeteksi Bom Rindu berkedip di sistem! Jangan panik...
+                </p>
             </div>
         """, unsafe_allow_html=True)
+        
+        if st.button("💣 DETEKSI BOM ZEFANYA"):
+            st.session_state['bomb_triggered'] = True
+            st.rerun()
+    else:
+        st.balloons()
+        st.markdown("""
+            <div style="background: #ffe6e6; padding: 18px; border-radius: 14px; border: 2px solid #ff4d4d; text-align: center; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(255,77,77,0.2);">
+                <h3 style="color: #d90429; margin-bottom: 8px;">💥 BOOOM! Hayo kaget yaaa! 😜</h3>
+                <p style="color: #111111; font-weight: 700; font-size: 1.1em; line-height: 1.5;">
+                    Hahaha, tenang aja! Itu bukan bom beneran kok, tapi <b>Bom Kangen</b> dari Zefanya yang siap meledakkan senyuman di wajah cantikmu hari ini! 💣🤍✨
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # Desain Piagam Sertifikat Resmi Klasik
+        st.markdown("""
+            <div style="background: #ffffff; border: 5px double #1D3557; padding: 25px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 8px 25px rgba(0,0,0,0.15); margin-top: 15px; margin-bottom: 15px;">
+                <div style="position: absolute; top: 15px; right: 20px; background: #e63946; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; transform: rotate(8deg);">
+                    Approved by Zefanya 🏆
+                </div>
+                <h3 style="color: #1D3557; font-family: 'Georgia', serif; margin-bottom: 5px; font-size: 1.4em;">📜 SERTIFIKAT RESMI PAWANG 📜</h3>
+                <p style="color: #6c757d; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">Diberikan dengan penuh rasa rindu dan bangga</p>
+                <hr style="border: 1px solid #dee2e6; width: 80%; margin: 0 auto 15px auto;">
+                <p style="color: #111111; font-size: 1.1em; font-weight: 700; line-height: 1.5;">
+                    Sertifikat kehormatan ini diberikan kepada:<br>
+                    <span style="color: #e63946; font-size: 1.3em; font-family: 'Georgia', serif;">Avrillia 🤍</span><br>
+                    Sebagai <b>Pawang Kerja Anti-Mager Paling Hebat se-Sumatera Utara!</b>
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("🏆 Klaim Gelar Pawang Sekarang"):
+            st.balloons()
+            st.markdown("""
+                <div style="background-color: #2b9348; padding: 14px; border-radius: 12px; color: #ffffff !important; font-weight: bold; text-align: center; margin-top: 12px; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                    Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨
+                </div>
+            """, unsafe_allow_html=True)
 
 elif current_data["fitur_spesial"] == "mood_tracker":
     st.markdown("---")
