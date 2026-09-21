@@ -78,7 +78,7 @@ if current_hour >= 18:
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Teks hitam pekat & jelas dibaca)
+# Custom CSS & Styling (Teks hitam pekat di dalam pesan agar sangat jelas dibaca)
 css_style = """
     <style>
     .stApp {
@@ -129,7 +129,7 @@ css_style = """
         font-size: 1.1em;
     }
     
-    /* --- KOTAK PESAN HARIAN DENGAN TEKS HITAM PEKAT --- */
+    /* --- KOTAK PESAN HARIAN: HITAM PEKAT & SANGAT JELAS --- */
     .message-box {
         background-color: #ffffff;
         border: 2px solid """ + current_font + """;
@@ -248,57 +248,64 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} — Update per {today.strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# --- JADWAL MINGGUAN ---
+# --- JADWAL MINGGUAN & LAGU SPESIFIK HARI INI (1 HARI 1 LAGU) ---
 start_of_week = today - datetime.timedelta(days=today.weekday())
 
 weekly_schedule = {
-    0: { 
+    0: { # SENIN
         "nama": "Senin", "tanggal": start_of_week + datetime.timedelta(days=0),
         "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
         "pesan": "Selamat hari Senin, pawang kerjaku! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam dan ingat dompetmu butuh asupan saldo sehat. Senyum dong biar monitor kantor silau sama cantiknya kamu! 🤍💪",
-        "foto": "foto_senin.jpeg", "fitur_spesial": "weather_note"
+        "foto": "foto_senin.jpeg", "fitur_spesial": "weather_note",
+        "lagu_judul": "Secukupnya — Hindia", "lagu_url": "https://www.youtube.com/watch?v=wnAKxtEi78c"
     },
-    1: { 
+    1: { # SELASA
         "nama": "Selasa", "tanggal": start_of_week + datetime.timedelta(days=1),
         "tema": "🌿 Edisi Selasa: Waktunya Me-Time & Santai",
         "pesan": "Selamat hari Selasa! Waktunya menikmati hari dengan rileks dan santai. Jangan terlalu diforsir kerjanya ya jagoanku! ✨",
-        "foto": "foto_selasa.jpeg", "fitur_spesial": "fake_error"
+        "foto": "foto_selasa.jpeg", "fitur_spesial": "fake_error",
+        "lagu_judul": "Mata Air — Hindia", "lagu_url": "https://www.youtube.com/watch?v=i0aE3fHHitY"
     },
-    2: { 
+    2: { # RABU
         "nama": "Rabu", "tanggal": start_of_week + datetime.timedelta(days=2),
         "tema": "✨ Edisi Rabu: Mid-Week Hug (Setengah Perjalanan)",
         "pesan": "Udah hari Rabu nih! Nggak terasa udah setengah jalan menuju weekend. Tetap semangat ya bidadari Berastagi! Kerjaan sebanyak apapun pasti kelar kalau dikerjakan pakai senyuman manismu. 🫂🤍",
-        "foto": "foto_rabu.jpeg", "fitur_spesial": "mood_tracker"
+        "foto": "foto_rabu.jpeg", "fitur_spesial": "mood_tracker",
+        "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=8c0IzngvGEw"
     },
-    3: { 
+    3: { # KAMIS
         "nama": "Kamis", "tanggal": start_of_week + datetime.timedelta(days=3),
         "tema": "🌸 Edisi Kamis: Kamisan Manis Menuju Weekend",
         "pesan": "Selamat hari Kamis! Sikit lagi mau weekend, tahan dikit lagi ya! Tetap fokus, jaga kesehatan, dan ingat ada aku yang selalu dukung kamu dari jauh. Semangat pejuang rupiah! 🤍",
-        "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge"
+        "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge",
+        "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
     },
-    4: { 
+    4: { # JUMAT
         "nama": "Jumat", "tanggal": start_of_week + datetime.timedelta(days=4),
         "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
         "pesan": "Yeay, Jumat berkah! Hari terakhir kerja sebelum weekend. Selesaikan sisa tugasmu dengan senyuman paling cerah ya! Sebentar lagi mau santai-santai. Pokoknya hari ini harus happy! 🤍",
-        "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification"
+        "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification",
+        "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
     },
-    5: { 
+    5: { # SABTU
         "nama": "Sabtu", "tanggal": start_of_week + datetime.timedelta(days=5),
         "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
         "pesan": "Selamat hari Sabtu, kesayanganku! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Kalau ada yang nyebelin, senyumin aja karena cantiknya kamu nggak ada tandingan. Semangat! 🤍",
-        "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button"
+        "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
+        "lagu_judul": "Cincin — Hindia", "lagu_url": "https://www.youtube.com/watch?v=2q8X93a9n6o"
     },
-    6: { 
+    6: { # MINGGU
         "nama": "Minggu", "tanggal": start_of_week + datetime.timedelta(days=6),
         "tema": "☕ Edisi Minggu: Sweet & Lazy Sunday",
         "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya, dan siapin mood buat menyambut minggu baru. Have a wonderful Sunday, kesayangan! 🤍☕",
-        "foto": "foto_minggu.jpeg", "fitur_spesial": "secret_inbox"
+        "foto": "foto_minggu.jpeg", "fitur_spesial": "secret_inbox",
+        "lagu_judul": "Evaluasi — Hindia", "lagu_url": "https://www.youtube.com/watch?v=2q8X93a9n6o"
     }
 }
 
 current_data = weekly_schedule.get(today.weekday(), weekly_schedule[0])
 
-# 📬 1. SURAT HARI INI (DENGAN KOTAK HTML KONTRAS TINGGI)
+# 📬 1. SURAT HARI INI
 st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({current_data['nama']}, {current_data['tanggal'].strftime('%d %b %Y')})</h3>", unsafe_allow_html=True)
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
@@ -321,48 +328,16 @@ elif current_data["fitur_spesial"] == "running_button":
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🎵 2. JUKEBOX 7 LAGU PILIHAN (DENGAN TOMBOL CADANGAN LANGSUNG KE YOUTUBE)
-st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & .Feast)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
-
-pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
-    "1. Secukupnya — Hindia",
-    "2. Mata Air — Hindia",
-    "3. Peradaban — .Feast",
-    "4. Bayangkan Jika Kita Tidak Menyerah — Hindia",
-    "5. Rumah ke Rumah — Hindia",
-    "6. Cincin — Hindia",
-    "7. Evaluasi — Hindia"
-])
-
-# Pemetaan ID Video YouTube Resmi yang Stabil
-if "1." in pilihan_lagu:
-    yt_id = "wnAKxtEi78c"
-    yt_url = "https://www.youtube.com/watch?v=wnAKxtEi78c"
-elif "2." in pilihan_lagu:
-    yt_id = "i0aE3fHHitY"
-    yt_url = "https://www.youtube.com/watch?v=i0aE3fHHitY"
-elif "3." in pilihan_lagu:
-    yt_id = "8c0IzngvGEw"
-    yt_url = "https://www.youtube.com/watch?v=8c0IzngvGEw"
-elif "4." in pilihan_lagu:
-    yt_id = "5H3p96u8_8k"
-    yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
-elif "5." in pilihan_lagu:
-    yt_id = "5H3p96u8_8k"
-    yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
-elif "6." in pilihan_lagu:
-    yt_id = "2q8X93a9n6o"
-    yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
-else:
-    yt_id = "2q8X93a9n6o"
-    yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
+# 🎵 2. LAGU SPESIAL HARI INI (1 HARI 1 LAGU KHUSUS)
+st.markdown(f"<div class='love-card'><h3>🎵 Soundtrack Hari Ini</h3><p>Lagu pilihan spesial buat menemani hari {current_data['nama']}:</p>", unsafe_allow_html=True)
+st.markdown(f"**♪ {current_data['lagu_judul']}**")
 
 # Pemutar Video Streamlit
-st.video(yt_url)
+st.video(current_data['lagu_url'])
 
-# Tombol Cadangan Langsung ke YouTube jika embed diblokir
+# Tombol Cadangan Langsung ke YouTube
 st.markdown(f"""
-    <a href="{yt_url}" target="_blank">
+    <a href="{current_data['lagu_url']}" target="_blank">
         <button style="margin-top: 10px; width: 100%; background: #ff0000; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
             ▶️ Klik di Sini Jika Video di Atas Diblokir (Buka YouTube Langsung)
         </button>
