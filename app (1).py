@@ -88,7 +88,7 @@ themes = {
 }
 
 # --- PILIH HARI (Otomatis menandai mana yang terkunci atau terbuka berdasarkan hari aktual) ---
- opsi_selectbox = []
+opsi_selectbox = []
 for i, h in enumerate(daftar_hari):
     if i <= indeks_hari_ini:
         opsi_selectbox.append(h)
@@ -526,7 +526,7 @@ with st.expander("🔒 Panel Khusus Zefanya"):
             if st.button("❌ Hapus Jawaban Ini"):
                 if id_to_delete in df_data['id'].values:
                     delete_response(id_to_delete)
-                    st.success(f"ID {id_to_delete} berhasil terbuka/terhapus!")
+                    st.success(f"ID {id_to_delete} berhasil dihapus!")
                     st.rerun()
                 else:
                     st.error("ID tidak ditemukan.")
