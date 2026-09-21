@@ -203,7 +203,7 @@ st.markdown("<small style='color: #555;'>*Nikmati alunan musiknya sambil membaca
 
 # 📅 2. Surat Hari Ini (Edisi Hari Senin - Lucu & Penyemangat Kerja)
 arsip_surat_harian = {
-    "2026-09-21": "Selamat hari Senin, pawang kerjaku! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam, minum air putih, dan ingat kalau dompetmu butuh asupan saldo yang sehat. Jangan cemberut ya, senyum dong biar monitor kantornya silau sama cantiknya kamu! Kalau ada yang nyebelin hari ini, bayangin aja aku lagi ngelawak di sebelahmu. Fighting! 🤍💪",
+    "2026-09-21": "Selamat hari Senin, Avrillia! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam, minum air putih, dan ingat kalau dompetmu butuh asupan saldo yang sehat. Jangan cemberut ya, senyum dong biar monitor kantornya silau sama cantiknya kamu! Kalau ada yang nyebelin hari ini, bayangin aja aku lagi ngelawak di sebelahmu. Fighting! 🤍💪",
     "2026-09-20": "Selamat hari Minggu dan selamat menikmati hari liburmu ya!",
 }
 
