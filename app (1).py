@@ -180,28 +180,27 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Surat Harian & Kasih Sayang — Update per {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# 🎵 1. Pemutar Musik YouTube (Hindia - Everything You Are)
-st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Everything You Are)</h3><p>Putar lagu ini langsung di sini biar suasananya makin tenang:</p>", unsafe_allow_html=True)
+# 🎵 1. Pemutar Musik YouTube (Hindia - Kita ke Sana)
+st.markdown("<div class='love-card'><h3>🎵 Lagu Kita (Hindia - Kita ke Sana)</h3><p>Putar lagu ini langsung di sini biar harimu makin tenang:</p>", unsafe_allow_html=True)
 st.markdown("""
-    <iframe width="100%" height="210" src="https://www.youtube.com/embed/lB8ASupNtlw" 
-        title="Hindia - Everything You Are (Official Lyric Video)" frameborder="0" 
+    <iframe width="100%" height="210" src="https://www.youtube.com/embed/DrulgpXAGCA" 
+        title="Hindia - Kita ke Sana (Official Lyric Video)" frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen style="border-radius: 12px;">
     </iframe>
 """, unsafe_allow_html=True)
 st.markdown("<small style='color: #555;'>*Nikmati alunan musiknya sambil membaca surat hari ini.*</small></div>", unsafe_allow_html=True)
 
-# 📅 1. Surat Hari Ini (Edisi Hari Minggu / Libur)
+# 📅 2. Surat Hari Ini (Edisi Hari Senin - Lucu & Penyemangat Kerja)
 arsip_surat_harian = {
-    "2026-09-20": "Selamat hari Minggu dan selamat menikmati hari liburmu ya! Semoga hari ini benar-benar jadi waktu yang pas buat recharge energi, istirahat yang tenang, dan melakukan hal-hal yang bikin kamu happy. Jangan mikirin kerjaan dulu ya hari ini, nikmati waktu santaimu secukupnya. I'm always cheering for you! 🤍",
-    "2026-09-19": "Hari ini harus banyak senyum ya, jalani hari dengan hati yang ringan!",
-    "2026-09-18": "Kangen sushi lagi gak? Semoga weekend ini ada waktu buat makan bareng ya.",
+    "2026-09-21": "Selamat hari Senin, pawang kerjaku! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam, minum air putih, dan ingat kalau dompetmu butuh asupan saldo yang sehat. Jangan cemberut ya, senyum dong biar monitor kantornya silau sama cantiknya kamu! Kalau ada yang nyebelin hari ini, bayangin aja aku lagi ngelawak di sebelahmu. Fighting! 🤍💪",
+    "2026-09-20": "Selamat hari Minggu dan selamat menikmati hari liburmu ya!",
 }
 
 today_str = datetime.date.today().strftime("%Y-%m-%d")
-default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo Avrillia! Selamat hari Minggu, nikmati liburmu dengan senyuman paling manis ya 🤍")
+default_pesan_hari_ini = arsip_surat_harian.get(today_str, "Halo Avrillia! Selamat hari Senin, hadapi kerjaan hari ini dengan senyuman mautmu ya 🤍")
 
-st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini (Edisi Hari Minggu ☀️)</h3>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>📬 Surat Hari Ini (Edisi Senin Semangat 💼)</h3>", unsafe_allow_html=True)
 st.info(f"✨ **Pesan untuk hari ini ({datetime.date.today().strftime('%d %b')}):**\n\n> {default_pesan_hari_ini}")
 
 with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
@@ -209,11 +208,11 @@ with st.expander("📖 Lihat Arsip Pesan Hari-Hari Sebelumnya"):
         st.write(f"- **{tgl}**: {psn}")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🚌 3. Perjalanan Medan ke Berastagi (Layout Dua Kolom: Foto & Pesan Kecantikan/Senyuman)
-st.markdown("<div class='love-card'><h3>🚌 Hati-Hati di Perjalanan ke Berastagi</h3><p>Pesan khusus untuk perjalananmu siang ini:</p>", unsafe_allow_html=True)
-st.info("✨ *'Avrillia, selamat menikmati hari di Medan ya pagi ini. Nanti siang pas mau balik ke Berastagi naik bus, tolong jaga diri baik-baik ya, jangan tidur pulas di jalan, pasang jaket yang hangat karena udaranya nanti dingin, dan kabari aku kalau sudah sampai dengan selamat. Have a safe trip, my love!'* 🤍")
+# 🚌 3. Pesan Super Kreatif Berastagi (Layout Dua Kolom dengan Foto: foto_dirimu.jpeg / jpg)
+st.markdown("<div class='love-card'><h3>⛰️ Pesan Spesial untuk Jagoan Berastagi</h3><p>Penyemangat super buat hari ini:</p>", unsafe_allow_html=True)
+st.info("✨ *'Hei orang hebat di Berastagi! Walaupun udaranya dingin dan kerjaan hari Senin ini kelihatan banyak, ingat ya kamu itu jauh lebih kuat dari deadline manapun. Jangan lupa pakai jaket kesayangan dan senyum manisnya dipasang terus. Semangat menjemput rezeki, nanti kalau udah selesai aku kasih pelukan virtual paling erat!'* 🤍")
 
-img_path_1 = "foto_perjalanan.jpeg" if os.path.exists("foto_perjalanan.jpeg") else ("foto_perjalanan.jpg" if os.path.exists("foto_perjalanan.jpg") else None)
+img_path_1 = "foto_dirimu.jpeg" if os.path.exists("foto_dirimu.jpeg") else ("foto_dirimu.jpg" if os.path.exists("foto_dirimu.jpg") else None)
 
 if img_path_1:
     col_img1, col_txt1 = st.columns([1, 1], gap="medium")
@@ -224,18 +223,18 @@ if img_path_1:
     with col_txt1:
         st.markdown("""
             <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
-                <h4 style="color: #0d47a1; margin-bottom: 8px;">Cantik & Manisnya Kamu... ✨</h4>
+                <h4 style="color: #0d47a1; margin-bottom: 8px;">Bidadari Berastagi Paling Bersinar... ✨</h4>
                 <p style="color: #2d2d2d; font-size: 0.95em; line-height: 1.6;">
-                Tau gak? Setiap kali aku lihat foto kamu, aku selalu kagum sama betapa cantiknya kamu. Senyuman manis kamu itu selalu berhasil jadi penenang sekaligus pemandangan paling indah buat aku. Tetap senyum terus ya, kesayanganku! 🤍
+                Melihat foto ini bikin aku sadar, sejauh apapun jarak kita atau seberapa sibuknya hari Senin ini, energinya langsung terisi lagi cuma karena bayangin senyuman kamu. Kamu hebat banget hari ini, proud of you! 🤍
                 </p>
             </div>
         """, unsafe_allow_html=True)
 else:
-    st.warning("⚠️ File foto perjalanan tidak ditemukan di repository GitHub.")
+    st.warning("⚠️ File foto baru belum di-upload (gunakan nama `foto_dirimu.jpeg` atau `foto_dirimu.jpg` di GitHub).")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⏳ 4. Waktu Kita (Layout Dua Kolom: Foto & Pesan Pelukan Hangat)
-st.markdown("<div class='love-card'><h3>⏳ Waktu Kita (Galeri Kenangan)</h3><p>Waktu terbaik kita yang selalu jadi tempat berpulang paling nyaman 🤍</p>", unsafe_allow_html=True)
+# ⏳ 4. Waktu Kita (Layout Dua Kolom dengan Foto: foto_waktu_kita.jpeg / jpg)
+st.markdown("<div class='love-card'><h3>⏳ Waktu Kita (Momen Spesial Baru)</h3><p>Kenangan indah yang selalu jadi alasan untuk bertahan 🤍</p>", unsafe_allow_html=True)
 
 img_path_2 = "foto_waktu_kita.jpeg" if os.path.exists("foto_waktu_kita.jpeg") else ("foto_waktu_kita.jpg" if os.path.exists("foto_waktu_kita.jpg") else None)
 
@@ -248,56 +247,60 @@ if img_path_2:
     with col_txt2:
         st.markdown("""
             <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
-                <h4 style="color: #0d47a1; margin-bottom: 8px;">Pelukan Hangat Paling Nyaman... 🤗🤍</h4>
+                <h4 style="color: #0d47a1; margin-bottom: 8px;">Rumah Adalah Kamu... 🤗🤍</h4>
                 <p style="color: #2d2d2d; font-size: 0.95em; line-height: 1.6;">
-                Tidak ada tempat yang lebih menenangkan di dunia ini selain berada di dalam dekapan pelukan hangatmu. Setiap detik waktu yang kita lewati berdua selalu jadi memori terindah yang paling aku syukuri. Pelukan itu yang selalu bikin aku merasa utuh. 🫂✨
+                Di antara semua tempat di dunia, bersandar dan ketawa bareng kamu di momen ini adalah definisi kenyamanan yang hakiki. Terima kasih ya sudah jadi rumah tempat aku selalu ingin pulang. 🫂✨
                 </p>
             </div>
         """, unsafe_allow_html=True)
 else:
-    st.warning("⚠️ File foto waktu kita tidak ditemukan di repository GitHub.")
+    st.warning("⚠️ File foto waktu kita belum di-upload (gunakan nama `foto_waktu_kita.jpeg` atau `foto_waktu_kita.jpg` di GitHub).")
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🕰️ 5. Time Capsule: Ungkapan Terima Kasih (Klik untuk Membuka)
-st.markdown("<div class='love-card'><h3>🕰️ Time Capsule: Pesan & Ungkapan Hati</h3><p>Ada pesan khusus yang tersimpan di sini. Klik tombol di bawah untuk membukanya: 👇</p>", unsafe_allow_html=True)
+# 🕰️ 5. Time Capsule Ide Terbaik (Pesan Rahasia Penuh Makna & Motivasi)
+st.markdown("<div class='love-card'><h3>🕰️ Time Capsule: Kapsul Waktu Pejuang Masa Depan</h3><p>Klik tombol di bawah untuk membuka suntikan semangat khusus hari ini: 👇</p>", unsafe_allow_html=True)
 
 if 'show_gratitude' not in st.session_state:
     st.session_state['show_gratitude'] = False
 
-if st.button("✨ Klik untuk Membuka Pesan Spesial"):
+if st.button("✨ Buka Kapsul Waktu Hari Ini"):
     st.session_state['show_gratitude'] = True
     st.balloons()
 
 if st.session_state['show_gratitude']:
     st.markdown("""
         <div style='background: rgba(255,255,255,0.95); padding: 22px; border-radius: 15px; text-align: left; color: #1a1a1a; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 5px solid #0d47a1;'>
-        <h4 style='color: #0d47a1; margin-top: 0;'>Terima Kasih Banyak, Avrillia 🤍</h4>
-        <p>Sambil mendengarkan alunan musik ini, aku ingin mengucapkan terima kasih yang sebesar-besarnya dari lubuk hatiku.</p>
-        <p>Kamu sudah banyak sekali membantuku dalam segala hal, terutama di masa-masa kita berjuang bersama saat masih mahasiswa dari urusan tugas, skripsi, dukungan moral, sampai kesabaranmu menghadapi masa-masa lelah dan penuh tekanan.</p>
-        <p>Aku tidak akan bisa melaluinya dengan mudah kalau bukan karena kehadiran, ketulusan, dan bantuanmu. Terima kasih sudah selalu jadi tempat berpulang yang paling tenang dan hebat mendampingiku. Aku sangat bersyukur memiliki kamu.</p>
+        <h4 style='color: #0d47a1; margin-top: 0;'>Pesan dari Masa Depan untuk Avrillia 🤍</h4>
+        <p>Hai kamu yang lagi baca ini di sela-sela kesibukan kerjaanmu...</p>
+        <p>Ingatlah bahwa setiap lelah, setiap tetes keringat, dan setiap usaha keras yang kamu keluarkan hari ini sedang membangun versi hidup kita yang paling bahagia di masa depan. Kamu tidak sedang berjuang sendirian; ada aku yang selalu mendukungmu di setiap langkah.</p>
+        <p>Tarik napas, kerjakan pelan-pelan, dan kalau sudah selesai, kabari aku ya. Kamu hebat, hari ini dan selamanya!</p>
         </div>
     """, unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ✨ 6. Penilaian Kebahagiaan Membaca Surat (Tersimpan ke Panel Zefanya)
-st.markdown("<div class='love-card'><h3>💖 Seberapa Senang Kamu Baca Surat Ini?</h3><p>Pilih ekspresi kebahagiaanmu hari ini ya:</p>", unsafe_allow_html=True)
+# ✨ 6. Penilaian Kebahagiaan Membaca Surat (Isi Versi Lucu & Menghibur)
+st.markdown("<div class='love-card'><h3>💖 Seberapa Senang Kamu Baca Surat Ini?</h3><p>Pilih tingkat kebahagiaanmu dengan jujur (atau kena denda senyum):</p>", unsafe_allow_html=True)
 
-pilihan_senang = st.radio("Pilih tingkat kebahagiaan:", ["happy", "happyyy", "happyyyyyyy bgttttt"])
+pilihan_senang = st.radio("Pilih ekspresi kamu sekarang:", [
+    "Senang banget kayak menang doorprize kulkas dua pintu 🧊", 
+    "Bahagia pol sampe mau minta traktir sushi 🍣", 
+    "Senyum-senyum sendiri dikira orang gila sama teman sekantor 🤪"
+])
 
 if st.button("💾 Simpan Perasaanku"):
     save_response("Tingkat Kebahagiaan Membaca Surat", pilihan_senang)
-    st.success("Yeay! Perasaan senangnya sudah tersimpan untuk Zefanya 🤍")
+    st.success("Yeay! Jawaban gemasmu sudah sukses masuk ke Panel Zefanya 🤍")
     st.balloons()
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Tombol Lapor ke WhatsApp Kamu secara umum
+# Tombol Konfirmasi ke WhatsApp Kamu
 st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca semuanya? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 
 nomor_wa = "6281216464994" 
-pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat hari Minggu ini! 🤍✨"
+pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat edisi hari Senin nih! 🤍✨"
 link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
 st.markdown(f"""
