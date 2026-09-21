@@ -255,14 +255,14 @@ weekly_schedule = {
     0: { # SENIN
         "nama": "Senin", "tanggal": start_of_week + datetime.timedelta(days=0),
         "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
-        "pesan": "Selamat hari Senin, pawang kerjaku! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam dan ingat dompetmu butuh asupan saldo sehat. Senyum dong biar monitor kantor silau sama cantiknya kamu! 🤍💪",
+        "pesan": "Selamat hari Senin, Avrillia! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam dan ingat dompetmu butuh asupan saldo sehat. Senyum dong biar monitor kantor silau sama cantiknya kamu! 🤍💪",
         "foto": "foto_senin.jpeg", "fitur_spesial": "weather_note",
         "lagu_judul": "Secukupnya — Hindia", "lagu_url": "https://www.youtube.com/watch?v=wnAKxtEi78c"
     },
     1: { # SELASA
         "nama": "Selasa", "tanggal": start_of_week + datetime.timedelta(days=1),
         "tema": "🌿 Edisi Selasa: Waktunya Me-Time & Santai",
-        "pesan": "Selamat hari Selasa! Waktunya menikmati hari dengan rileks dan santai. Jangan terlalu diforsir kerjanya ya jagoanku! ✨",
+        "pesan": "Selamat hari Selasa! Waktunya menikmati hari dengan rileks dan santai. Jangan terlalu diforsir kerjanya ya Avrillia! ✨",
         "foto": "foto_selasa.jpeg", "fitur_spesial": "fake_error",
         "lagu_judul": "Mata Air — Hindia", "lagu_url": "https://www.youtube.com/watch?v=i0aE3fHHitY"
     },
@@ -290,7 +290,7 @@ weekly_schedule = {
     5: { # SABTU
         "nama": "Sabtu", "tanggal": start_of_week + datetime.timedelta(days=5),
         "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
-        "pesan": "Selamat hari Sabtu, kesayanganku! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Kalau ada yang nyebelin, senyumin aja karena cantiknya kamu nggak ada tandingan. Semangat! 🤍",
+        "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Kalau ada yang nyebelin, senyumin aja karena cantiknya kamu nggak ada tandingan. Semangat! 🤍",
         "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
         "lagu_judul": "Cincin — Hindia", "lagu_url": "https://www.youtube.com/watch?v=2q8X93a9n6o"
     },
