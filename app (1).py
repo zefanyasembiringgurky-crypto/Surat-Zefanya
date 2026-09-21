@@ -486,7 +486,7 @@ else:
     st.markdown("</div>", unsafe_allow_html=True)
 
     # 📲 6. LAPOR WHATSAPP
-    st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+    st.markdown("<div class='love-card'>✅ Konfirmasi Mampir<p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
     nomor_wa = "6281216464994" 
     pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat harian nih! 🤍✨"
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
