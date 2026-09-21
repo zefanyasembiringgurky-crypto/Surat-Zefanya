@@ -302,9 +302,9 @@ st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("<div class='love-card'><h3>💖 Seberapa Senang Kamu Baca Surat Ini?</h3><p>Pilih tingkat kebahagiaanmu jujur-jujur ya:</p>", unsafe_allow_html=True)
 
 pilihan_senang = st.radio("Pilih ekspresi kamu sekarang:", [
-    "Bahagia kalilah rasa a, serasa menang tender ganti rugi jalan tol! 🛞😂", 
-    "Senyum-senyum sendiri aku nengoknya, kayak orang gila di Medan Mall! 🤪", 
-    "Kalak karona (manis) kali suratnya, jadi rindu mau kuajak nge-teh manis berdua! ☕✨"
+    "sikikkk aaaa! 🛞😂", 
+    "maaaatiiiiiii! 🤪", 
+    "jujurly, kureng si tapi boong wkwkwkw happy bgtttttt, makasih yaa Zefanya! ☕✨"
 ])
 
 if st.button("💾 Simpan Perasaanku"):
