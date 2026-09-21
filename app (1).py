@@ -59,17 +59,6 @@ today = datetime.date.today()
 current_hour = datetime.datetime.now().hour
 hari_ini_inggris = today.strftime("%A")
 
-# Pemetaan Tema Warna Mingguan Spesifik
-themes = {
-    "Monday": {"bg": "#FFD166", "font": "#073B4C", "accent": "#FFFFFF", "nama_tema": "Summer Citrus"},
-    "Tuesday": {"bg": "#06D6A0", "font": "#1D3557", "accent": "#F1FAEE", "nama_tema": "Minty Fresh"},
-    "Wednesday": {"bg": "#FFFFFF", "font": "#118AB2", "accent": "#EF476F", "nama_tema": "Electric Neon"},
-    "Thursday": {"bg": "#4EA8DE", "font": "#560BAD", "accent": "#F4E285", "nama_tema": "Ocean Breeze"},
-    "Friday": {"bg": "#FFB703", "font": "#241400", "accent": "#FEFAE0", "nama_tema": "Peach Blossom"},
-    "Saturday": {"bg": "#FFADAD", "font": "#4A0E4E", "accent": "#CAFFBF", "nama_tema": "Pastel Pop"},
-    "Sunday": {"bg": "#B5E2FA", "font": "#3A0CA3", "accent": "#F72585", "nama_tema": "Lavender Dream"}
-}
-
 indo_to_eng = {
     "Senin": "Monday",
     "Selasa": "Tuesday",
@@ -83,22 +72,47 @@ indo_to_eng = {
 eng_to_indo = {v: k for k, v in indo_to_eng.items()}
 default_indo = eng_to_indo.get(hari_ini_inggris, "Senin")
 
-# --- FITUR PEMILIH HARI (UNTUK TESTING & EKSPLORASI PENUH) ---
+# Urutan hari dalam seminggu untuk logika kunci otomatis
+daftar_hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+indeks_hari_ini = daftar_hari.index(default_indo) if default_indo in daftar_hari else 0
+
+# Pemetaan Tema Warna Mingguan Spesifik
+themes = {
+    "Monday": {"bg": "#FFD166", "font": "#073B4C", "accent": "#FFFFFF", "nama_tema": "Summer Citrus"},
+    "Tuesday": {"bg": "#06D6A0", "font": "#1D3557", "accent": "#F1FAEE", "nama_tema": "Minty Fresh"},
+    "Wednesday": {"bg": "#FFFFFF", "font": "#118AB2", "accent": "#EF476F", "nama_tema": "Electric Neon"},
+    "Thursday": {"bg": "#4EA8DE", "font": "#560BAD", "accent": "#F4E285", "nama_tema": "Ocean Breeze"},
+    "Friday": {"bg": "#FFB703", "font": "#241400", "accent": "#FEFAE0", "nama_tema": "Peach Blossom"},
+    "Saturday": {"bg": "#FFADAD", "font": "#4A0E4E", "accent": "#CAFFBF", "nama_tema": "Pastel Pop"},
+    "Sunday": {"bg": "#B5E2FA", "font": "#3A0CA3", "accent": "#F72585", "nama_tema": "Lavender Dream"}
+}
+
+# --- PILIH HARI (Otomatis menandai mana yang terkunci atau terbuka berdasarkan hari aktual) ---
+ opsi_selectbox = []
+for i, h in enumerate(daftar_hari):
+    if i <= indeks_hari_ini:
+        opsi_selectbox.append(h)
+    else:
+        opsi_selectbox.append(f"{h} (Terkunci 🔒)")
+
 st.markdown("<div style='background: rgba(255,255,255,0.85); padding: 12px; border-radius: 12px; margin-bottom: 20px; text-align: center;'>", unsafe_allow_html=True)
-selected_hari_indo = st.selectbox("📅 Pilih Hari yang Ingin Ditampilkan:", ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"], index=["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"].index(default_indo))
+selected_hari_indo_raw = st.selectbox("📅 Pilih Hari yang Ingin Ditampilkan:", opsi_selectbox, index=indeks_hari_ini)
 st.markdown("</div>", unsafe_allow_html=True)
+
+# Bersihkan teks status terkunci dari pilihan selectbox
+selected_hari_indo = selected_hari_indo_raw.split(" ")[0]
 
 selected_hari_eng = indo_to_eng[selected_hari_indo]
 current_theme = themes.get(selected_hari_eng, themes["Monday"])
 current_bg = current_theme["bg"]
 current_font = current_theme["font"]
 
-# Cek Night-Mode Otomatis (Jika di atas jam 18:00 atau khusus Minggu malam)
+# Cek Night-Mode Otomatis
 if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or (selected_hari_indo == "Minggu" and current_hour >= 18):
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Termasuk Animasi Kepulan Asap Visual)
+# Custom CSS & Styling
 css_template = """
     <style>
     .stApp {
@@ -216,8 +230,6 @@ css_template = """
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
     }
-    
-    /* Animasi Kepulan Asap Visual Nyata */
     @keyframes smokePuff {
         0% { transform: scale(0.4) translateY(10px); opacity: 0; filter: blur(4px); }
         50% { transform: scale(1.3) translateY(-15px); opacity: 1; filter: blur(1px); }
@@ -259,237 +271,234 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} ({selected_hari_indo})</p>", unsafe_allow_html=True)
 
-# --- DATA JADWAL HARI & KEJUTAN PILIHAN ---
-weekly_schedule = {
-    "Senin": { 
-        "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
-        "pesan": "Selamat hari Senin, Avrillia! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam dan ingat dompetmu butuh asupan saldo sehat. Senyum dong biar monitor kantor silau sama cantiknya kamu! 🤍💪",
-        "foto": "foto_senin.jpeg", "fitur_spesial": "weather_note",
-        "lagu_judul": "Secukupnya — Hindia", "lagu_url": "https://www.youtube.com/watch?v=wnAKxtEi78c"
-    },
-    "Selasa": { 
-        "tema": "🌿 Edisi Selasa: Waktunya Me-Time & Santai",
-        "pesan": "Selamat hari Selasa! Waktunya menikmati hari dengan rileks dan santai. Jangan terlalu diforsir kerjanya ya Avrillia! ✨",
-        "foto": "foto_selasa.jpeg", "fitur_spesial": "fake_error",
-        "lagu_judul": "Mata Air — Hindia", "lagu_url": "https://www.youtube.com/watch?v=i0aE3fHHitY"
-    },
-    "Rabu": { 
-        "tema": "✨ Edisi Rabu: Mid-Week Hug (Setengah Perjalanan)",
-        "pesan": "Udah hari Rabu nih! Nggak terasa udah setengah jalan menuju weekend. Tetap semangat ya bidadari Berastagi! Kerjaan sebanyak apapun pasti kelar kalau dikerjakan pakai senyuman manismu. 🫂🤍",
-        "foto": "foto_rabu.jpeg", "fitur_spesial": "mood_tracker",
-        "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=8c0IzngvGEw"
-    },
-    "Kamis": { 
-        "tema": "🌸 Edisi Kamis: Kamisan Manis Menuju Weekend",
-        "pesan": "Selamat hari Kamis! Sikit lagi mau weekend, tahan dikit lagi ya! Tetap fokus, jaga kesehatan, dan ingat ada aku yang selalu dukung kamu dari jauh. Semangat pejuang rupiah! 🤍",
-        "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge",
-        "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=rSTO0VrV38Y"
-    },
-    "Jumat": { 
-        "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
-        "pesan": "Yeay, Jumat berkah! Hari terakhir kerja sebelum weekend. Selesaikan sisa tugasmu dengan senyuman paling cerah ya! Sebentar lagi mau santai-santai. Pokoknya hari ini harus happy! 🤍",
-        "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification",
-        "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=pjhOjHDX0A8"
-    },
-    "Sabtu": { 
-        "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
-        "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Hati-hati dalam perjalanan dari Berastagi ke Medan ya sayang, semoga lancar dan selamat sampai tujuan! 🚗✨",
-        "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
-        "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=qf1W5iIRTe8"
-    },
-    "Minggu": { 
-        "tema": "☕ Edisi Minggu: Sweet & Lazy Sunday",
-        "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya. Hati-hati dalam perjalanan kembali dari Medan ke Berastagi, selamat berlibur dan nikmati waktunya ya, kesayangan! 🌴🤍",
-        "foto": "foto_minggu.jpeg", "fitur_spesial": "secret_inbox",
-        "lagu_judul": "Evaluasi — Hindia", "lagu_url": "https://www.youtube.com/watch?v=cWrSjCZ5AeE"
+# --- CEK APAKAH HARI TERKUNCI ATAU TERBUKA BERDASARKAN WAKTU AKTUAL ---
+indeks_pilihan = daftar_hari.index(selected_hari_indo) if selected_hari_indo in daftar_hari else 0
+
+if indeks_pilihan > indeks_hari_ini:
+    # TAMPILAN KETIKA HARI MASIH TERKUNCI (Belum waktunya)
+    st.markdown(f"""
+        <div class='love-card'>
+            <h3 style="color: #e63946;">🔒 Surat Hari {selected_hari_indo} Masih Dikunci!</h3>
+            <p style="margin-top: 15px; font-size: 1.15em;">
+                Sabar ya bidadari Berastagi... Surat dan kejutan untuk hari <b>{selected_hari_indo}</b> belum waktunya dibuka. 
+                <br><br>
+                Hari ini baru hari <b>{eng_to_indo.get(hari_ini_inggris, 'Senin')}</b>, jadi surat akan terbuka secara otomatis seiring bergantinya hari! 🤍✨
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+else:
+    # TAMPILAN NORMAL (Hari yang sudah terbuka otomatis)
+    weekly_schedule = {
+        "Senin": { 
+            "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
+            "pesan": "Selamat hari Senin, Avrillia! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam dan ingat dompetmu butuh asupan saldo sehat. Senyum dong biar monitor kantor silau sama cantiknya kamu! 🤍💪",
+            "foto": "foto_senin.jpeg", "fitur_spesial": "weather_note",
+            "lagu_judul": "Secukupnya — Hindia", "lagu_url": "https://www.youtube.com/watch?v=wnAKxtEi78c"
+        },
+        "Selasa": { 
+            "tema": "🌿 Edisi Selasa: Waktunya Me-Time & Santai",
+            "pesan": "Selamat hari Selasa! Waktunya menikmati hari dengan rileks dan santai. Jangan terlalu diforsir kerjanya ya Avrillia! ✨",
+            "foto": "foto_selasa.jpeg", "fitur_spesial": "fake_error",
+            "lagu_judul": "Mata Air — Hindia", "lagu_url": "https://www.youtube.com/watch?v=i0aE3fHHitY"
+        },
+        "Rabu": { 
+            "tema": "✨ Edisi Rabu: Mid-Week Hug (Setengah Perjalanan)",
+            "pesan": "Udah hari Rabu nih! Nggak terasa udah setengah jalan menuju weekend. Tetap semangat ya bidadari Berastagi! Kerjaan sebanyak apapun pasti kelar kalau dikerjakan pakai senyuman manismu. 🫂🤍",
+            "foto": "foto_rabu.jpeg", "fitur_spesial": "mood_tracker",
+            "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=8c0IzngvGEw"
+        },
+        "Kamis": { 
+            "tema": "🌸 Edisi Kamis: Kamisan Manis Menuju Weekend",
+            "pesan": "Selamat hari Kamis! Sikit lagi mau weekend, tahan dikit lagi ya! Tetap fokus, jaga kesehatan, dan ingat ada aku yang selalu dukung kamu dari jauh. Semangat pejuang rupiah! 🤍",
+            "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge",
+            "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=rSTO0VrV38Y"
+        },
+        "Jumat": { 
+            "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
+            "pesan": "Yeay, Jumat berkah! Hari terakhir kerja sebelum weekend. Selesaikan sisa tugasmu dengan senyuman paling cerah ya! Sebentar lagi mau santai-santai. Pokoknya hari ini harus happy! 🤍",
+            "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification",
+            "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=pjhOjHDX0A8"
+        },
+        "Sabtu": { 
+            "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
+            "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Hati-hati dalam perjalanan dari Berastagi ke Medan ya sayang, semoga lancar dan selamat sampai tujuan! 🚗✨",
+            "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
+            "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=qf1W5iIRTe8"
+        },
+        "Minggu": { 
+            "tema": "☕ Edisi Minggu: Sweet & Lazy Sunday",
+            "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya. Hati-hati dalam perjalanan kembali dari Medan ke Berastagi, selamat berlibur dan nikmati waktunya ya, kesayangan! 🌴🤍",
+            "foto": "foto_minggu.jpeg", "fitur_spesial": "secret_inbox",
+            "lagu_judul": "Evaluasi — Hindia", "lagu_url": "https://www.youtube.com/watch?v=cWrSjCZ5AeE"
+        }
     }
-}
 
-current_data = weekly_schedule[selected_hari_indo]
+    current_data = weekly_schedule[selected_hari_indo]
 
-# 📬 1. SURAT HARI INI
-st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_indo})</h3>", unsafe_allow_html=True)
-st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
-st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
+    # 📬 1. SURAT HARI INI
+    st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_indo})</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
+    st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN EFEK KEPULAN ASAP VISUAL)
-if current_data["fitur_spesial"] == "fake_error":
-    if 'bomb_triggered' not in st.session_state:
-        st.session_state['bomb_triggered'] = False
+    # FITUR SPESIFIK HARI SELASA (BOM ASAP ZEFANYA)
+    if current_data["fitur_spesial"] == "fake_error":
+        if 'bomb_triggered' not in st.session_state:
+            st.session_state['bomb_triggered'] = False
 
-    if not st.session_state['bomb_triggered']:
-        st.markdown("""
-            <div style="background: #fff3cd; padding: 16px; border-radius: 12px; border-left: 6px solid #ffc107; text-align: center; margin-bottom: 15px;">
-                <p style="color: #856404; font-weight: bold; margin-bottom: 12px; font-size: 1.1em;">
-                    ⚠️ PERINGATAN SISTEM: Terdeteksi Bom Asap Rindu di jaringan Berastagi!
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        if st.button("💣 DETEKSI BOM ZEFANYA"):
-            # Menampilkan placeholder visual kepulan asap bergerak
-            smoke_placeholder = st.empty()
-            smoke_placeholder.markdown("""
-                <div style="text-align: center; padding: 20px;">
-                    <div class="smoke-container">💣 💨 ☁️ 🔥</div>
-                    <p style="color: #1D3557; font-weight: bold; margin-top: 10px;">Ssssttt... Kepulan asap rindu sedang meledak!</p>
-                </div>
-            """, unsafe_allow_html=True)
-            time.sleep(1.5)  # Durasi asap mengepul di layar
-            smoke_placeholder.empty()
-            
-            st.session_state['bomb_triggered'] = True
-            st.rerun()
-    else:
-        st.markdown("""
-            <div style="background: #2b2d42; padding: 22px; border-radius: 16px; border: 3px solid #ef233c; text-align: center; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(239,35,60,0.3);">
-                <h3 style="color: #ff4d4d; margin-bottom: 10px;">💥 BOOOM! Hayo kaget yaaa! 😜</h3>
-                <p style="color: #ffffff !important; font-weight: 700; font-size: 1.15em; line-height: 1.5;">
-                    Hahaha, tenang aja! Asapnya udah hilang, sekarang tinggal sisa rasa kangen dari Zefanya yang siap bikin hari Selasamu makin happy! 🤍✨
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        # Desain Piagam Sertifikat Resmi Klasik
-        st.markdown("""
-            <div style="background: #ffffff; border: 5px double #1D3557; padding: 25px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 8px 25px rgba(0,0,0,0.15); margin-top: 15px; margin-bottom: 15px;">
-                <div style="position: absolute; top: 15px; right: 20px; background: #e63946; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; transform: rotate(8deg);">
-                    Approved by Zefanya 🏆
-                </div>
-                <h3 style="color: #1D3557; font-family: 'Georgia', serif; margin-bottom: 5px; font-size: 1.4em;">📜 SERTIFIKAT RESMI PAWANG 📜</h3>
-                <p style="color: #6c757d; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">Diberikan dengan penuh rasa rindu dan bangga</p>
-                <hr style="border: 1px solid #dee2e6; width: 80%; margin: 0 auto 15px auto;">
-                <p style="color: #111111; font-size: 1.1em; font-weight: 700; line-height: 1.5;">
-                    Sertifikat kehormatan ini diberikan kepada:<br>
-                    <span style="color: #e63946; font-size: 1.3em; font-family: 'Georgia', serif;">Avrillia 🤍</span><br>
-                    Sebagai <b>Pawang Kerja Anti-Mager Paling Hebat se-Sumatera Utara!</b>
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        if st.button("🏆 Klaim Gelar Pawang Sekarang"):
+        if not st.session_state['bomb_triggered']:
             st.markdown("""
-                <div style="background-color: #2b9348; padding: 14px; border-radius: 12px; color: #ffffff !important; font-weight: bold; text-align: center; margin-top: 12px; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                    Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨
-                </div>
-            """, unsafe_allow_html=True)
-
-elif current_data["fitur_spesial"] == "mood_tracker":
-    st.markdown("---")
-    st.markdown("💖 **Mood Tracker Hari Ini:**")
-    m_pilih = st.selectbox("Gimana suasana hatimu hari ini?", ["Pilih mood...", "Semangat 45 🔥", "Lelah tapi tetap cantik 🌸", "Butuh boba & pelukan 🧋", "Happy pol! ✨"])
-    if st.button("Simpan Moodku"):
-        save_response("Mood Harian Rabu", m_pilih)
-        st.success("Mood gemasmu berhasil dicatat di sistem Zefanya! 🤍")
-elif current_data["fitur_spesial"] == "snap_challenge":
-    st.markdown("---")
-    st.info("🌤️ **Asisten Cuaca Berastagi:** Suhu dingin paling pas ditemenin senyuman manis kamu hari ini. Jangan lupa pakai jaket ya!")
-elif current_data["fitur_spesial"] == "spam_notification":
-    st.warning("🚨 **BREAKING NEWS RINDU:** Terdeteksi tingkat kangen tingkat tinggi di udara. Harap segera tersenyum agar sistem kembali stabil!")
-elif current_data["fitur_spesial"] == "running_button":
-    st.markdown("---")
-    st.markdown("🎯 **Tantangan Hari Sabtu:** Coba klik tombol di bawah kalau berani:")
-    if st.button("❌ Jangan Klik Tombol Ini!"):
-        st.balloons()
-        st.success("Hahaha ketahuan kan penasaran! Mana bisa menolak pesona Zefanya? 😉🤍 Hati-hati di jalan ya menuju Medan!")
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# 🎵 2. LAGU SPESIAL HARI INI
-st.markdown(f"<div class='love-card'><h3>🎵 Soundtrack Hari Ini</h3><p>Lagu pilihan spesial buat menemani hari {selected_hari_indo}:</p>", unsafe_allow_html=True)
-st.markdown(f"**♪ {current_data['lagu_judul']}**")
-
-st.video(current_data['lagu_url'])
-
-st.markdown(f"""
-    <a href="{current_data['lagu_url']}" target="_blank">
-        <button style="margin-top: 10px; width: 100%; background: #ff0000; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
-            ▶️ Klik di Sini Jika Video di Atas Diblokir (Buka YouTube Langsung)
-        </button>
-    </a>
-""", unsafe_allow_html=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# ⛰️ 3. FOTO UTAMA HARIAN (KHUSUS HARI SENIN)
-if selected_hari_indo == "Senin":
-    st.markdown("<div class='love-card'><h3>⛰️ Pesan & Foto Spesial Berastagi</h3>", unsafe_allow_html=True)
-    target_foto = current_data["foto"]
-    if os.path.exists(target_foto):
-        img_path_1 = target_foto
-    elif os.path.exists("foto_dirimu.jpeg"):
-        img_path_1 = "foto_dirimu.jpeg"
-    elif os.path.exists("foto_dirimu.jpg"):
-        img_path_1 = "foto_dirimu.jpg"
-    else:
-        img_path_1 = None
-
-    if img_path_1:
-        col_img1, col_txt1 = st.columns([1, 1], gap="medium")
-        with col_img1:
-            st.markdown('<div class="img-frame">', unsafe_allow_html=True)
-            st.image(img_path_1, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-        with col_txt1:
-            st.markdown(f"""
-                <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
-                    <h4 style="color: {current_font}; margin-bottom: 8px;">Bidadari Berastagi Paling Bersinar... ✨</h4>
-                    <p style="color: #111111; font-size: 1.05em; line-height: 1.6; font-weight: 700;">
-                    Sejauh apapun jarak kita atau sibuknya hari ini, energiku langsung terisi lagi cuma karena bayangin senyuman kamu. Proud of you! 🤍
+                <div style="background: #fff3cd; padding: 16px; border-radius: 12px; border-left: 6px solid #ffc107; text-align: center; margin-bottom: 15px;">
+                    <p style="color: #856404; font-weight: bold; margin-bottom: 12px; font-size: 1.1em;">
+                        ⚠️ PERINGATAN SISTEM: Terdeteksi Bom Asap Rindu di jaringan Berastagi!
                     </p>
                 </div>
             """, unsafe_allow_html=True)
-    else:
-        st.warning("⚠️ File foto harian belum di-upload di GitHub.")
+            
+            if st.button("💣 DETEKSI BOM ZEFANYA"):
+                smoke_placeholder = st.empty()
+                smoke_placeholder.markdown("""
+                    <div style="text-align: center; padding: 20px;">
+                        <div class="smoke-container">💣 💨 ☁️ 🔥</div>
+                        <p style="color: #1D3557; font-weight: bold; margin-top: 10px;">Ssssttt... Kepulan asap rindu sedang meledak!</p>
+                    </div>
+                """, unsafe_allow_html=True)
+                time.sleep(1.5)
+                smoke_placeholder.empty()
+                
+                st.session_state['bomb_triggered'] = True
+                st.rerun()
+        else:
+            st.markdown("""
+                <div style="background: #2b2d42; padding: 22px; border-radius: 16px; border: 3px solid #ef233c; text-align: center; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(239,35,60,0.3);">
+                    <h3 style="color: #ff4d4d; margin-bottom: 10px;">💥 BOOOM! Hayo kaget yaaa! 😜</h3>
+                    <p style="color: #ffffff !important; font-weight: 700; font-size: 1.15em; line-height: 1.5;">
+                        Hahaha, tenang aja! Asapnya udah hilang, sekarang tinggal sisa rasa kangen dari Zefanya yang siap bikin hari Selasamu makin happy! 🤍✨
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            # Desain Piagam Sertifikat Resmi Klasik
+            st.markdown("""
+                <div style="background: #ffffff; border: 5px double #1D3557; padding: 25px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 8px 25px rgba(0,0,0,0.15); margin-top: 15px; margin-bottom: 15px;">
+                    <div style="position: absolute; top: 15px; right: 20px; background: #e63946; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; transform: rotate(8deg);">
+                        Approved by Zefanya 🏆
+                    </div>
+                    <h3 style="color: #1D3557; font-family: 'Georgia', serif; margin-bottom: 5px; font-size: 1.4em;">📜 SERTIFIKAT RESMI PAWANG 📜</h3>
+                    <p style="color: #6c757d; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">Diberikan dengan penuh rasa rindu dan bangga</p>
+                    <hr style="border: 1px solid #dee2e6; width: 80%; margin: 0 auto 15px auto;">
+                    <p style="color: #111111; font-size: 1.1em; font-weight: 700; line-height: 1.5;">
+                        Sertifikat kehormatan ini diberikan kepada:<br>
+                        <span style="color: #e63946; font-size: 1.3em; font-family: 'Georgia', serif;">Avrillia 🤍</span><br>
+                        Sebagai <b>Pawang Kerja Anti-Mager Paling Hebat se-Sumatera Utara!</b>
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button("🏆 Klaim Gelar Pawang Sekarang"):
+                st.markdown("""
+                    <div style="background-color: #2b9348; padding: 14px; border-radius: 12px; color: #ffffff !important; font-weight: bold; text-align: center; margin-top: 12px; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                        Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨
+                    </div>
+                """, unsafe_allow_html=True)
+
     st.markdown("</div>", unsafe_allow_html=True)
 
-# 📥 4. KOTAK CURHAT (SECRET INBOX)
-st.markdown("<div class='love-card'><h3>📥 Kotak Curhat Rahasia</h3><p>Ada uneg-uneg atau capek hari ini? Ketik di sini, pesannya langsung masuk ke Panel Zefanya:</p>", unsafe_allow_html=True)
-curhat_input = st.text_area("Tulis ceritamu di sini...")
-if st.button("Kirim ke Zefanya"):
-    if curhat_input.strip():
-        save_response("Kotak Curhat Rahasia", curhat_input)
-        st.success("Curhatanmu sudah sampai di hati (dan panel) Zefanya! 🤍")
-    else:
-        st.warning("Tulis dulu pesannya ya.")
-st.markdown("</div>", unsafe_allow_html=True)
+    # 🎵 2. LAGU SPESIAL HARI INI
+    st.markdown(f"<div class='love-card'><h3>🎵 Soundtrack Hari Ini</h3><p>Lagu pilihan spesial buat menemani hari {selected_hari_indo}:</p>", unsafe_allow_html=True)
+    st.markdown(f"**♪ {current_data['lagu_judul']}**")
 
-# ✨ 5. PENILAIAN KEBAHAGIAAN (2 PILIHAN UNIK ACAK PER HARI)
-expression_options_by_day = {
-    "Senin": ["sikik aaaa", "happy"],
-    "Selasa": ["happyyy", "happyy bgttttttttt"],
-    "Rabu": ["makasih banyakkkk", "hapyy bgttt lohhh aku, terharu"],
-    "Kamis": ["AAAAAAAAAAAAA", "Jadi tambah semangat kerja dehhhhh"],
-    "Jumat": ["penghilang rasa ngantukkuuuu", "semangat yaa buat temanyaaaaa, aku selalu menungguu"],
-    "Sabtu": ["asikkkkkkkkkkk", "asik"],
-    "Minggu": ["setress si tapi ada ini ga setres lagii", "happyyy"]
-}
+    st.video(current_data['lagu_url'])
 
-current_expressions = expression_options_by_day.get(selected_hari_indo, ["happy", "asik"])
+    st.markdown(f"""
+        <a href="{current_data['lagu_url']}" target="_blank">
+            <button style="margin-top: 10px; width: 100%; background: #ff0000; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                ▶️ Klik di Sini Jika Video di Atas Diblokir (Buka YouTube Langsung)
+            </button>
+        </a>
+    """, unsafe_allow_html=True)
 
-st.markdown(f"<div class='love-card'><h3>💖 Ekspresi {selected_hari_indo}</h3>", unsafe_allow_html=True)
-pilihan_senang = st.radio("Pilih ekspresi kamu sekarang:", current_expressions)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-if st.button("💾 Simpan Perasaanku"):
-    save_response(f"Ekspresi {selected_hari_indo}", pilihan_senang)
-    st.success("Mantap kali! Jawabannya udah sukses masuk ke Panel Zefanya 🤍")
-    st.balloons()
-st.markdown("</div>", unsafe_allow_html=True)
+    # ⛰️ 3. FOTO UTAMA HARIAN (KHUSUS HARI SENIN)
+    if selected_hari_indo == "Senin":
+        st.markdown("<div class='love-card'><h3>⛰️ Pesan & Foto Spesial Berastagi</h3>", unsafe_allow_html=True)
+        target_foto = current_data["foto"]
+        if os.path.exists(target_foto):
+            img_path_1 = target_foto
+        elif os.path.exists("foto_dirimu.jpeg"):
+            img_path_1 = "foto_dirimu.jpeg"
+        elif os.path.exists("foto_dirimu.jpg"):
+            img_path_1 = "foto_dirimu.jpg"
+        else:
+            img_path_1 = None
 
-# 📲 6. LAPOR WHATSAPP
-st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
-nomor_wa = "6281216464994" 
-pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat harian nih! 🤍✨"
-link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
+        if img_path_1:
+            col_img1, col_txt1 = st.columns([1, 1], gap="medium")
+            with col_img1:
+                st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+                st.image(img_path_1, use_container_width=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+            with col_txt1:
+                st.markdown(f"""
+                    <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
+                        <h4 style="color: {current_font}; margin-bottom: 8px;">Bidadari Berastagi Paling Bersinar... ✨</h4>
+                        <p style="color: #111111; font-size: 1.05em; line-height: 1.6; font-weight: 700;">
+                        Sejauh apapun jarak kita atau sibuknya hari ini, energiku langsung terisi lagi cuma karena bayangin senyuman kamu. Proud of you! 🤍
+                        </p>
+                    </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.warning("⚠️ File foto harian belum di-upload di GitHub.")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-st.markdown(f"""
-    <a href="{link_wa}" target="_blank">
-        <button style="width: 100%; background-color: #25D366; color: white; padding: 14px 20px; border: none; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer;">
-            📲 Klik di Sini Kalau Udah Dibaca (Lapor WA)
-        </button>
-    </a>
-""", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
+    # 📥 4. KOTAK CURHAT (SECRET INBOX)
+    st.markdown("<div class='love-card'><h3>📥 Kotak Curhat Rahasia</h3><p>Ada uneg-uneg atau capek hari ini? Ketik di sini, pesannya langsung masuk ke Panel Zefanya:</p>", unsafe_allow_html=True)
+    curhat_input = st.text_area("Tulis ceritamu di sini...")
+    if st.button("Kirim ke Zefanya"):
+        if curhat_input.strip():
+            save_response("Kotak Curhat Rahasia", curhat_input)
+            st.success("Curhatanmu sudah sampai di hati (dan panel) Zefanya! 🤍")
+        else:
+            st.warning("Tulis dulu pesannya ya.")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # ✨ 5. PENILAIAN KEBAHAGIAAN (2 PILIHAN UNIK ACAK PER HARI)
+    expression_options_by_day = {
+        "Senin": ["sikik aaaa", "happy"],
+        "Selasa": ["happyyy", "happyy bgttttttttt"],
+        "Rabu": ["makasih banyakkkk", "hapyy bgttt lohhh aku, terharu"],
+        "Kamis": ["AAAAAAAAAAAAA", "Jadi tambah semangat kerja dehhhhh"],
+        "Jumat": ["penghilang rasa ngantukkuuuu", "semangat yaa buat temanyaaaaa, aku selalu menungguu"],
+        "Sabtu": ["asikkkkkkkkkkk", "asik"],
+        "Minggu": ["setress si tapi ada ini ga setres lagii", "happyyy"]
+    }
+
+    current_expressions = expression_options_by_day.get(selected_hari_indo, ["happy", "asik"])
+
+    st.markdown(f"<div class='love-card'><h3>💖 Ekspresi {selected_hari_indo}</h3>", unsafe_allow_html=True)
+    pilihan_senang = st.radio("Pilih ekspresi kamu sekarang:", current_expressions)
+
+    if st.button("💾 Simpan Perasaanku"):
+        save_response(f"Ekspresi {selected_hari_indo}", pilihan_senang)
+        st.success("Mantap kali! Jawabannya udah sukses masuk ke Panel Zefanya 🤍")
+        st.balloons()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # 📲 6. LAPOR WHATSAPP
+    st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+    nomor_wa = "6281216464994" 
+    pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat harian nih! 🤍✨"
+    link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
+
+    st.markdown(f"""
+        <a href="{link_wa}" target="_blank">
+            <button style="width: 100%; background-color: #25D366; color: white; padding: 14px 20px; border: none; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer;">
+                📲 Klik di Sini Kalau Udah Dibaca (Lapor WA)
+            </button>
+        </a>
+    """, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
 # 🔒 PANEL KHUSUS ZEFANYA
@@ -517,7 +526,7 @@ with st.expander("🔒 Panel Khusus Zefanya"):
             if st.button("❌ Hapus Jawaban Ini"):
                 if id_to_delete in df_data['id'].values:
                     delete_response(id_to_delete)
-                    st.success(f"ID {id_to_delete} berhasil dihapus!")
+                    st.success(f"ID {id_to_delete} berhasil terbuka/terhapus!")
                     st.rerun()
                 else:
                     st.error("ID tidak ditemukan.")
