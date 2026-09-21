@@ -252,49 +252,49 @@ st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} �
 start_of_week = today - datetime.timedelta(days=today.weekday())
 
 weekly_schedule = {
-    0: { # SENIN
+    0: { 
         "nama": "Senin", "tanggal": start_of_week + datetime.timedelta(days=0),
         "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
         "pesan": "Selamat hari Senin, Avrillia! 🦖✨ Semangat ya kerjanya hari ini! Ingat, kalau kerjaan bikin pusing, tarik napas dalam-dalam dan ingat dompetmu butuh asupan saldo sehat. Senyum dong biar monitor kantor silau sama cantiknya kamu! 🤍💪",
         "foto": "foto_senin.jpeg", "fitur_spesial": "weather_note",
         "lagu_judul": "Secukupnya — Hindia", "lagu_url": "https://www.youtube.com/watch?v=wnAKxtEi78c"
     },
-    1: { # SELASA
+    1: { 
         "nama": "Selasa", "tanggal": start_of_week + datetime.timedelta(days=1),
         "tema": "🌿 Edisi Selasa: Waktunya Me-Time & Santai",
         "pesan": "Selamat hari Selasa! Waktunya menikmati hari dengan rileks dan santai. Jangan terlalu diforsir kerjanya ya Avrillia! ✨",
         "foto": "foto_selasa.jpeg", "fitur_spesial": "fake_error",
         "lagu_judul": "Mata Air — Hindia", "lagu_url": "https://www.youtube.com/watch?v=i0aE3fHHitY"
     },
-    2: { # RABU
+    2: { 
         "nama": "Rabu", "tanggal": start_of_week + datetime.timedelta(days=2),
         "tema": "✨ Edisi Rabu: Mid-Week Hug (Setengah Perjalanan)",
         "pesan": "Udah hari Rabu nih! Nggak terasa udah setengah jalan menuju weekend. Tetap semangat ya bidadari Berastagi! Kerjaan sebanyak apapun pasti kelar kalau dikerjakan pakai senyuman manismu. 🫂🤍",
         "foto": "foto_rabu.jpeg", "fitur_spesial": "mood_tracker",
         "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=8c0IzngvGEw"
     },
-    3: { # KAMIS
+    3: { 
         "nama": "Kamis", "tanggal": start_of_week + datetime.timedelta(days=3),
         "tema": "🌸 Edisi Kamis: Kamisan Manis Menuju Weekend",
         "pesan": "Selamat hari Kamis! Sikit lagi mau weekend, tahan dikit lagi ya! Tetap fokus, jaga kesehatan, dan ingat ada aku yang selalu dukung kamu dari jauh. Semangat pejuang rupiah! 🤍",
         "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge",
         "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
     },
-    4: { # JUMAT
+    4: { 
         "nama": "Jumat", "tanggal": start_of_week + datetime.timedelta(days=4),
         "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
         "pesan": "Yeay, Jumat berkah! Hari terakhir kerja sebelum weekend. Selesaikan sisa tugasmu dengan senyuman paling cerah ya! Sebentar lagi mau santai-santai. Pokoknya hari ini harus happy! 🤍",
         "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification",
         "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
     },
-    5: { # SABTU
+    5: { 
         "nama": "Sabtu", "tanggal": start_of_week + datetime.timedelta(days=5),
         "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
         "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Kalau ada yang nyebelin, senyumin aja karena cantiknya kamu nggak ada tandingan. Semangat! 🤍",
         "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
         "lagu_judul": "Cincin — Hindia", "lagu_url": "https://www.youtube.com/watch?v=2q8X93a9n6o"
     },
-    6: { # MINGGU
+    6: { 
         "nama": "Minggu", "tanggal": start_of_week + datetime.timedelta(days=6),
         "tema": "☕ Edisi Minggu: Sweet & Lazy Sunday",
         "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya, dan siapin mood buat menyambut minggu baru. Have a wonderful Sunday, kesayangan! 🤍☕",
@@ -346,36 +346,37 @@ st.markdown(f"""
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ⛰️ 3. FOTO UTAMA HARIAN
-st.markdown("<div class='love-card'><h3>⛰️ Pesan & Foto Spesial Berastagi</h3>", unsafe_allow_html=True)
-target_foto = current_data["foto"]
-if os.path.exists(target_foto):
-    img_path_1 = target_foto
-elif os.path.exists("foto_dirimu.jpeg"):
-    img_path_1 = "foto_dirimu.jpeg"
-elif os.path.exists("foto_dirimu.jpg"):
-    img_path_1 = "foto_dirimu.jpg"
-else:
-    img_path_1 = None
+# ⛰️ 3. FOTO UTAMA HARIAN (KHUSUS HARI SENIN)
+if current_data["nama"] == "Senin":
+    st.markdown("<div class='love-card'><h3>⛰️ Pesan & Foto Spesial Berastagi</h3>", unsafe_allow_html=True)
+    target_foto = current_data["foto"]
+    if os.path.exists(target_foto):
+        img_path_1 = target_foto
+    elif os.path.exists("foto_dirimu.jpeg"):
+        img_path_1 = "foto_dirimu.jpeg"
+    elif os.path.exists("foto_dirimu.jpg"):
+        img_path_1 = "foto_dirimu.jpg"
+    else:
+        img_path_1 = None
 
-if img_path_1:
-    col_img1, col_txt1 = st.columns([1, 1], gap="medium")
-    with col_img1:
-        st.markdown('<div class="img-frame">', unsafe_allow_html=True)
-        st.image(img_path_1, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-    with col_txt1:
-        st.markdown(f"""
-            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
-                <h4 style="color: {current_font}; margin-bottom: 8px;">Bidadari Berastagi Paling Bersinar... ✨</h4>
-                <p style="color: #111111; font-size: 1.05em; line-height: 1.6; font-weight: 700;">
-                Sejauh apapun jarak kita atau sibuknya hari ini, energiku langsung terisi lagi cuma karena bayangin senyuman kamu. Proud of you! 🤍
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-else:
-    st.warning("⚠️ File foto harian belum di-upload di GitHub.")
-st.markdown("</div>", unsafe_allow_html=True)
+    if img_path_1:
+        col_img1, col_txt1 = st.columns([1, 1], gap="medium")
+        with col_img1:
+            st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+            st.image(img_path_1, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+        with col_txt1:
+            st.markdown(f"""
+                <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 10px; text-align: left;">
+                    <h4 style="color: {current_font}; margin-bottom: 8px;">Bidadari Berastagi Paling Bersinar... ✨</h4>
+                    <p style="color: #111111; font-size: 1.05em; line-height: 1.6; font-weight: 700;">
+                    Sejauh apapun jarak kita atau sibuknya hari ini, energiku langsung terisi lagi cuma karena bayangin senyuman kamu. Proud of you! 🤍
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.warning("⚠️ File foto harian belum di-upload di GitHub.")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # 📥 4. KOTAK CURHAT (SECRET INBOX)
 st.markdown("<div class='love-card'><h3>📥 Kotak Curhat Rahasia</h3><p>Ada uneg-uneg atau capek hari ini? Ketik di sini, pesannya langsung masuk ke Panel Zefanya:</p>", unsafe_allow_html=True)
@@ -428,7 +429,7 @@ for idx, data in weekly_schedule.items():
         with st.expander(f"📖 {nama_hari} ({tgl_surat.strftime('%d %b %Y')}) — 🔓 Terbuka"):
             st.markdown(f"**{data['tema']}**")
             st.write(data['pesan'])
-            if os.path.exists(data["foto"]):
+            if nama_hari == "Senin" and os.path.exists(data["foto"]):
                 st.image(data["foto"], width=250)
     else:
         with st.expander(f"🔒 {nama_hari} ({tgl_surat.strftime('%d %b %Y')}) — 🔒 Terkunci"):
