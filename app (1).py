@@ -215,6 +215,19 @@ css_template = """
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
     }
+    /* Typewriter Effect CSS */
+    .typewriter-alert {
+        font-family: 'Courier New', Courier, monospace;
+        border-right: 2px solid #e63946;
+        white-space: nowrap;
+        animation: blink 0.75s step-end infinite;
+        color: #e63946;
+        font-weight: bold;
+    }
+    @keyframes blink {
+        from, to { border-color: transparent }
+        50% { border-color: #e63946; }
+    }
     </style>
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
@@ -296,10 +309,37 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI
+# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN TYPEWRITER & SERTIFIKAT KLASIK)
 if current_data["fitur_spesial"] == "fake_error":
-    st.error("⚠️ **SYSTEM ALERT:** Koneksi dari Berastagi terdeteksi terlalu menawan. Sistem hampir *crash* karena kepenuhan rasa rindu Zefanya!")
-    st.info("💡 **Sertifikat Pawang Zefanya:** Kamu resmi diangkat sebagai Pawang Kerja Anti-Mager paling hebat se-Sumatera Utara! 🏆")
+    st.markdown("""
+        <div style="background: #fff3cd; padding: 12px 18px; border-radius: 10px; border-left: 5px solid #ffc107; margin-bottom: 15px;">
+            <p style="color: #856404; font-weight: bold; margin: 0; font-size: 1.05em;">
+                ⚠️ <b>SYSTEM ALERT:</b> Koneksi dari Berastagi terdeteksi terlalu menawan. Sistem nyaris <i>crash</i> karena kepenuhan rasa rindu Zefanya!
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Desain Piagam Sertifikat Resmi Klasik
+    st.markdown("""
+        <div style="background: #ffffff; border: 5px double #1D3557; padding: 25px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 8px 25px rgba(0,0,0,0.15); margin-top: 15px; margin-bottom: 15px;">
+            <div style="position: absolute; top: 15px; right: 20px; background: #e63946; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; transform: rotate(8deg);">
+                Approved by Zefanya 🏆
+            </div>
+            <h3 style="color: #1D3557; font-family: 'Georgia', serif; margin-bottom: 5px; font-size: 1.4em;">📜 SERTIFIKAT RESMI PAWANG 📜</h3>
+            <p style="color: #6c757d; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">Diberikan dengan penuh rasa rindu dan bangga</p>
+            <hr style="border: 1px solid #dee2e6; width: 80%; margin: 0 auto 15px auto;">
+            <p style="color: #111111; font-size: 1.1em; font-weight: 700; line-height: 1.5;">
+                Sertifikat kehormatan ini diberikan kepada:<br>
+                <span style="color: #e63946; font-size: 1.3em; font-family: 'Georgia', serif;">Avrillia 🤍</span><br>
+                Sebagai <b>Pawang Kerja Anti-Mager Paling Hebat se-Sumatera Utara!</b>
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button("🏆 Klaim Gelar Pawang Sekarang"):
+        st.balloons()
+        st.success("Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨")
+
 elif current_data["fitur_spesial"] == "mood_tracker":
     st.markdown("---")
     st.markdown("💖 **Mood Tracker Hari Ini:**")
