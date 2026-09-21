@@ -294,7 +294,7 @@ weekly_schedule = {
         "tema": "🌸 Edisi Kamis: Kamisan Manis Menuju Weekend",
         "pesan": "Selamat hari Kamis! Sikit lagi mau weekend, tahan dikit lagi ya! Tetap fokus, jaga kesehatan, dan ingat ada aku yang selalu dukung kamu dari jauh. Semangat pejuang rupiah! 🤍",
         "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge",
-        "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=5H3p96u8_8k"
+        "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://youtu.be/rSTO0VrV38Y?si=7y5vm8eDCAvbiahQ"
     },
     "Jumat": { 
         "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
