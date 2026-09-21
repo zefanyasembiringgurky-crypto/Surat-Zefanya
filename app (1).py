@@ -78,7 +78,7 @@ if current_hour >= 18:
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Memperjelas teks agar kontras & mudah dibaca)
+# Custom CSS & Styling (Teks hitam pekat & jelas dibaca)
 css_style = """
     <style>
     .stApp {
@@ -129,16 +129,20 @@ css_style = """
         font-size: 1.1em;
     }
     
-    /* --- PERBAIKAN KONTRAS KOTAK INFO / PESAN HARIAN --- */
-    .stInfo {
-        background-color: #ffffff !important;
-        border: 2px solid """ + current_font + """ !important;
-        border-radius: 12px !important;
-    }
-    .stInfo p {
+    /* --- KOTAK PESAN HARIAN DENGAN TEKS HITAM PEKAT --- */
+    .message-box {
+        background-color: #ffffff;
+        border: 2px solid """ + current_font + """;
+        border-radius: 12px;
+        padding: 18px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        text-align: left;
         color: #111111 !important;
-        font-weight: 700 !important;
-        font-size: 1.1em !important;
+        font-size: 1.1em;
+        font-weight: 700;
+        line-height: 1.6;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     /* --- INPUT & TEXT AREA --- */
@@ -294,10 +298,10 @@ weekly_schedule = {
 
 current_data = weekly_schedule.get(today.weekday(), weekly_schedule[0])
 
-# 📬 1. SURAT HARI INI
+# 📬 1. SURAT HARI INI (DENGAN KOTAK HTML KONTRAS TINGGI)
 st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({current_data['nama']}, {current_data['tanggal'].strftime('%d %b %Y')})</h3>", unsafe_allow_html=True)
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
-st.info(f"> {current_data['pesan']}")
+st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
 if current_data["fitur_spesial"] == "fake_error":
     st.error("⚠️ **SYSTEM ALERT:** Koneksi dari Berastagi terdeteksi terlalu menawan. Sistem hampir *crash* karena kepenuhan rasa rindu!")
@@ -317,7 +321,7 @@ elif current_data["fitur_spesial"] == "running_button":
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🎵 2. JUKEBOX 7 LAGU PILIHAN (ST.VIDEO - LANGSUNG PUTAR DI WEB)
+# 🎵 2. JUKEBOX 7 LAGU PILIHAN (DENGAN TOMBOL CADANGAN LANGSUNG KE YOUTUBE)
 st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & .Feast)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
 
 pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
@@ -330,23 +334,41 @@ pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
     "7. Evaluasi — Hindia"
 ])
 
-# 7 URL YouTube Resmi yang Stabil & Pasti Bisa Diputar
+# Pemetaan ID Video YouTube Resmi yang Stabil
 if "1." in pilihan_lagu:
+    yt_id = "wnAKxtEi78c"
     yt_url = "https://www.youtube.com/watch?v=wnAKxtEi78c"
 elif "2." in pilihan_lagu:
+    yt_id = "i0aE3fHHitY"
     yt_url = "https://www.youtube.com/watch?v=i0aE3fHHitY"
 elif "3." in pilihan_lagu:
+    yt_id = "8c0IzngvGEw"
     yt_url = "https://www.youtube.com/watch?v=8c0IzngvGEw"
 elif "4." in pilihan_lagu:
+    yt_id = "5H3p96u8_8k"
     yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
 elif "5." in pilihan_lagu:
+    yt_id = "5H3p96u8_8k"
     yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
 elif "6." in pilihan_lagu:
+    yt_id = "2q8X93a9n6o"
     yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
 else:
+    yt_id = "2q8X93a9n6o"
     yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
 
+# Pemutar Video Streamlit
 st.video(yt_url)
+
+# Tombol Cadangan Langsung ke YouTube jika embed diblokir
+st.markdown(f"""
+    <a href="{yt_url}" target="_blank">
+        <button style="margin-top: 10px; width: 100%; background: #ff0000; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+            ▶️ Klik di Sini Jika Video di Atas Diblokir (Buka YouTube Langsung)
+        </button>
+    </a>
+""", unsafe_allow_html=True)
+
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ⛰️ 3. FOTO UTAMA HARIAN
@@ -406,7 +428,7 @@ if st.button("💾 Simpan Perasaanku"):
 st.markdown("</div>", unsafe_allow_html=True)
 
 # 📲 6. LAPOR WHATSAPP
-st.markdown("<div class='love-card'>✅ Konfirmasi Mampir<p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat harian nih! 🤍✨"
 link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
