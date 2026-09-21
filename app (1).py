@@ -97,7 +97,7 @@ if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or (selected_h
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Menggunakan Template Aman Tanpa SyntaxError f-string)
+# Custom CSS & Styling (Dilengkapi Animasi Typewriter yang Akurat)
 css_template = """
     <style>
     .stApp {
@@ -215,18 +215,24 @@ css_template = """
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
     }
-    /* Typewriter Effect CSS */
-    .typewriter-alert {
-        font-family: 'Courier New', Courier, monospace;
-        border-right: 2px solid #e63946;
-        white-space: nowrap;
-        animation: blink 0.75s step-end infinite;
-        color: #e63946;
-        font-weight: bold;
+    
+    /* --- EFEK KETIK KOMPUTER (TYPEWRITER) YANG BERJALAN --- */
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
     }
-    @keyframes blink {
-        from, to { border-color: transparent }
-        50% { border-color: #e63946; }
+    @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: #856404; }
+    }
+    .typewriter-container {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 3px solid #856404;
+        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        font-family: 'Courier New', Courier, monospace;
+        max-width: 100%;
     }
     </style>
     <div class="floating-bg">
@@ -309,12 +315,12 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN TYPEWRITER & SERTIFIKAT KLASIK)
+# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN TYPEWRITER EFEK KETIK & SERTIFIKAT)
 if current_data["fitur_spesial"] == "fake_error":
     st.markdown("""
-        <div style="background: #fff3cd; padding: 12px 18px; border-radius: 10px; border-left: 5px solid #ffc107; margin-bottom: 15px;">
-            <p style="color: #856404; font-weight: bold; margin: 0; font-size: 1.05em;">
-                ⚠️ <b>SYSTEM ALERT:</b> Koneksi dari Berastagi terdeteksi terlalu menawan. Sistem nyaris <i>crash</i> karena kepenuhan rasa rindu Zefanya!
+        <div style="background: #fff3cd; padding: 12px 18px; border-radius: 10px; border-left: 5px solid #ffc107; margin-bottom: 15px; overflow: hidden;">
+            <p style="color: #856404; font-weight: bold; margin: 0; font-size: 1em;">
+                ⚠️ <b>SYSTEM ALERT:</b> <span class="typewriter-container">Koneksi Berastagi terlalu menawan, nyaris crash karena rindu!</span>
             </p>
         </div>
     """, unsafe_allow_html=True)
