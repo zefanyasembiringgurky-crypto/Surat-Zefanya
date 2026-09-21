@@ -54,9 +54,11 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- SISTEM WAKTU & TEMA WARNA MINGGUAN SPESIFIK ---
-today = datetime.date.today()
-current_hour = datetime.datetime.now().hour
+# --- SISTEM WAKTU & TEMA WARNA MINGGUAN SPESIFIK (WIB / UTC+7) ---
+wib_offset = datetime.timezone(datetime.timedelta(hours=7))
+now_wib = datetime.datetime.now(wib_offset)
+today = now_wib.date()
+current_hour = now_wib.hour
 hari_ini_inggris = today.strftime("%A")
 
 indo_to_eng = {
@@ -87,7 +89,7 @@ themes = {
     "Sunday": {"bg": "#B5E2FA", "font": "#3A0CA3", "accent": "#F72585", "nama_tema": "Lavender Dream"}
 }
 
-# --- PILIH HARI (Otomatis menandai mana yang terkunci atau terbuka berdasarkan hari aktual) ---
+# --- PILIH HARI (Otomatis menyesuaikan waktu WIB server) ---
 opsi_selectbox = []
 for i, h in enumerate(daftar_hari):
     if i <= indeks_hari_ini:
@@ -271,7 +273,7 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} ({selected_hari_indo})</p>", unsafe_allow_html=True)
 
-# --- CEK APAKAH HARI TERKUNCI ATAU TERBUKA BERDASARKAN WAKTU AKTUAL ---
+# --- CEK APAKAH HARI TERKUNCI ATAU TERBUKA BERDASARKAN WAKTU WIB ---
 indeks_pilihan = daftar_hari.index(selected_hari_indo) if selected_hari_indo in daftar_hari else 0
 
 if indeks_pilihan > indeks_hari_ini:
@@ -486,7 +488,7 @@ else:
     st.markdown("</div>", unsafe_allow_html=True)
 
     # 📲 6. LAPOR WHATSAPP
-    st.markdown("<div class='love-card'>✅ Konfirmasi Mampir<p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+    st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
     nomor_wa = "6281216464994" 
     pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat harian nih! 🤍✨"
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
