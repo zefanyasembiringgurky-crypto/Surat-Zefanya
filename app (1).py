@@ -52,7 +52,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, Bingkai Foto, & Animasi Balon/Kupu-Kupu Besar
+# Custom CSS: Nuansa Biru Estetik, Tombol Kontras, Bingkai Foto, & Animasi Huruf AVRILLIA + Balon/Kupu-Kupu
 st.markdown("""
     <style>
     .stApp {
@@ -126,7 +126,7 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* --- ANIMASI BALON & KUPU-KUPU BESAR (DARI ATAS KE BAWAH) --- */
+    /* --- ANIMASI HURUF, BALON & KUPU-KUPU (DARI ATAS KE BAWAH) --- */
     @keyframes floatDown {
         0% {
             transform: translateY(-10vh) scale(1) rotate(0deg);
@@ -156,18 +156,27 @@ st.markdown("""
     .floating-item {
         position: absolute;
         top: -60px;
-        font-size: 42px;
+        font-size: 38px;
+        font-family: 'Georgia', serif;
+        font-weight: bold;
+        color: rgba(13, 71, 161, 0.65);
+        text-shadow: 0 2px 6px rgba(255, 255, 255, 0.9);
         animation: floatDown 10s infinite linear;
     }
     </style>
 
-    <!-- Elemen Animasi Balon & Kupu-Kupu Besar dari Atas ke Bawah -->
+    <!-- Elemen Animasi Huruf AVRILLIA, Balon & Kupu-Kupu dari Atas ke Bawah -->
     <div class="floating-bg">
-        <div class="floating-item" style="left: 10%; animation-duration: 9s; animation-delay: 0s;">🦋</div>
-        <div class="floating-item" style="left: 28%; animation-duration: 12s; animation-delay: 2s;">🎈</div>
-        <div class="floating-item" style="left: 48%; animation-duration: 10s; animation-delay: 1s;">🦋</div>
-        <div class="floating-item" style="left: 68%; animation-duration: 11s; animation-delay: 3s;">🎈</div>
-        <div class="floating-item" style="left: 88%; animation-duration: 8s; animation-delay: 1.5s;">🦋</div>
+        <div class="floating-item" style="left: 5%; animation-duration: 9s; animation-delay: 0s;">A</div>
+        <div class="floating-item" style="left: 15%; animation-duration: 11s; animation-delay: 2s;">🦋</div>
+        <div class="floating-item" style="left: 25%; animation-duration: 8s; animation-delay: 1s;">V</div>
+        <div class="floating-item" style="left: 35%; animation-duration: 12s; animation-delay: 3s;">🎈</div>
+        <div class="floating-item" style="left: 45%; animation-duration: 9.5s; animation-delay: 0.5s;">R</div>
+        <div class="floating-item" style="left: 55%; animation-duration: 10.5s; animation-delay: 2.5s;">I</div>
+        <div class="floating-item" style="left: 65%; animation-duration: 11.5s; animation-delay: 1.5s;">L</div>
+        <div class="floating-item" style="left: 75%; animation-duration: 8.5s; animation-delay: 3.5s;">L</div>
+        <div class="floating-item" style="left: 82%; animation-duration: 10s; animation-delay: 0.8s;">I</div>
+        <div class="floating-item" style="left: 92%; animation-duration: 9s; animation-delay: 2.2s;">A</div>
     </div>
 """, unsafe_allow_html=True)
 
