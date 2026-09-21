@@ -74,30 +74,30 @@ current_bg = bg_colors.get(hari_ini_inggris, "linear-gradient(135deg, #e3f2fd 0%
 if current_hour >= 18:
     current_bg = "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)"
 
-# Custom CSS & Styling (Menggunakan format() untuk mengelakkan ralat f-string brace)
-css_template = """
+# Custom CSS & Styling (Menggunakan string biasa + penggabungan pembolehubah untuk elak ralat)
+css_style = """
     <style>
-    .stApp {{
-        background: {bg_val};
+    .stApp {
+        background: """ + current_bg + """;
         color: #1a1a1a;
         overflow-x: hidden;
-    }}
-    .romantic-title {{
+    }
+    .romantic-title {
         text-align: center;
         color: #0d47a1;
         font-family: 'Georgia', serif;
         font-weight: bold;
         padding-top: 10px;
         text-shadow: 0 2px 4px rgba(255,255,255,0.8);
-    }}
-    .subtitle {{
+    }
+    .subtitle {
         text-align: center;
         color: #1565c0;
         font-style: italic;
         margin-bottom: 30px;
         font-weight: bold;
-    }}
-    .love-card {{
+    }
+    .love-card {
         background: rgba(255, 255, 255, 0.95);
         padding: 24px;
         border-radius: 20px;
@@ -110,26 +110,26 @@ css_template = """
         position: relative;
         z-index: 2;
     }
-    .love-card h3 {{
+    .love-card h3 {
         color: #0d47a1 !important;
         font-weight: bold;
-    }}
-    .love-card p, .love-card label {{
+    }
+    .love-card p, .love-card label {
         color: #1a1a1a !important;
         font-weight: 600;
-    }}
+    }
     
     /* --- BINGKAI FOTO ROMANTIS --- */
-    .img-frame {{
+    .img-frame {
         background: #ffffff;
         padding: 8px;
         border-radius: 16px;
         box-shadow: 0 6px 20px rgba(13, 71, 161, 0.2);
         border: 3px solid #0d47a1;
-    }}
+    }
 
     /* --- TOMBOL KONTRAS TINGGI & MUDAH DIKLIK --- */
-    div.stButton > button {{
+    div.stButton > button {
         background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
         color: #ffffff !important;
         border-radius: 12px;
@@ -140,31 +140,31 @@ css_template = """
         box-shadow: 0 4px 15px rgba(13, 71, 161, 0.4);
         width: 100%;
         cursor: pointer;
-    }}
-    div.stButton > button:hover {{
+    }
+    div.stButton > button:hover {
         background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
         border-color: #ffd54f;
-    }}
+    }
 
     /* --- ANIMASI HURUF, BUNGA PINK, BALON & KUPU-KUPU --- */
-    @keyframes floatDown {{
-        0% {{ transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }}
-        15% {{ opacity: 0.9; }}
-        85% {{ opacity: 0.9; }}
-        100% {{ transform: translateY(105vh) scale(1.2) rotate(360deg); opacity: 0; }}
-    }}
-    .floating-bg {{
+    @keyframes floatDown {
+        0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }
+        15% { opacity: 0.9; }
+        85% { opacity: 0.9; }
+        100% { transform: translateY(105vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+    .floating-bg {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
         overflow: hidden; pointer-events: none; z-index: 1;
-    }}
-    .floating-item {{
+    }
+    .floating-item {
         position: absolute; top: -60px;
         font-size: 32px; font-weight: bold;
         color: rgba(13, 71, 161, 0.7);
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.9);
         animation: floatDown 10s infinite linear;
-    }}
+    }
     </style>
 
     <!-- Elemen Animasi Latar Belakang (A-V-R-I-L-L-I-A, Bunga Pink, Balon, Kupu-kupu) -->
@@ -183,7 +183,7 @@ css_template = """
     </div>
 """
 
-st.markdown(css_template.format(bg_val=current_bg), unsafe_allow_html=True)
+st.markdown(css_style, unsafe_allow_html=True)
 
 # Easter Egg Title Script (Tab browser berubah saat ditinggal)
 st.markdown("""
