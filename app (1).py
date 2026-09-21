@@ -97,7 +97,7 @@ if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or (selected_h
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Dilengkapi Animasi Typewriter yang Akurat)
+# Custom CSS & Styling (Dilengkapi Animasi Typewriter yang Sempurna)
 css_template = """
     <style>
     .stApp {
@@ -216,22 +216,23 @@ css_template = """
         animation: floatDown 10s infinite linear;
     }
     
-    /* --- EFEK KETIK KOMPUTER (TYPEWRITER) YANG BERJALAN --- */
+    /* --- EFEK KETIK KOMPUTER (TYPEWRITER) YANG AKURAT --- */
     @keyframes typing {
         from { width: 0; }
-        to { width: 100%; }
+        to { width: 44ch; }
     }
     @keyframes blink-caret {
         from, to { border-color: transparent; }
         50% { border-color: #856404; }
     }
-    .typewriter-container {
+    .typewriter-text {
+        font-family: 'Courier New', Courier, monospace;
         display: inline-block;
         overflow: hidden;
         white-space: nowrap;
         border-right: 3px solid #856404;
-        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        font-family: 'Courier New', Courier, monospace;
+        width: 44ch;
+        animation: typing 3s steps(44, end), blink-caret 0.75s step-end infinite;
         max-width: 100%;
     }
     </style>
@@ -315,12 +316,12 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN TYPEWRITER EFEK KETIK & SERTIFIKAT)
+# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN TYPEWRITER & SERTIFIKAT)
 if current_data["fitur_spesial"] == "fake_error":
     st.markdown("""
-        <div style="background: #fff3cd; padding: 12px 18px; border-radius: 10px; border-left: 5px solid #ffc107; margin-bottom: 15px; overflow: hidden;">
-            <p style="color: #856404; font-weight: bold; margin: 0; font-size: 1em;">
-                ⚠️ <b>SYSTEM ALERT:</b> <span class="typewriter-container">Koneksi Berastagi terlalu menawan, nyaris crash karena rindu!</span>
+        <div style="background: #fff3cd; padding: 12px 18px; border-radius: 10px; border-left: 5px solid #ffc107; margin-bottom: 15px;">
+            <p style="color: #856404; font-weight: bold; margin: 0; font-size: 1.05em;">
+                ⚠️ <b>SYSTEM ALERT:</b> <span class="typewriter-text">Koneksi Berastagi terlalu menawan, nyaris crash karena rindu!</span>
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -344,7 +345,11 @@ if current_data["fitur_spesial"] == "fake_error":
     
     if st.button("🏆 Klaim Gelar Pawang Sekarang"):
         st.balloons()
-        st.success("Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨")
+        st.markdown("""
+            <div style="background-color: #2b9348; padding: 14px; border-radius: 12px; color: #ffffff !important; font-weight: bold; text-align: center; margin-top: 12px; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                Yeay! Gelar Pawang Resmi Diklaim! Kamu memang yang terbaik! ✨
+            </div>
+        """, unsafe_allow_html=True)
 
 elif current_data["fitur_spesial"] == "mood_tracker":
     st.markdown("---")
