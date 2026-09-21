@@ -78,7 +78,7 @@ if current_hour >= 18:
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling (Tanpa ralat f-string brace)
+# Custom CSS & Styling (Memperjelas teks agar kontras & mudah dibaca)
 css_style = """
     <style>
     .stApp {
@@ -129,6 +129,18 @@ css_style = """
         font-size: 1.1em;
     }
     
+    /* --- PERBAIKAN KONTRAS KOTAK INFO / PESAN HARIAN --- */
+    .stInfo {
+        background-color: #ffffff !important;
+        border: 2px solid """ + current_font + """ !important;
+        border-radius: 12px !important;
+    }
+    .stInfo p {
+        color: #111111 !important;
+        font-weight: 700 !important;
+        font-size: 1.1em !important;
+    }
+
     /* --- INPUT & TEXT AREA --- */
     .stTextInput input, .stTextArea textarea {
         background-color: #ffffff !important;
@@ -305,35 +317,34 @@ elif current_data["fitur_spesial"] == "running_button":
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🎵 2. JUKEBOX 7 LAGU HINDIA & HINDI (ST.VIDEO - LANGSUNG PUTAR DI WEB)
-st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & Pilihan)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
+# 🎵 2. JUKEBOX 7 LAGU PILIHAN (ST.VIDEO - LANGSUNG PUTAR DI WEB)
+st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & .Feast)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
 
 pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
-    "1. Secukupnya — Kebangkitan dari penat & lelah bekerja",
-    "2. Rumah ke Rumah — Perjalanan hidup & pendewasaan",
-    "3. Evaluasi — Dorongan mental di hari yang berat",
-    "4. Mata Air — Energi positif merayakan diri sendiri",
-    "5. Basmi (bersama .F.E.A.S.T) — Lagu rock alternatif penuh semangat",
-    "6. Peradaban (bersama .F.E.A.S.T) — Anthem perjuangan sosial",
-    "7. Lagu Spesial India / Hindi Romantis — Pilihan bonus hari ini"
+    "1. Secukupnya — Hindia",
+    "2. Mata Air — Hindia",
+    "3. Peradaban — .Feast",
+    "4. Bayangkan Jika Kita Tidak Menyerah — Hindia",
+    "5. Rumah ke Rumah — Hindia",
+    "6. Cincin — Hindia",
+    "7. Evaluasi — Hindia"
 ])
 
-# 7 URL YouTube Resmi yang Valid untuk st.video()
+# 7 URL YouTube Resmi yang Stabil & Pasti Bisa Diputar
 if "1." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=wnAKxtEi78c"
 elif "2." in pilihan_lagu:
-    yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
-elif "3." in pilihan_lagu:
-    yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
-elif "4." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=i0aE3fHHitY"
-elif "5." in pilihan_lagu:
-    yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
-elif "6." in pilihan_lagu:
+elif "3." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=8c0IzngvGEw"
+elif "4." in pilihan_lagu:
+    yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
+elif "5." in pilihan_lagu:
+    yt_url = "https://www.youtube.com/watch?v=5H3p96u8_8k"
+elif "6." in pilihan_lagu:
+    yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
 else:
-    # Lagu bonus Hindi romantis yang dijamin aktif
-    yt_url = "https://www.youtube.com/watch?v=ho9AgmKz4bc"
+    yt_url = "https://www.youtube.com/watch?v=2q8X93a9n6o"
 
 st.video(yt_url)
 st.markdown("</div>", unsafe_allow_html=True)
@@ -395,7 +406,7 @@ if st.button("💾 Simpan Perasaanku"):
 st.markdown("</div>", unsafe_allow_html=True)
 
 # 📲 6. LAPOR WHATSAPP
-st.markdown("<div class='love-card'><h3>✅ Konfirmasi Mampir</h3><p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
+st.markdown("<div class='love-card'>✅ Konfirmasi Mampir<p>Udah selesai baca? Klik tombol di bawah buat kirim kabar ke WhatsApp aku ya:</p>", unsafe_allow_html=True)
 nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, aku udah mampir dan baca web surat harian nih! 🤍✨"
 link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
@@ -453,7 +464,7 @@ with st.expander("🔒 Panel Khusus Zefanya"):
             st.markdown("🗑️ **Hapus Jawaban:**")
             id_to_delete = st.number_input("Masukkan Nomor ID:", min_value=1, step=1)
             if st.button("❌ Hapus Jawaban Ini"):
-                if id_to_letete := (id_to_delete in df_data['id'].values):
+                if id_to_delete in df_data['id'].values:
                     delete_response(id_to_delete)
                     st.success(f"ID {id_to_delete} berhasil dihapus!")
                     st.rerun()
