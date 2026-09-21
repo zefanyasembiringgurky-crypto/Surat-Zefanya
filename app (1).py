@@ -53,12 +53,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- SISTEM WAKTU & TEMA WARNA HARIAN SPesifik ---
+# --- SISTEM WAKTU & TEMA WARNA MINGGUAN SPESIFIK ---
 today = datetime.date.today()
 current_hour = datetime.datetime.now().hour
 hari_ini_inggris = today.strftime("%A")
 
-# Pemetaan Tema Warna Mingguan (Background & Font)
+# Pemetaan Tema Warna Mingguan Spesifik Anda
 themes = {
     "Monday": {"bg": "#FFD166", "font": "#073B4C", "accent": "#FFFFFF", "nama_tema": "Summer Citrus"},
     "Tuesday": {"bg": "#06D6A0", "font": "#1D3557", "accent": "#F1FAEE", "nama_tema": "Minty Fresh"},
@@ -78,84 +78,84 @@ if current_hour >= 18:
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling
-css_style = f"""
+# Custom CSS & Styling (Tanpa ralat f-string brace)
+css_style = """
     <style>
-    .stApp {{
-        background: {current_bg};
-        color: {current_font};
+    .stApp {
+        background: """ + current_bg + """;
+        color: """ + current_font + """;
         overflow-x: hidden;
-    }}
-    .romantic-title {{
+    }
+    .romantic-title {
         text-align: center;
-        color: {current_font};
+        color: """ + current_font + """;
         font-family: 'Georgia', serif;
         font-weight: 900;
         font-size: 2.8em;
         padding-top: 10px;
         text-shadow: 0 2px 8px rgba(255,255,255,0.6);
-    }}
-    .subtitle {{
+    }
+    .subtitle {
         text-align: center;
-        color: {current_font};
+        color: """ + current_font + """;
         font-style: italic;
         margin-bottom: 30px;
         font-weight: 800;
         font-size: 1.15em;
-    }}
-    .love-card {{
+    }
+    .love-card {
         background: #ffffff !important;
         padding: 26px;
         border-radius: 22px;
         box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
-        border: 3px solid {current_font};
+        border: 3px solid """ + current_font + """;
         text-align: center;
         margin-bottom: 24px;
         color: #111111 !important;
         position: relative;
         z-index: 2;
     }
-    .love-card h3 {{
-        color: {current_font} !important;
+    .love-card h3 {
+        color: """ + current_font + """ !important;
         font-weight: 900 !important;
-    }}
-    .love-card h4 {{
-        color: {current_font} !important;
+    }
+    .love-card h4 {
+        color: """ + current_font + """ !important;
         font-weight: 800 !important;
-    }}
-    .love-card p, .love-card label, .love-card span {{
+    }
+    .love-card p, .love-card label, .love-card span {
         color: #111111 !important;
         font-weight: 700 !important;
         font-size: 1.1em;
-    }}
+    }
     
     /* --- INPUT & TEXT AREA --- */
-    .stTextInput input, .stTextArea textarea {{
+    .stTextInput input, .stTextArea textarea {
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid {current_font} !important;
+        border: 2px solid """ + current_font + """ !important;
         border-radius: 10px !important;
-    }}
-    div[data-baseweb="select"] > div {{
+    }
+    div[data-baseweb="select"] > div {
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid {current_font} !important;
-    }}
+        border: 2px solid """ + current_font + """ !important;
+    }
 
     /* --- BINGKAI FOTO --- */
-    .img-frame {{
+    .img-frame {
         background: #ffffff;
         padding: 10px;
         border-radius: 18px;
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
-        border: 4px solid {current_font};
-    }}
+        border: 4px solid """ + current_font + """;
+    }
 
     /* --- TOMBOL --- */
-    div.stButton > button {{
-        background: {current_font};
+    div.stButton > button {
+        background: """ + current_font + """;
         color: #ffffff !important;
         border-radius: 14px;
         font-weight: 800;
@@ -165,31 +165,31 @@ css_style = f"""
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         width: 100%;
         cursor: pointer;
-    }}
-    div.stButton > button:hover {{
+    }
+    div.stButton > button:hover {
         opacity: 0.9;
         border-color: #ffd700;
-    }}
+    }
 
     /* --- ANIMASI HURUF, BUNGA PINK, BALON & KUPU-KUPU --- */
-    @keyframes floatDown {{
-        0% {{ transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }}
-        15% {{ opacity: 0.95; }}
-        85% {{ opacity: 0.95; }}
-        100% {{ transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }}
-    }}
-    .floating-bg {{
+    @keyframes floatDown {
+        0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }
+        15% { opacity: 0.95; }
+        85% { opacity: 0.95; }
+        100% { transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }
+    }
+    .floating-bg {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
         overflow: hidden; pointer-events: none; z-index: 1;
-    }}
-    .floating-item {{
+    }
+    .floating-item {
         position: absolute; top: -60px;
         font-size: 34px; font-weight: bold;
-        color: {current_font};
+        color: """ + current_font + """;
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
-    }}
+    }
     </style>
 
     <!-- Animasi Latar Belakang -->
@@ -305,20 +305,20 @@ elif current_data["fitur_spesial"] == "running_button":
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🎵 2. JUKEBOX 7 LAGU HINDIA (ST.VIDEO - LANGSUNG PUTAR DI WEB)
-st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & .F.E.A.S.T)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
+# 🎵 2. JUKEBOX 7 LAGU HINDIA & HINDI (ST.VIDEO - LANGSUNG PUTAR DI WEB)
+st.markdown("<div class='love-card'><h3>🎵 Jukebox Musik Kita (Hindia & Pilihan)</h3><p>Pilih lagu favoritmu untuk menemani hari ini:</p>", unsafe_allow_html=True)
 
 pilihan_lagu = st.selectbox("Pilih Daftar Lagu:", [
     "1. Secukupnya — Kebangkitan dari penat & lelah bekerja",
     "2. Rumah ke Rumah — Perjalanan hidup & pendewasaan",
     "3. Evaluasi — Dorongan mental di hari yang berat",
     "4. Mata Air — Energi positif merayakan diri sendiri",
-    "5. Basmi (feat. .F.E.A.S.T) — Lagu rock alternatif penuh semangat",
-    "6. Peradaban (feat. .F.E.A.S.T) — Anthem perjuangan sosial",
-    "7. Apapun yang Terjadi — Motivasi menghadapi masa depan"
+    "5. Basmi (bersama .F.E.A.S.T) — Lagu rock alternatif penuh semangat",
+    "6. Peradaban (bersama .F.E.A.S.T) — Anthem perjuangan sosial",
+    "7. Lagu Spesial India / Hindi Romantis — Pilihan bonus hari ini"
 ])
 
-# 7 URL YouTube Resmi Hindia yang Pasti Bisa Diputar
+# 7 URL YouTube Resmi yang Valid untuk st.video()
 if "1." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=wnAKxtEi78c"
 elif "2." in pilihan_lagu:
@@ -332,7 +332,8 @@ elif "5." in pilihan_lagu:
 elif "6." in pilihan_lagu:
     yt_url = "https://www.youtube.com/watch?v=8c0IzngvGEw"
 else:
-    yt_url = "https://www.youtube.com/watch?v=DrulgpXAGCA"
+    # Lagu bonus Hindi romantis yang dijamin aktif
+    yt_url = "https://www.youtube.com/watch?v=ho9AgmKz4bc"
 
 st.video(yt_url)
 st.markdown("</div>", unsafe_allow_html=True)
@@ -452,7 +453,7 @@ with st.expander("🔒 Panel Khusus Zefanya"):
             st.markdown("🗑️ **Hapus Jawaban:**")
             id_to_delete = st.number_input("Masukkan Nomor ID:", min_value=1, step=1)
             if st.button("❌ Hapus Jawaban Ini"):
-                if id_to_delete in df_data['id'].values:
+                if id_to_letete := (id_to_delete in df_data['id'].values):
                     delete_response(id_to_delete)
                     st.success(f"ID {id_to_delete} berhasil dihapus!")
                     st.rerun()
