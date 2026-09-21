@@ -58,7 +58,7 @@ today = datetime.date.today()
 current_hour = datetime.datetime.now().hour
 hari_ini_inggris = today.strftime("%A")
 
-# Pemetaan Tema Warna Mingguan Spesifik Anda
+# Pemetaan Tema Warna Mingguan Spesifik
 themes = {
     "Monday": {"bg": "#FFD166", "font": "#073B4C", "accent": "#FFFFFF", "nama_tema": "Summer Citrus"},
     "Tuesday": {"bg": "#06D6A0", "font": "#1D3557", "accent": "#F1FAEE", "nama_tema": "Minty Fresh"},
@@ -69,7 +69,6 @@ themes = {
     "Sunday": {"bg": "#B5E2FA", "font": "#3A0CA3", "accent": "#F72585", "nama_tema": "Lavender Dream"}
 }
 
-# Mapping nama hari Indonesia ke Inggris untuk selector
 indo_to_eng = {
     "Senin": "Monday",
     "Selasa": "Tuesday",
@@ -93,66 +92,64 @@ current_theme = themes.get(selected_hari_eng, themes["Monday"])
 current_bg = current_theme["bg"]
 current_font = current_theme["font"]
 
-# Cek Night-Mode Otomatis (Jika di atas jam 18:00 dan melihat hari ini)
-if current_hour >= 18 and selected_hari_eng == hari_ini_inggris:
+# Cek Night-Mode Otomatis (Jika di atas jam 18:00 atau khusus Minggu malam)
+if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or selected_hari_indo == "Minggu" and current_hour >= 18:
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
 # Custom CSS & Styling
-css_style = """
+css_style = f"""
     <style>
-    .stApp {
-        background: """ + current_bg + """;
-        color: """ + current_font + """;
+    .stApp {{
+        background: {current_bg};
+        color: {current_font};
         overflow-x: hidden;
-    }
-    .romantic-title {
+    }}
+    .romantic-title {{
         text-align: center;
-        color: """ + current_font + """;
+        color: {current_font};
         font-family: 'Georgia', serif;
         font-weight: 900;
         font-size: 2.8em;
         padding-top: 10px;
         text-shadow: 0 2px 8px rgba(255,255,255,0.6);
-    }
-    .subtitle {
+    }}
+    .subtitle {{
         text-align: center;
-        color: """ + current_font + """;
+        color: {current_font};
         font-style: italic;
         margin-bottom: 30px;
         font-weight: 800;
         font-size: 1.15em;
-    }
-    .love-card {
+    }}
+    .love-card {{
         background: #ffffff !important;
         padding: 26px;
         border-radius: 22px;
         box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
-        border: 3px solid """ + current_font + """;
+        border: 3px solid {current_font};
         text-align: center;
         margin-bottom: 24px;
         color: #111111 !important;
         position: relative;
         z-index: 2;
     }
-    .love-card h3 {
-        color: """ + current_font + """ !important;
+    .love-card h3 {{
+        color: {current_font} !important;
         font-weight: 900 !important;
-    }
-    .love-card h4 {
-        color: """ + current_font + """ !important;
+    }}
+    .love-card h4 {{
+        color: {current_font} !important;
         font-weight: 800 !important;
-    }
-    .love-card p, .love-card label, .love-card span {
+    }}
+    .love-card p, .love-card label, .love-card span {{
         color: #111111 !important;
         font-weight: 700 !important;
         font-size: 1.1em;
-    }
-    
-    /* --- KOTAK PESAN HARIAN: HITAM PEKAT & SANGAT JELAS --- */
-    .message-box {
+    }}
+    .message-box {{
         background-color: #ffffff;
-        border: 2px solid """ + current_font + """;
+        border: 2px solid {current_font};
         border-radius: 12px;
         padding: 18px;
         margin-top: 12px;
@@ -164,34 +161,28 @@ css_style = """
         line-height: 1.6;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-
-    /* --- INPUT & TEXT AREA --- */
-    .stTextInput input, .stTextArea textarea {
+    .stTextInput input, .stTextArea textarea {{
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid """ + current_font + """ !important;
+        border: 2px solid {current_font} !important;
         border-radius: 10px !important;
-    }
-    div[data-baseweb="select"] > div {
+    }}
+    div[data-baseweb="select"] > div {{
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid """ + current_font + """ !important;
-    }
-
-    /* --- BINGKAI FOTO --- */
-    .img-frame {
+        border: 2px solid {current_font} !important;
+    }}
+    .img-frame {{
         background: #ffffff;
         padding: 10px;
         border-radius: 18px;
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
-        border: 4px solid """ + current_font + """;
-    }
-
-    /* --- TOMBOL --- */
-    div.stButton > button {
-        background: """ + current_font + """;
+        border: 4px solid {current_font};
+    }}
+    div.stButton > button {{
+        background: {current_font};
         color: #ffffff !important;
         border-radius: 14px;
         font-weight: 800;
@@ -201,34 +192,30 @@ css_style = """
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         width: 100%;
         cursor: pointer;
-    }
-    div.stButton > button:hover {
+    }}
+    div.stButton > button:hover {{
         opacity: 0.9;
         border-color: #ffd700;
-    }
-
-    /* --- ANIMASI HURUF, BUNGA PINK, BALON & KUPU-KUPU --- */
-    @keyframes floatDown {
-        0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }
-        15% { opacity: 0.95; }
-        85% { opacity: 0.95; }
-        100% { transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }
-    }
-    .floating-bg {
+    }}
+    @keyframes floatDown {{
+        0% {{ transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }}
+        15% {{ opacity: 0.95; }}
+        85% {{ opacity: 0.95; }}
+        100% {{ transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }}
+    }}
+    .floating-bg {{
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
         overflow: hidden; pointer-events: none; z-index: 1;
-    }
-    .floating-item {
+    }}
+    .floating-item {{
         position: absolute; top: -60px;
         font-size: 34px; font-weight: bold;
-        color: """ + current_font + """;
+        color: {current_font};
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
-    }
+    }}
     </style>
-
-    <!-- Animasi Latar Belakang -->
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
         <div class="floating-item" style="left: 12%; animation-duration: 11s; animation-delay: 2s;">🌸</div>
@@ -246,19 +233,6 @@ css_style = """
 
 st.markdown(css_style, unsafe_allow_html=True)
 
-# Easter Egg Title Script
-st.markdown("""
-    <script>
-    let docTitle = document.title;
-    window.addEventListener("blur", () => {
-        document.title = "🥺 Ih kok ditinggal sih? Kangen ya? Balik sini dong!";
-    });
-    window.addEventListener("focus", () => {
-        document.title = docTitle;
-    });
-    </script>
-""", unsafe_allow_html=True)
-
 # 🎈 Sambutan Balon Pertama Kali Masuk
 if 'welcomed' not in st.session_state:
     st.balloons()
@@ -268,9 +242,7 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} ({selected_hari_indo})</p>", unsafe_allow_html=True)
 
-# --- DATA JADWAL MINGGUAN & LAGU SPESIFIK ---
-start_of_week = today - datetime.timedelta(days=today.weekday())
-
+# --- DATA JADWAL HARI & KEJUTAN PIliHAN ---
 weekly_schedule = {
     "Senin": { 
         "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
@@ -294,25 +266,25 @@ weekly_schedule = {
         "tema": "🌸 Edisi Kamis: Kamisan Manis Menuju Weekend",
         "pesan": "Selamat hari Kamis! Sikit lagi mau weekend, tahan dikit lagi ya! Tetap fokus, jaga kesehatan, dan ingat ada aku yang selalu dukung kamu dari jauh. Semangat pejuang rupiah! 🤍",
         "foto": "foto_kamis.jpeg", "fitur_spesial": "snap_challenge",
-        "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://youtu.be/rSTO0VrV38Y?si=7y5vm8eDCAvbiahQ"
+        "lagu_judul": "Bayangkan Jika Kita Tidak Menyerah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=rSTO0VrV38Y"
     },
     "Jumat": { 
         "tema": "🥳 Edisi Jumat: Jumat Berkah & Bau-bau Weekend",
         "pesan": "Yeay, Jumat berkah! Hari terakhir kerja sebelum weekend. Selesaikan sisa tugasmu dengan senyuman paling cerah ya! Sebentar lagi mau santai-santai. Pokoknya hari ini harus happy! 🤍",
         "foto": "foto_jumat.jpeg", "fitur_spesial": "spam_notification",
-        "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://youtu.be/pjhOjHDX0A8?si=WoT0iibKJKNdI3gp"
+        "lagu_judul": "Rumah ke Rumah — Hindia", "lagu_url": "https://www.youtube.com/watch?v=pjhOjHDX0A8"
     },
     "Sabtu": { 
         "tema": "☕ Edisi Sabtu: Secangkir Kopi & Senyumanmu",
-        "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Kalau ada yang nyebelin, senyumin aja karena cantiknya kamu nggak ada tandingan. Semangat! 🤍",
+        "pesan": "Selamat hari Sabtu, Avrillia! ☕ Jangan lupa sarapan yang enak ya, biar energinya full. Hati-hati dalam perjalanan dari Berastagi ke Medan ya sayang, semoga lancar dan selamat sampai tujuan! 🚗✨",
         "foto": "foto_sabtu.jpeg", "fitur_spesial": "running_button",
-        "lagu_judul": "Peradapan", "lagu_url": "https://youtu.be/qf1W5iIRTe8?si=37LNbqRIvYTZUbUJ"
+        "lagu_judul": "Peradaban — .Feast", "lagu_url": "https://www.youtube.com/watch?v=qf1W5iIRTe8"
     },
     "Minggu": { 
         "tema": "☕ Edisi Minggu: Sweet & Lazy Sunday",
-        "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya, dan siapin mood buat menyambut minggu baru. Have a wonderful Sunday, kesayangan! 🤍☕",
+        "pesan": "Selamat hari Minggu! Waktunya istirahat total, santai secukupnya. Hati-hati dalam perjalanan kembali dari Medan ke Berastagi, selamat berlibur dan nikmati waktunya ya, kesayangan! 🌴🤍",
         "foto": "foto_minggu.jpeg", "fitur_spesial": "secret_inbox",
-        "lagu_judul": "Evaluasi — Hindia", "lagu_url": "https://youtu.be/cWrSjCZ5AeE?si=kz_Co5GKhCSRiai5"
+        "lagu_judul": "Evaluasi — Hindia", "lagu_url": "https://www.youtube.com/watch?v=cWrSjCZ5AeE"
     }
 }
 
@@ -323,8 +295,10 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
+# FITUR SPESIFIK BERDASARKAN HARI
 if current_data["fitur_spesial"] == "fake_error":
-    st.error("⚠️ **SYSTEM ALERT:** Koneksi dari Berastagi terdeteksi terlalu menawan. Sistem hampir *crash* karena kepenuhan rasa rindu!")
+    st.error("⚠️ **SYSTEM ALERT:** Koneksi dari Berastagi terdeteksi terlalu menawan. Sistem hampir *crash* karena kepenuhan rasa rindu Zefanya!")
+    st.info("💡 **Sertifikat Pawang Zefanya:** Kamu resmi diangkat sebagai Pawang Kerja Anti-Mager paling hebat se-Sumatera Utara! 🏆")
 elif current_data["fitur_spesial"] == "mood_tracker":
     st.markdown("---")
     st.markdown("💖 **Mood Tracker Hari Ini:**")
@@ -332,16 +306,21 @@ elif current_data["fitur_spesial"] == "mood_tracker":
     if st.button("Simpan Moodku"):
         save_response("Mood Harian Rabu", m_pilih)
         st.success("Mood gemasmu berhasil dicatat di sistem Zefanya! 🤍")
+elif current_data["fitur_spesial"] == "snap_challenge":
+    st.markdown("---")
+    st.info("🌤️ **Asisten Cuaca Berastagi:** Suhu dingin paling pas ditemenin senyuman manis kamu hari ini. Jangan lupa pakai jaket ya!")
+elif current_data["fitur_spesial"] == "spam_notification":
+    st.warning("🚨 **BREAKING NEWS RINDU:** Terdeteksi tingkat kangen tingkat tinggi di udara. Harap segera tersenyum agar sistem kembali stabil!")
 elif current_data["fitur_spesial"] == "running_button":
     st.markdown("---")
-    st.markdown("🎯 **Tantangan Hari Ini:** Coba klik tombol di bawah kalau berani:")
+    st.markdown("🎯 **Tantangan Hari Sabtu:** Coba klik tombol di bawah kalau berani:")
     if st.button("❌ Jangan Klik Tombol Ini!"):
         st.balloons()
-        st.success("Hahaha ketahuan kan penasaran! Mana bisa menolak pesona Zefanya? 😉🤍")
+        st.success("Hahaha ketahuan kan penasaran! Mana bisa menolak pesona Zefanya? 😉🤍 Hati-hati di jalan ya menuju Medan!")
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# 🎵 2. LAGU SPESIAL HARI INI (1 HARI 1 LAGU KHUSUS)
+# 🎵 2. LAGU SPESIAL HARI INI
 st.markdown(f"<div class='love-card'><h3>🎵 Soundtrack Hari Ini</h3><p>Lagu pilihan spesial buat menemani hari {selected_hari_indo}:</p>", unsafe_allow_html=True)
 st.markdown(f"**♪ {current_data['lagu_judul']}**")
 
