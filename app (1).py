@@ -380,16 +380,24 @@ if st.button("Kirim ke Zefanya"):
         st.warning("Tulis dulu pesannya ya.")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ✨ 5. PENILAIAN KEBAHAGIAAN (BAHASA MEDAN)
-st.markdown("<div class='love-card'><h3>💖 Seberapa Senang Kamu Baca Surat Ini?</h3>", unsafe_allow_html=True)
-pilihan_senang = st.radio("Pilih ekspresi kamu sekarang:", [
-    "Bahagia kalilah rasa a, serasa menang tender ganti rugi jalan tol! 🛞😂", 
-    "Senyum-senyum sendiri aku nengoknya, kayak orang gila di Medan Mall! 🤪", 
-    "Kalak karona (manis) kali suratnya, jadi rindu mau kuajak nge-teh manis berdua! ☕✨"
-])
+# ✨ 5. PENILAIAN KEBAHAGIAAN (2 PILIHAN UNIK ACAK PER HARI)
+expression_options_by_day = {
+    "Senin": ["sikik aaaa", "happy"],
+    "Selasa": ["happyyy", "happyy bgttttttttt"],
+    "Rabu": ["makasih banyakkkk", "hapyy bgttt lohhh aku, terharu"],
+    "Kamis": ["AAAAAAAAAAAAA", "Jadi tambah semangat kerja dehhhhh"],
+    "Jumat": ["penghilang rasa ngantukkuuuu", "semangat yaa buat temanyaaaaa, aku selalu menungguu"],
+    "Sabtu": ["asikkkkkkkkkkk", "asik"],
+    "Minggu": ["setress si tapi ada ini ga setres lagii", "happyyy"]
+}
+
+current_expressions = expression_options_by_day.get(selected_hari_indo, ["happy", "asik"])
+
+st.markdown(f"<div class='love-card'><h3>💖 Ekspresi {selected_hari_indo}</h3>", unsafe_allow_html=True)
+pilihan_senang = st.radio("Pilih ekspresi kamu sekarang:", current_expressions)
 
 if st.button("💾 Simpan Perasaanku"):
-    save_response("Tingkat Kebahagiaan", pilihan_senang)
+    save_response(f"Ekspresi {selected_hari_indo}", pilihan_senang)
     st.success("Mantap kali! Jawabannya udah sukses masuk ke Panel Zefanya 🤍")
     st.balloons()
 st.markdown("</div>", unsafe_allow_html=True)
