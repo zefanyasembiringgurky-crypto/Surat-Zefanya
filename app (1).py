@@ -98,7 +98,7 @@ if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or (selected_h
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling
+# Custom CSS & Styling (Termasuk Animasi Kepulan Asap Visual)
 css_template = """
     <style>
     .stApp {
@@ -216,6 +216,21 @@ css_template = """
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
     }
+    
+    /* Animasi Kepulan Asap Visual Nyata */
+    @keyframes smokePuff {
+        0% { transform: scale(0.4) translateY(10px); opacity: 0; filter: blur(4px); }
+        50% { transform: scale(1.3) translateY(-15px); opacity: 1; filter: blur(1px); }
+        100% { transform: scale(1.8) translateY(-35px); opacity: 0; filter: blur(6px); }
+    }
+    .smoke-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        font-size: 3.5rem;
+        animation: smokePuff 1.2s ease-out forwards;
+    }
     </style>
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
@@ -297,7 +312,7 @@ st.markdown(f"<div class='love-card'><h3>📬 Surat Hari Ini ({selected_hari_ind
 st.markdown(f"<h4>{current_data['tema']}</h4>", unsafe_allow_html=True)
 st.markdown(f"<div class='message-box'>{current_data['pesan']}</div>", unsafe_allow_html=True)
 
-# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN EFEK ASAP KILAT)
+# FITUR SPESIFIK BERDASARKAN HARI (SELASA DENGAN EFEK KEPULAN ASAP VISUAL)
 if current_data["fitur_spesial"] == "fake_error":
     if 'bomb_triggered' not in st.session_state:
         st.session_state['bomb_triggered'] = False
@@ -312,15 +327,23 @@ if current_data["fitur_spesial"] == "fake_error":
         """, unsafe_allow_html=True)
         
         if st.button("💣 DETEKSI BOM ZEFANYA"):
-            with st.spinner("💨 Ssssttt... Bom berasap rindu sedang mengepul di udara..."):
-                time.sleep(1.2)  # Efek jeda asap muncul sebentar
+            # Menampilkan placeholder visual kepulan asap bergerak
+            smoke_placeholder = st.empty()
+            smoke_placeholder.markdown("""
+                <div style="text-align: center; padding: 20px;">
+                    <div class="smoke-container">💣 💨 ☁️ 🔥</div>
+                    <p style="color: #1D3557; font-weight: bold; margin-top: 10px;">Ssssttt... Kepulan asap rindu sedang meledak!</p>
+                </div>
+            """, unsafe_allow_html=True)
+            time.sleep(1.5)  # Durasi asap mengepul di layar
+            smoke_placeholder.empty()
+            
             st.session_state['bomb_triggered'] = True
             st.rerun()
     else:
         st.markdown("""
             <div style="background: #2b2d42; padding: 22px; border-radius: 16px; border: 3px solid #ef233c; text-align: center; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(239,35,60,0.3);">
-                <h1 style="font-size: 2.5em; margin-bottom: 5px;">💨☁️ 💥 🔥</h1>
-                <h3 style="color: #ff4d4d; margin-bottom: 10px;">BOOOM! Hayo kaget yaaa! 😜</h3>
+                <h3 style="color: #ff4d4d; margin-bottom: 10px;">💥 BOOOM! Hayo kaget yaaa! 😜</h3>
                 <p style="color: #ffffff !important; font-weight: 700; font-size: 1.15em; line-height: 1.5;">
                     Hahaha, tenang aja! Asapnya udah hilang, sekarang tinggal sisa rasa kangen dari Zefanya yang siap bikin hari Selasamu makin happy! 🤍✨
                 </p>
