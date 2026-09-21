@@ -93,63 +93,63 @@ current_bg = current_theme["bg"]
 current_font = current_theme["font"]
 
 # Cek Night-Mode Otomatis (Jika di atas jam 18:00 atau khusus Minggu malam)
-if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or selected_hari_indo == "Minggu" and current_hour >= 18:
+if (current_hour >= 18 and selected_hari_eng == hari_ini_inggris) or (selected_hari_indo == "Minggu" and current_hour >= 18):
     current_bg = "#0f2027"
     current_font = "#FFFFFF"
 
-# Custom CSS & Styling
-css_style = f"""
+# Custom CSS & Styling (Menggunakan Template Aman Tanpa SyntaxError f-string)
+css_template = """
     <style>
-    .stApp {{
-        background: {current_bg};
-        color: {current_font};
+    .stApp {
+        background: __BG__;
+        color: __FONT__;
         overflow-x: hidden;
-    }}
-    .romantic-title {{
+    }
+    .romantic-title {
         text-align: center;
-        color: {current_font};
+        color: __FONT__;
         font-family: 'Georgia', serif;
         font-weight: 900;
         font-size: 2.8em;
         padding-top: 10px;
         text-shadow: 0 2px 8px rgba(255,255,255,0.6);
-    }}
-    .subtitle {{
+    }
+    .subtitle {
         text-align: center;
-        color: {current_font};
+        color: __FONT__;
         font-style: italic;
         margin-bottom: 30px;
         font-weight: 800;
         font-size: 1.15em;
-    }}
-    .love-card {{
+    }
+    .love-card {
         background: #ffffff !important;
         padding: 26px;
         border-radius: 22px;
         box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
-        border: 3px solid {current_font};
+        border: 3px solid __FONT__;
         text-align: center;
         margin-bottom: 24px;
         color: #111111 !important;
         position: relative;
         z-index: 2;
     }
-    .love-card h3 {{
-        color: {current_font} !important;
+    .love-card h3 {
+        color: __FONT__ !important;
         font-weight: 900 !important;
-    }}
-    .love-card h4 {{
-        color: {current_font} !important;
+    }
+    .love-card h4 {
+        color: __FONT__ !important;
         font-weight: 800 !important;
-    }}
-    .love-card p, .love-card label, .love-card span {{
+    }
+    .love-card p, .love-card label, .love-card span {
         color: #111111 !important;
         font-weight: 700 !important;
         font-size: 1.1em;
-    }}
-    .message-box {{
+    }
+    .message-box {
         background-color: #ffffff;
-        border: 2px solid {current_font};
+        border: 2px solid __FONT__;
         border-radius: 12px;
         padding: 18px;
         margin-top: 12px;
@@ -161,28 +161,28 @@ css_style = f"""
         line-height: 1.6;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    .stTextInput input, .stTextArea textarea {{
+    .stTextInput input, .stTextArea textarea {
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid {current_font} !important;
+        border: 2px solid __FONT__ !important;
         border-radius: 10px !important;
-    }}
-    div[data-baseweb="select"] > div {{
+    }
+    div[data-baseweb="select"] > div {
         background-color: #ffffff !important;
         color: #111111 !important;
         font-weight: 700 !important;
-        border: 2px solid {current_font} !important;
-    }}
-    .img-frame {{
+        border: 2px solid __FONT__ !important;
+    }
+    .img-frame {
         background: #ffffff;
         padding: 10px;
         border-radius: 18px;
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
-        border: 4px solid {current_font};
-    }}
-    div.stButton > button {{
-        background: {current_font};
+        border: 4px solid __FONT__;
+    }
+    div.stButton > button {
+        background: __FONT__;
         color: #ffffff !important;
         border-radius: 14px;
         font-weight: 800;
@@ -192,29 +192,29 @@ css_style = f"""
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         width: 100%;
         cursor: pointer;
-    }}
-    div.stButton > button:hover {{
+    }
+    div.stButton > button:hover {
         opacity: 0.9;
         border-color: #ffd700;
-    }}
-    @keyframes floatDown {{
-        0% {{ transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }}
-        15% {{ opacity: 0.95; }}
-        85% {{ opacity: 0.95; }}
-        100% {{ transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }}
-    }}
-    .floating-bg {{
+    }
+    @keyframes floatDown {
+        0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }
+        15% { opacity: 0.95; }
+        85% { opacity: 0.95; }
+        100% { transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }
+    }
+    .floating-bg {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
         overflow: hidden; pointer-events: none; z-index: 1;
-    }}
-    .floating-item {{
+    }
+    .floating-item {
         position: absolute; top: -60px;
         font-size: 34px; font-weight: bold;
-        color: {current_font};
+        color: __FONT__;
         text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
         animation: floatDown 10s infinite linear;
-    }}
+    }
     </style>
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">A</div>
@@ -231,6 +231,7 @@ css_style = f"""
     </div>
 """
 
+css_style = css_template.replace("__BG__", current_bg).replace("__FONT__", current_font)
 st.markdown(css_style, unsafe_allow_html=True)
 
 # 🎈 Sambutan Balon Pertama Kali Masuk
@@ -242,7 +243,7 @@ if 'welcomed' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Avrillia🤍</h1>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle'>Tema Hari Ini: {current_theme['nama_tema']} ({selected_hari_indo})</p>", unsafe_allow_html=True)
 
-# --- DATA JADWAL HARI & KEJUTAN PIliHAN ---
+# --- DATA JADWAL HARI & KEJUTAN PILIHAN ---
 weekly_schedule = {
     "Senin": { 
         "tema": "💼 Edisi Senin: Pawang Kerja Anti-Mager",
