@@ -129,6 +129,14 @@ css_template = """
         border: 2px solid #7209b7 !important;
         border-radius: 10px !important;
     }
+    .img-frame {
+        background: #ffffff;
+        padding: 12px;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(247, 37, 133, 0.2);
+        border: 4px solid #f72585;
+        margin-bottom: 15px;
+    }
     div[data-baseweb="select"] > div {
         background-color: #ffffff !important;
         color: #111111 !important;
@@ -218,7 +226,31 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 2. KOTAK KADO KEJUTAN INTERAKTIF ---
+# --- 2. FOTO SPESIAL IRMA ---
+st.markdown("<div class='love-card'><h3>📸 Spesial Untukmu Hari Ini</h3>", unsafe_allow_html=True)
+
+# Cek apakah foto sudah diupload di GitHub
+if os.path.exists("foto_irma.jpeg"):
+    st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+    st.image("foto_irma.jpeg", use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<p style="font-weight: bold; color: #7209b7; font-style: italic;">"Satu foto, sejuta makna. Doa terbaik selalu menyertai setiap langkah dan senyumanmu!" ✨</p>', unsafe_allow_html=True)
+elif os.path.exists("foto_irma.jpg"):
+    st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+    st.image("foto_irma.jpg", use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<p style="font-weight: bold; color: #7209b7; font-style: italic;">"Satu foto, sejuta makna. Doa terbaik selalu menyertai setiap langkah dan senyumanmu!" ✨</p>', unsafe_allow_html=True)
+elif os.path.exists("foto_irma.png"):
+    st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+    st.image("foto_irma.png", use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<p style="font-weight: bold; color: #7209b7; font-style: italic;">"Satu foto, sejuta makna. Doa terbaik selalu menyertai setiap langkah dan senyumanmu!" ✨</p>', unsafe_allow_html=True)
+else:
+    st.info("💡 Zefanya: File foto belum ditemukan. Jangan lupa upload foto Irma dengan nama 'foto_irma.jpeg' atau 'foto_irma.jpg' di repositori GitHub kamu ya!")
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# --- 3. KOTAK KADO KEJUTAN INTERAKTIF ---
 st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan</h3><p>Ssst... Ada kejutan kecil di dalam kado ini buat kamu. Coba klik tombol di bawah:</p>", unsafe_allow_html=True)
 
 if 'open_gift' not in st.session_state:
@@ -243,7 +275,7 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 3. SOUNDTRACK ULANG TAHUN (LINK RESMI MARANATHA SINGER) ---
+# --- 4. SOUNDTRACK ULANG TAHUN (LINK RESMI MARANATHA SINGER) ---
 url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
 
 st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu pilihan penuh doa untuk menemani hari bahagiamu:</p>", unsafe_allow_html=True)
@@ -259,7 +291,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 4. KOTAK UCAPAN / BALASAN DARI IRMA ---
+# --- 5. KOTAK UCAPAN / BALASAN DARI IRMA ---
 st.markdown("<div class='love-card'><h3>✍️ Tinggalkan Balasan / Doa</h3><p>Ketik kesan atau pesan balasanmu di sini (pesannya bakal langsung masuk ke sistem Zefanya):</p>", unsafe_allow_html=True)
 pesan_irma = st.text_area("Tulis pesan atau ucapan terima kasih di sini...")
 if st.button("Kirim Pesan ke Zefanya"):
@@ -271,7 +303,7 @@ if st.button("Kirim Pesan ke Zefanya"):
         st.warning("Tulis dulu pesannya ya, Irma.")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 5. KONFIRMASI WHATSAPP ---
+# --- 6. KONFIRMASI WHATSAPP ---
 st.markdown("<div class='love-card'><h3>✅ Kabari Zefanya</h3><p>Udah buka kejutannya? Klik tombol di bawah buat kirim konfirmasi ke WhatsApp Zefanya:</p>", unsafe_allow_html=True)
 nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahunnya dan lagunya yang indah! 🎉✨"
