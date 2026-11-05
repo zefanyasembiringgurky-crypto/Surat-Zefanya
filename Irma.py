@@ -206,11 +206,11 @@ else:
     st.markdown("<h1 class='romantic-title'>Happy Birthday Irma Kristiani Ginting! 🎂💙</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>Semoga hari spesialmu menyenangkan ya! ✨</p>", unsafe_allow_html=True)
 
-    # --- 1. SOUNDTRACK ULANG TAHUN (POSISI DI ATAS) ---
-    url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
+    # --- 1. VIDEO UCAPAN ULANG TAHUN DARI YOUTUBE (POSISI DI ATAS) ---
+    url_video_ucapan = "https://youtu.be/AEKRXpBMa2w?si=0d44nYIBrNer_yBB" 
 
-    st.markdown("<div class='love-card'><h3>🎵 Musik Pengantar Hari Ini</h3><p>Putar lagu santai ini dulu biar suasananya makin enak:</p>", unsafe_allow_html=True)
-    st.video(url_lagu_irma)
+    st.markdown("<div class='love-card'><h3>🎥 Video Ucapan Spesial</h3><p>Ada video ucapan selamat ulang tahun khusus buat kamu:</p>", unsafe_allow_html=True)
+    st.video(url_video_ucapan)
     st.markdown("</div>", unsafe_allow_html=True)
 
     # --- 2. UCAPAN & SURAT SPESIAL UNTUK GURU ---
