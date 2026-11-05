@@ -182,7 +182,6 @@ if not st.session_state['intro_opened']:
     """, unsafe_allow_html=True)
     
     if st.button("💣 LEDAKKAN KEJUTAN SEKARANG"):
-        # Animasi ledakan bom / kembang api pembuka
         intro_placeholder = st.empty()
         intro_placeholder.markdown("""
             <div style="text-align: center; padding: 40px;">
@@ -199,7 +198,6 @@ if not st.session_state['intro_opened']:
 else:
     # --- HALAMAN UTAMA SETELAH INTRO BOM DIBUKA ---
     
-    # 🎈 Efek Balon Sambutan Utama
     if 'welcomed_irma' not in st.session_state:
         st.balloons()
         st.session_state['welcomed_irma'] = True
@@ -258,7 +256,7 @@ else:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # --- 4. KOTAK KADO DENGAN EFEK KEMBANG API DIGITAL (FIREWORKS SURPRISE) ---
+    # --- 4. KOTAK KADO DENGAN TANTANGAN TARUHAN KECIL ---
     st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada pesan kejutan kembang api khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
 
     if 'open_gift' not in st.session_state:
@@ -288,9 +286,10 @@ else:
         
         st.markdown("""
             <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3);">
-                <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎉 SURPRISE! HAPPY BIRTHDAY IRMA! 🎉</h3>
+                <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎯 TANTANGAN SPESIAL HARI ULANG TAHUN ✨</h3>
                 <p style="font-size: 0.95em; font-weight: 600; color: #f8fafc !important; line-height: 1.5;">
-                    "Semoga di tahun ini semua impian terbesarmu tercapai, dilancarkan segala urusannya, dan selalu dikelilingi orang-orang tulus. Let the fireworks remind you how special you are, Irma Kristiani Ginting!" 🤍✨
+                    "Mengingat kita belum pernah ketemu langsung, aku punya tebakan: Pasti sekarang kamu lagi mikir, <i>'Ini orang niat banget bikin web begini, aslinya kayak gimana sih orangnya?'</i><br><br>
+                    Tantangannya: Simpan rasa penasarannya baik-baik sampai nanti semesta kasih waktu kita buat ketemu. Sebagai gantinya, hari ini kamu wajib bahagia dan senyum terus ya! Happy birthday, Irma! ✨💙"
                 </p>
             </div>
         """, unsafe_allow_html=True)
@@ -300,7 +299,7 @@ else:
     # --- 5. KONFIRMASI WHATSAPP ---
     st.markdown("<div class='love-card'><h3>✅ Konfirmasi ke Zefanya</h3><p>Udah buka kejutannya? Kirim kabar ke WhatsApp Zefanya yuk:</p>", unsafe_allow_html=True)
     nomor_wa = "6281216464994" 
-    pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahun dengan intro bom dan kembang api digitalnya! 🎉✨"
+    pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahunnya! Tantangannya diterima ya! 🎉✨"
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
     st.markdown(f"""
@@ -323,7 +322,7 @@ else:
         
         if pin_input == PIN_RAHASIA:
             st.success("PIN benar! Selamat datang, Bos.")
-            st.info("Sistem intro bom & kembang api berjalan sempurna untuk Irma!")
+            st.info("Sistem intro bom, kembang api, & tantangan taruhan berjalan sempurna untuk Irma!")
         elif pin_input:
             st.error("PIN salah.")
 
