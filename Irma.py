@@ -229,8 +229,8 @@ else:
         <div class='message-box'>
         Halo, Irma Kristiani Ginting! Selamat ulang tahun ya! 🎂💙<br><br>
         Di hari spesial ini, aku cuma mau ngucapin doa terbaik buat kamu. Semoga panjang umur, sehat selalu, dan apa pun impian serta urusanmu tahun ini dilancarkan sama Tuhan.<br><br>
-        Hebat banget ya, di usiamu yang sekarang kamu sudah menjalani peran yang luar biasa sebagai seorang guru. Terima kasih sudah sabar dan berdedikasi mengajar serta menginspirasi banyak orang. Bukan cuma hebat dalam mendidik, kamu juga selalu tampil anggun, rapi, dan membawa energi positif ke mana pun kamu pergi.<br><br>
-        Tetap jadi diri sendiri yang luar biasa, ya. Semoga hari-harimu ke depan makin banyak senyumnya dan dijauhkan dari hal-hal yang bikin capek. Have a wonderful birthday! ✨
+        Hebat banget ya, di usiamu yang sekarang kamu sudah menjalani peran yang luar biasa sebagai seorang guru. Terima kasih sudah sabar dan berdedikasi mengajar serta menginspirasi banyak orang. Bukan cuma hebat dalam mendidik, kamu juga selalu tampil anggun, cantik, rapi, dan membawa energi positif ke mana pun kamu pergi.<br><br>
+        Tetap jadi diri sendiri yang luar biasa, ya. Semoga hari-harimu ke depan makin banyak senyumnya dan dijauhkan dari hal-hal yang bikin capek. Have a wonderful birthday! like you
         </div>
     """, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
