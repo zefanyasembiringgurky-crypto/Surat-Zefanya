@@ -215,7 +215,23 @@ if 'welcomed_irma' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Happy Birthday Irma Kristiani Ginting! 🎂💙</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>A very special day for a very special person! ✨</p>", unsafe_allow_html=True)
 
-# --- 1. UCAPAN & SURAT SPESIAL ULANG TAHUN ---
+# --- 1. SOUNDTRACK ULANG TAHUN (DIPINDAH KE PALING ATAS DI BAWAH JUDUL) ---
+url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
+
+st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu spesial penuh berkat untuk menemani harimu:</p>", unsafe_allow_html=True)
+st.markdown("**♪ Happy Birthday Tuhan Berkati — Maranatha Singer**")
+st.video(url_lagu_irma)
+
+st.markdown(f"""
+    <a href="{url_lagu_irma}" target="_blank">
+        <button style="margin-top: 8px; width: 100%; background: #ef4444; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">
+            ▶️ Buka YouTube Langsung (Jika Video Tidak Berputar)
+        </button>
+    </a>
+""", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
+
+# --- 2. UCAPAN & SURAT SPESIAL ULANG TAHUN ---
 st.markdown("<div class='love-card'><h3>💌 Pesan Spesial Hari Ini</h3>", unsafe_allow_html=True)
 st.markdown("<h4>Selamat Ulang Tahun, Irma! 🥳</h4>", unsafe_allow_html=True)
 st.markdown("""
@@ -226,7 +242,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 2. FOTO SPESIAL IRMA ---
+# --- 3. FOTO SPESIAL IRMA ---
 st.markdown("<div class='love-card'><h3>📸 Spesial Untukmu Hari Ini</h3>", unsafe_allow_html=True)
 
 if os.path.exists("foto_irma.jpeg"):
@@ -249,7 +265,7 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 3. KOTAK KADO KEJUTAN (SURPRISE INTERAKTIF) ---
+# --- 4. KOTAK KADO KEJUTAN (SURPRISE INTERAKTIF) ---
 st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada pesan kejutan rahasia khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
 
 if 'open_gift' not in st.session_state:
@@ -272,22 +288,6 @@ else:
         </div>
     """, unsafe_allow_html=True)
 
-st.markdown("</div>", unsafe_allow_html=True)
-
-# --- 4. SOUNDTRACK ULANG TAHUN (MARANATHA SINGER) ---
-url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
-
-st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu spesial penuh berkat untuk menemani harimu:</p>", unsafe_allow_html=True)
-st.markdown("**♪ Happy Birthday Tuhan Berkati — Maranatha Singer**")
-st.video(url_lagu_irma)
-
-st.markdown(f"""
-    <a href="{url_lagu_irma}" target="_blank">
-        <button style="margin-top: 8px; width: 100%; background: #ef4444; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">
-            ▶️ Buka YouTube Langsung (Jika Video Tidak Berputar)
-        </button>
-    </a>
-""", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # --- 5. KOTAK UCAPAN / BALASAN DARI IRMA ---
