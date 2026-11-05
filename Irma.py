@@ -206,16 +206,16 @@ else:
     st.markdown("<h1 class='romantic-title'>Happy Birthday Irma Kristiani Ginting! 🎂💙</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>A very special day for a very special person! ✨</p>", unsafe_allow_html=True)
 
-    # --- 1. VIDEO KEJUTAN SPESIAL DARI YOUTUBE ---
-    # (Ganti link di bawah ini dengan link video ucapan YouTube milikmu atau video pilihanmu)
-    url_video_ucapan = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
+    # --- 1. SOUNDTRACK ULANG TAHUN (POSISI DI ATAS) ---
+    url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
 
-    st.markdown("<div class='love-card'><h3>🎥 Video Kejutan Spesial Ulang Tahun</h3><p>Ada pesan dan ucapan spesial yang direkam khusus buat kamu di video ini:</p>", unsafe_allow_html=True)
-    st.video(url_video_ucapan)
+    st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu spesial penuh berkat untuk menemani harimu:</p>", unsafe_allow_html=True)
+    st.markdown("**♪ Happy Birthday Tuhan Berkati — Maranatha Singer**")
+    st.video(url_lagu_irma)
 
     st.markdown(f"""
-        <a href="{url_video_ucapan}" target="_blank">
-            <button style="margin-top: 8px; width: 100%; background: #ef4444; color: white; padding: 8px 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">
+        <a href="{url_lagu_irma}" target="_blank">
+            <button style="margin-top: 6px; width: 100%; background: #ef4444; color: white; padding: 8px 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">
                 ▶️ Buka YouTube Langsung (Jika Video Tidak Berputar)
             </button>
         </a>
@@ -256,8 +256,8 @@ else:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # --- 4. KOTAK KADO DENGAN TANTANGAN TARUHAN KECIL ---
-    st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada pesan kejutan kembang api khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
+    # --- 4. KOTAK KADO DENGAN VIDEO UCAPAN YOUTUBE ---
+    st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada video ucapan spesial khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
 
     if 'open_gift' not in st.session_state:
         st.session_state['open_gift'] = False
@@ -268,7 +268,7 @@ else:
             firework_placeholder.markdown("""
                 <div style="text-align: center; padding: 15px;">
                     <div class="fireworks-container">🎆 🎇 ✨ 🌟 💥</div>
-                    <p style="color: #0369a1; font-weight: bold; margin-top: 5px;">Mempersiapkan pesta kembang api untuk Irma...</p>
+                    <p style="color: #0369a1; font-weight: bold; margin-top: 5px;">Mempersiapkan video kejutan untuk Irma...</p>
                 </div>
             """, unsafe_allow_html=True)
             time.sleep(1.8)
@@ -284,22 +284,26 @@ else:
             </div>
         """, unsafe_allow_html=True)
         
+        # Link Video Ucapan Selamat Ulang Tahun dari YouTube (bisa diganti link videomu sendiri nanti)
+        url_video_ucapan_kado = "https://www.youtube.com/watch?v=4oxarzdbEuw"
+        
         st.markdown("""
-            <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3);">
-                <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎯 TANTANGAN SPESIAL HARI ULANG TAHUN ✨</h3>
-                <p style="font-size: 0.95em; font-weight: 600; color: #f8fafc !important; line-height: 1.5;">
-                    "Meskipun kita udah pernah ketemu sebelumnya, tapi kita kan belum pernah jalan atau ngobrol berdua secara khusus ya. Pasti sekarang kamu lagi mikir, <i>'Ini orang tiba-tiba niat banget bikin web begini, maunya apa sih?'</i> 😜<br><br>
-                    Tantangannya: Simpan rasa penasarannya baik-baik. Nanti kalau semesta kasih kesempatan pas kita ada waktu buat ngobrol berdua, kamu harus siap ya! Sebagai gantinya, hari ini kamu wajib bahagia dan senyum terus. Happy birthday, Irma! ✨💙"
+            <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3); margin-bottom: 12px;">
+                <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎉 SPESIAL VIDEO UCAPAN ULANG TAHUN 🎉</h3>
+                <p style="font-size: 0.9em; font-weight: 600; color: #f8fafc !important; margin-bottom: 10px;">
+                    Tonton video ucapan spesial ini sampai habis ya, Irma! ✨
                 </p>
             </div>
         """, unsafe_allow_html=True)
+        
+        st.video(url_video_ucapan_kado)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
     # --- 5. KONFIRMASI WHATSAPP ---
     st.markdown("<div class='love-card'><h3>✅ Konfirmasi ke Zefanya</h3><p>Udah buka kejutannya? Kirim kabar ke WhatsApp Zefanya yuk:</p>", unsafe_allow_html=True)
     nomor_wa = "6281216464994" 
-    pesan_wa = "Halo Zefanya, makasih banyak ya buat video kejutan dan website ulang tahunnya! Tantangannya diterima ya! 🎉✨"
+    pesan_wa = "Halo Zefanya, makasih banyak ya buat video kejutan ulang tahunnya! Keren banget! 🎉✨"
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
     st.markdown(f"""
@@ -322,7 +326,7 @@ else:
         
         if pin_input == PIN_RAHASIA:
             st.success("PIN benar! Selamat datang, Bos.")
-            st.info("Sistem video YouTube, intro bom, kembang api, & tantangan berjalan sempurna!")
+            st.info("Sistem video kado YouTube berjalan sempurna!")
         elif pin_input:
             st.error("PIN salah.")
 
