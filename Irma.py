@@ -15,7 +15,7 @@ wib_offset = datetime.timezone(datetime.timedelta(hours=7))
 now_wib = datetime.datetime.now(wib_offset)
 current_hour = now_wib.hour
 
-# Custom CSS & Tema Biru Putih yang Elegan (Responsive & Proporsional untuk HP)
+# Custom CSS, Tema Biru Putih Elegan, & Animasi Kembang Api Digital
 css_template = """
     <style>
     .stApp {
@@ -124,6 +124,21 @@ css_template = """
         text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
         animation: floatDown 10s infinite linear;
     }
+    /* Efek Kembang Api / Fireworks Animation */
+    @keyframes fireworkBurst {
+        0% { transform: scale(0.1); opacity: 1; }
+        50% { transform: scale(1.5); opacity: 0.8; filter: drop-shadow(0 0 15px #fde047); }
+        100% { transform: scale(2.2); opacity: 0; }
+    }
+    .fireworks-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        font-size: 2.8rem;
+        animation: fireworkBurst 1.5s ease-out forwards;
+        margin: 10px 0;
+    }
     </style>
     <div class="floating-bg">
         <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">H</div>
@@ -140,7 +155,7 @@ css_template = """
         <div class="floating-item" style="left: 63%; animation-duration: 8.5s; animation-delay: 0.2s;">D</div>
         <div class="floating-item" style="left: 68%; animation-duration: 11s; animation-delay: 2.8s;">A</div>
         <div class="floating-item" style="left: 73%; animation-duration: 9.2s; animation-delay: 1.8s;">Y</div>
-        <div class="floating-item" style="left: 80%; animation-duration: 10.5s; animation-delay: 0.5s;">💙</div>
+        <div class="floating-item" style="left: 80%; animation-duration: 10.5s; animation-delay: 0.5s;">🎆</div>
         <div class="floating-item" style="left: 86%; animation-duration: 8s; animation-delay: 2.5s;">I</div>
         <div class="floating-item" style="left: 91%; animation-duration: 11.5s; animation-delay: 1.1s;">R</div>
         <div class="floating-item" style="left: 95%; animation-duration: 9s; animation-delay: 3.2s;">M</div>
@@ -209,25 +224,41 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 4. KOTAK KADO KEJUTAN (SURPRISE INTERAKTIF) ---
-st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada pesan kejutan rahasia khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
+# --- 4. KOTAK KADO DENGAN EFEK KEMBANG API DIGITAL (FIREWORKS SURPRISE) ---
+st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada pesan kejutan kembang api khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
 
 if 'open_gift' not in st.session_state:
     st.session_state['open_gift'] = False
 
 if not st.session_state['open_gift']:
-    if st.button("🎁 Buka Kado Kejutan Sekarang"):
-        with st.spinner("Mempersiapkan kejutan spesial..."):
-            time.sleep(1.2)
+    if st.button("🎆 Nyalakan Kembang Api & Buka Kejutan"):
+        # Placeholder untuk efek animasi kembang api meledak
+        firework_placeholder = st.empty()
+        firework_placeholder.markdown("""
+            <div style="text-align: center; padding: 15px;">
+                <div class="fireworks-container">🎆 🎇 ✨ 🌟 💥</div>
+                <p style="color: #0369a1; font-weight: bold; margin-top: 5px;">Mempersiapkan pesta kembang api untuk Irma...</p>
+            </div>
+        """, unsafe_allow_html=True)
+        time.sleep(1.8)
+        firework_placeholder.empty()
+        
         st.session_state['open_gift'] = True
         st.rerun()
 else:
+    # Efek visual konfeti & kembang api sukses terbuka
     st.balloons()
     st.markdown("""
+        <div style="text-align: center; padding: 10px;">
+            <div class="fireworks-container">🎇 🎆 💖 🌟 🎆 🎇</div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
         <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3);">
-            <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎉 SURPRISE! YOU'RE AMAZING! 🎉</h3>
+            <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎉 SURPRISE! HAPPY BIRTHDAY IRMA! 🎉</h3>
             <p style="font-size: 0.95em; font-weight: 600; color: #f8fafc !important; line-height: 1.5;">
-                "Semoga di tahun ini semua impian terbesarmu tercapai, dilancarkan segala urusannya, dan selalu dikelilingi orang-orang tulus. Have the happiest birthday ever, Irma Kristiani Ginting!" 🤍✨
+                "Semoga di tahun ini semua impian terbesarmu tercapai, dilancarkan segala urusannya, dan selalu dikelilingi orang-orang tulus. Let the fireworks remind you how special you are, Irma Kristiani Ginting!" 💙✨
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -237,7 +268,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 # --- 5. KONFIRMASI WHATSAPP ---
 st.markdown("<div class='love-card'><h3>✅ Konfirmasi ke Zefanya</h3><p>Udah buka kejutannya? Kirim kabar ke WhatsApp Zefanya yuk:</p>", unsafe_allow_html=True)
 nomor_wa = "6281216464994" 
-pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahun bertema biru putih ini! 🎉✨"
+pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahun dengan kembang api digitalnya! 🎉✨"
 link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
 st.markdown(f"""
@@ -248,6 +279,22 @@ st.markdown(f"""
     </a>
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
+
+# ==========================================
+# 🔒 PANEL KHUSUS ZEFANYA
+# ==========================================
+st.markdown("<br><hr>", unsafe_allow_html=True)
+with st.expander("🔒 Panel Khusus Zefanya"):
+    st.markdown("Masukkan PIN rahasia:")
+    pin_input = st.text_input("PIN Rahasia:", type="password")
+    PIN_RAHASIA = "2021" 
+    
+    if pin_input == PIN_RAHASIA:
+        st.success("PIN benar! Selamat datang, Bos.")
+        # Panel khusus admin bersih
+        st.info("Sistem kado & kembang api berjalan sempurna untuk Irma!")
+    elif pin_input:
+        st.error("PIN salah.")
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
