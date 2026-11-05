@@ -222,13 +222,15 @@ else:
     """, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # --- 2. UCAPAN & SURAT SPESIAL ULANG TAHUN ---
+    # --- 2. UCAPAN & SURAT SPESIAL UNTUK GURU ---
     st.markdown("<div class='love-card'><h3>💌 Pesan Spesial Hari Ini</h3>", unsafe_allow_html=True)
     st.markdown("<h4>Selamat Ulang Tahun, Irma! 🥳</h4>", unsafe_allow_html=True)
     st.markdown("""
         <div class='message-box'>
-        Halo Irma Kristiani Ginting! 🌟<br><br>
-        Selamat bertambah usia ya! Semoga di umur yang baru ini, segala hal baik, kebahagiaan, kesehatan, dan kelancaran selalu menyertai setiap langkahmu. Terima kasih sudah menjadi pribadi yang hebat. Semoga hari-harimu ke depan dipenuhi senyuman dan hal-hal indah yang pantas kamu dapatkan! 🎂✨
+        Halo, Irma Kristiani Ginting! Selamat ulang tahun ya! 🎂💙<br><br>
+        Di hari spesial ini, aku cuma mau ngucapin doa terbaik buat kamu. Semoga panjang umur, sehat selalu, dan apa pun impian serta urusanmu tahun ini dilancarkan sama Tuhan.<br><br>
+        Hebat banget ya, di usiamu yang sekarang kamu sudah menjalani peran yang luar biasa sebagai seorang guru. Terima kasih sudah sabar dan berdedikasi mengajar serta menginspirasi banyak orang. Bukan cuma hebat dalam mendidik, kamu juga selalu tampil anggun, rapi, dan membawa energi positif ke mana pun kamu pergi.<br><br>
+        Tetap jadi diri sendiri yang luar biasa, ya. Semoga hari-harimu ke depan makin banyak senyumnya dan dijauhkan dari hal-hal yang bikin capek. Have a wonderful birthday! ✨
         </div>
     """, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -284,7 +286,7 @@ else:
             </div>
         """, unsafe_allow_html=True)
         
-        # Link Video Ucapan Selamat Ulang Tahun dari YouTube (bisa diganti link videomu sendiri nanti)
+        # Link Video Ucapan Selamat Ulang Tahun dari YouTube
         url_video_ucapan_kado = "https://youtu.be/AEKRXpBMa2w?si=0d44nYIBrNer_yBB"
         
         st.markdown("""
