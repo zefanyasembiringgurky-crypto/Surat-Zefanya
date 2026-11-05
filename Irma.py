@@ -15,7 +15,7 @@ wib_offset = datetime.timezone(datetime.timedelta(hours=7))
 now_wib = datetime.datetime.now(wib_offset)
 current_hour = now_wib.hour
 
-# Custom CSS, Tema Biru Putih Elegan, & Animasi Kembang Api Digital
+# Custom CSS, Tema Biru Putih Elegan, & Animasi Bom Intro
 css_template = """
     <style>
     .stApp {
@@ -124,7 +124,6 @@ css_template = """
         text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
         animation: floatDown 10s infinite linear;
     }
-    /* Efek Kembang Api / Fireworks Animation */
     @keyframes fireworkBurst {
         0% { transform: scale(0.1); opacity: 1; }
         50% { transform: scale(1.5); opacity: 0.8; filter: drop-shadow(0 0 15px #fde047); }
@@ -165,137 +164,169 @@ css_template = """
 
 st.markdown(css_template, unsafe_allow_html=True)
 
-# 🎈 Efek Balon Sambutan Utama
-if 'welcomed_irma' not in st.session_state:
-    st.balloons()
-    st.session_state['welcomed_irma'] = True
+# --- SISTEM INTRO BOM / SURPRISE PEMBUKA ---
+if 'intro_opened' not in st.session_state:
+    st.session_state['intro_opened'] = False
 
-# Header Utama
-st.markdown("<h1 class='romantic-title'>Happy Birthday Irma Kristiani Ginting! 🎂💙</h1>", unsafe_allow_html=True)
-st.markdown("<p class='subtitle'>A very special day for a very special person! ✨</p>", unsafe_allow_html=True)
-
-# --- 1. SOUNDTRACK ULANG TAHUN (POSISI DI ATAS) ---
-url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
-
-st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu spesial penuh berkat untuk menemani harimu:</p>", unsafe_allow_html=True)
-st.markdown("**♪ Happy Birthday Tuhan Berkati — Maranatha Singer**")
-st.video(url_lagu_irma)
-
-st.markdown(f"""
-    <a href="{url_lagu_irma}" target="_blank">
-        <button style="margin-top: 6px; width: 100%; background: #ef4444; color: white; padding: 8px 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">
-            ▶️ Buka YouTube Langsung (Jika Video Tidak Berputar)
-        </button>
-    </a>
-""", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
-# --- 2. UCAPAN & SURAT SPESIAL ULANG TAHUN ---
-st.markdown("<div class='love-card'><h3>💌 Pesan Spesial Hari Ini</h3>", unsafe_allow_html=True)
-st.markdown("<h4>Selamat Ulang Tahun, Irma! 🥳</h4>", unsafe_allow_html=True)
-st.markdown("""
-    <div class='message-box'>
-    Halo Irma Kristiani Ginting! 🌟<br><br>
-    Selamat bertambah usia ya! Semoga di umur yang baru ini, segala hal baik, kebahagiaan, kesehatan, dan kelancaran selalu menyertai setiap langkahmu. Terima kasih sudah menjadi pribadi yang hebat. Semoga hari-harimu ke depan dipenuhi senyuman dan hal-hal indah yang pantas kamu dapatkan! 🎂✨
-    </div>
-""", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
-# --- 3. FOTO SPESIAL IRMA ---
-st.markdown("<div class='love-card'><h3>📸 Spesial Untukmu Hari Ini</h3>", unsafe_allow_html=True)
-
-if os.path.exists("foto_irma.jpeg"):
-    st.markdown('<div class="img-frame">', unsafe_allow_html=True)
-    st.image("foto_irma.jpeg", use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
-elif os.path.exists("foto_irma.jpg"):
-    st.markdown('<div class="img-frame">', unsafe_allow_html=True)
-    st.image("foto_irma.jpg", use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
-elif os.path.exists("foto_irma.png"):
-    st.markdown('<div class="img-frame">', unsafe_allow_html=True)
-    st.image("foto_irma.png", use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
-else:
-    st.info("💡 Letakkan foto dengan nama 'foto_irma.jpeg' di GitHub agar fotonya tampil di sini ya!")
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# --- 4. KOTAK KADO DENGAN EFEK KEMBANG API DIGITAL (FIREWORKS SURPRISE) ---
-st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada pesan kejutan kembang api khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
-
-if 'open_gift' not in st.session_state:
-    st.session_state['open_gift'] = False
-
-if not st.session_state['open_gift']:
-    if st.button("🎆 Nyalakan Kembang Api & Buka Kejutan"):
-        # Placeholder untuk efek animasi kembang api meledak
-        firework_placeholder = st.empty()
-        firework_placeholder.markdown("""
-            <div style="text-align: center; padding: 15px;">
-                <div class="fireworks-container">🎆 🎇 ✨ 🌟 💥</div>
-                <p style="color: #0369a1; font-weight: bold; margin-top: 5px;">Mempersiapkan pesta kembang api untuk Irma...</p>
-            </div>
-        """, unsafe_allow_html=True)
-        time.sleep(1.8)
-        firework_placeholder.empty()
-        
-        st.session_state['open_gift'] = True
-        st.rerun()
-else:
-    # Efek visual konfeti & kembang api sukses terbuka
-    st.balloons()
+if not st.session_state['intro_opened']:
+    st.markdown("<br><br><br>", unsafe_allow_html=True)
     st.markdown("""
-        <div style="text-align: center; padding: 10px;">
-            <div class="fireworks-container">🎇 🎆 💖 🌟 🎆 🎇</div>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-        <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3);">
-            <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎉 SURPRISE! HAPPY BIRTHDAY IRMA! 🎉</h3>
-            <p style="font-size: 0.95em; font-weight: 600; color: #f8fafc !important; line-height: 1.5;">
-                "Semoga di tahun ini semua impian terbesarmu tercapai, dilancarkan segala urusannya, dan selalu dikelilingi orang-orang tulus. Let the fireworks remind you how special you are, Irma Kristiani Ginting!" 💙✨
+        <div style="background: #ffffff; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.12); border: 3px solid #0284c7;">
+            <h2 style="color: #0369a1; font-family: 'Georgia', serif; font-size: 1.5em; margin-bottom: 15px;">
+                🚨 PERINGATAN SISTEM: Ada Kiriman Kejutan Spesial! 🎁
+            </h2>
+            <p style="color: #334155; font-size: 1.05em; font-weight: 600; margin-bottom: 20px;">
+                Ssst... Terdeteksi sinyal kejutan ulang tahun buat <b>Irma Kristiani Ginting</b>. Tekan tombol di bawah untuk meledakkan kejutannya! 💥
             </p>
         </div>
     """, unsafe_allow_html=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# --- 5. KONFIRMASI WHATSAPP ---
-st.markdown("<div class='love-card'><h3>✅ Konfirmasi ke Zefanya</h3><p>Udah buka kejutannya? Kirim kabar ke WhatsApp Zefanya yuk:</p>", unsafe_allow_html=True)
-nomor_wa = "6281216464994" 
-pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahun dengan kembang api digitalnya! 🎉✨"
-link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
-
-st.markdown(f"""
-    <a href="{link_wa}" target="_blank">
-        <button style="width: 100%; background-color: #22c55e; color: white; padding: 10px 16px; border: none; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;">
-            📲 Kirim Ucapan Terima Kasih via WhatsApp
-        </button>
-    </a>
-""", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
-# ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA
-# ==========================================
-st.markdown("<br><hr>", unsafe_allow_html=True)
-with st.expander("🔒 Panel Khusus Zefanya"):
-    st.markdown("Masukkan PIN rahasia:")
-    pin_input = st.text_input("PIN Rahasia:", type="password")
-    PIN_RAHASIA = "2021" 
     
-    if pin_input == PIN_RAHASIA:
-        st.success("PIN benar! Selamat datang, Bos.")
-        # Panel khusus admin bersih
-        st.info("Sistem kado & kembang api berjalan sempurna untuk Irma!")
-    elif pin_input:
-        st.error("PIN salah.")
+    if st.button("💣 LEDAKKAN KEJUTAN SEKARANG"):
+        # Animasi ledakan bom / kembang api pembuka
+        intro_placeholder = st.empty()
+        intro_placeholder.markdown("""
+            <div style="text-align: center; padding: 40px;">
+                <div class="fireworks-container">💣 💥 🎆 🎇 ✨</div>
+                <h2 style="color: #0369a1; margin-top: 15px;">SELAMAT ULANG TAHUN IRMA KRISTIANI GINTING! 🎉</h2>
+            </div>
+        """, unsafe_allow_html=True)
+        time.sleep(2.2)
+        intro_placeholder.empty()
+        
+        st.session_state['intro_opened'] = True
+        st.rerun()
 
-# Footer
-st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #0369a1; font-size: 0.8em; font-weight: bold;'>Created with pure sincerity for Irma Kristiani Ginting's Birthday 🎂💙</p>", unsafe_allow_html=True)
+else:
+    # --- HALAMAN UTAMA SETELAH INTRO BOM DIBUKA ---
+    
+    # 🎈 Efek Balon Sambutan Utama
+    if 'welcomed_irma' not in st.session_state:
+        st.balloons()
+        st.session_state['welcomed_irma'] = True
+
+    # Header Utama
+    st.markdown("<h1 class='romantic-title'>Happy Birthday Irma Kristiani Ginting! 🎂💙</h1>", unsafe_allow_html=True)
+    st.markdown("<p class='subtitle'>A very special day for a very special person! ✨</p>", unsafe_allow_html=True)
+
+    # --- 1. SOUNDTRACK ULANG TAHUN (POSISI DI ATAS) ---
+    url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
+
+    st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu spesial penuh berkat untuk menemani harimu:</p>", unsafe_allow_html=True)
+    st.markdown("**♪ Happy Birthday Tuhan Berkati — Maranatha Singer**")
+    st.video(url_lagu_irma)
+
+    st.markdown(f"""
+        <a href="{url_lagu_irma}" target="_blank">
+            <button style="margin-top: 6px; width: 100%; background: #ef4444; color: white; padding: 8px 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">
+                ▶️ Buka YouTube Langsung (Jika Video Tidak Berputar)
+            </button>
+        </a>
+    """, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # --- 2. UCAPAN & SURAT SPESIAL ULANG TAHUN ---
+    st.markdown("<div class='love-card'><h3>💌 Pesan Spesial Hari Ini</h3>", unsafe_allow_html=True)
+    st.markdown("<h4>Selamat Ulang Tahun, Irma! 🥳</h4>", unsafe_allow_html=True)
+    st.markdown("""
+        <div class='message-box'>
+        Halo Irma Kristiani Ginting! 🌟<br><br>
+        Selamat bertambah usia ya! Semoga di umur yang baru ini, segala hal baik, kebahagiaan, kesehatan, dan kelancaran selalu menyertai setiap langkahmu. Terima kasih sudah menjadi pribadi yang hebat. Semoga hari-harimu ke depan dipenuhi senyuman dan hal-hal indah yang pantas kamu dapatkan! 🎂✨
+        </div>
+    """, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # --- 3. FOTO SPESIAL IRMA ---
+    st.markdown("<div class='love-card'><h3>📸 Spesial Untukmu Hari Ini</h3>", unsafe_allow_html=True)
+
+    if os.path.exists("foto_irma.jpeg"):
+        st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+        st.image("foto_irma.jpeg", use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
+    elif os.path.exists("foto_irma.jpg"):
+        st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+        st.image("foto_irma.jpg", use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
+    elif os.path.exists("foto_irma.png"):
+        st.markdown('<div class="img-frame">', unsafe_allow_html=True)
+        st.image("foto_irma.png", use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
+    else:
+        st.info("💡 Letakkan foto dengan nama 'foto_irma.jpeg' di GitHub agar fotonya tampil di sini ya!")
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # --- 4. KOTAK KADO DENGAN EFEK KEMBANG API DIGITAL (FIREWORKS SURPRISE) ---
+    st.markdown("<div class='love-card'><h3>🎁 Kotak Kado Kejutan Rahasia</h3><p>Ssst... Ada pesan kejutan kembang api khusus buat kamu di dalam kado ini. Coba klik tombolnya:</p>", unsafe_allow_html=True)
+
+    if 'open_gift' not in st.session_state:
+        st.session_state['open_gift'] = False
+
+    if not st.session_state['open_gift']:
+        if st.button("🎆 Nyalakan Pesta Kembang Api & Buka Kejutan"):
+            firework_placeholder = st.empty()
+            firework_placeholder.markdown("""
+                <div style="text-align: center; padding: 15px;">
+                    <div class="fireworks-container">🎆 🎇 ✨ 🌟 💥</div>
+                    <p style="color: #0369a1; font-weight: bold; margin-top: 5px;">Mempersiapkan pesta kembang api untuk Irma...</p>
+                </div>
+            """, unsafe_allow_html=True)
+            time.sleep(1.8)
+            firework_placeholder.empty()
+            
+            st.session_state['open_gift'] = True
+            st.rerun()
+    else:
+        st.balloons()
+        st.markdown("""
+            <div style="text-align: center; padding: 10px;">
+                <div class="fireworks-container">🎇 🎆 💖 🌟 🎆 🎇</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+            <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3);">
+                <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎉 SURPRISE! HAPPY BIRTHDAY IRMA! 🎉</h3>
+                <p style="font-size: 0.95em; font-weight: 600; color: #f8fafc !important; line-height: 1.5;">
+                    "Semoga di tahun ini semua impian terbesarmu tercapai, dilancarkan segala urusannya, dan selalu dikelilingi orang-orang tulus. Let the fireworks remind you how special you are, Irma Kristiani Ginting!" 🤍✨
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # --- 5. KONFIRMASI WHATSAPP ---
+    st.markdown("<div class='love-card'><h3>✅ Konfirmasi ke Zefanya</h3><p>Udah buka kejutannya? Kirim kabar ke WhatsApp Zefanya yuk:</p>", unsafe_allow_html=True)
+    nomor_wa = "6281216464994" 
+    pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahun dengan intro bom dan kembang api digitalnya! 🎉✨"
+    link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
+
+    st.markdown(f"""
+        <a href="{link_wa}" target="_blank">
+            <button style="width: 100%; background-color: #22c55e; color: white; padding: 10px 16px; border: none; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;">
+                📲 Kirim Ucapan Terima Kasih via WhatsApp
+            </button>
+        </a>
+    """, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # ==========================================
+    # 🔒 PANEL KHUSUS ZEFANYA
+    # ==========================================
+    st.markdown("<br><hr>", unsafe_allow_html=True)
+    with st.expander("🔒 Panel Khusus Zefanya"):
+        st.markdown("Masukkan PIN rahasia:")
+        pin_input = st.text_input("PIN Rahasia:", type="password")
+        PIN_RAHASIA = "2021" 
+        
+        if pin_input == PIN_RAHASIA:
+            st.success("PIN benar! Selamat datang, Bos.")
+            st.info("Sistem intro bom & kembang api berjalan sempurna untuk Irma!")
+        elif pin_input:
+            st.error("PIN salah.")
+
+    # Footer
+    st.markdown("<br><hr>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #0369a1; font-size: 0.8em; font-weight: bold;'>Created with pure sincerity for Irma Kristiani Ginting's Birthday 🎂💙</p>", unsafe_allow_html=True)
