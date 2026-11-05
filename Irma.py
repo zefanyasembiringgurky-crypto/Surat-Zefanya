@@ -1,50 +1,7 @@
 import streamlit as st
 import datetime
-import sqlite3
-import pandas as pd
 import os
 import time
-
-# --- INISIALISASI DATABASE SQLITE UNTUK IRMA ---
-def init_db():
-    conn = sqlite3.connect('pesan_irma.db', check_same_thread=False)
-    c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS responses (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            topik TEXT,
-            jawaban TEXT,
-            waktu TEXT
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
-init_db()
-
-def save_response(topik, jawaban):
-    conn = sqlite3.connect('pesan_irma.db', check_same_thread=False)
-    c = conn.cursor()
-    waktu_str = datetime.datetime.now().strftime("%d %B %Y - %H:%M:%S")
-    c.execute('INSERT INTO responses (topik, jawaban, waktu) VALUES (?, ?, ?)', (topik, jawaban, waktu_str))
-    conn.commit()
-    conn.close()
-
-def delete_response(resp_id):
-    conn = sqlite3.connect('pesan_irma.db', check_same_thread=False)
-    c = conn.cursor()
-    c.execute('DELETE FROM responses WHERE id = ?', (resp_id,))
-    conn.commit()
-    conn.close()
-
-def get_responses():
-    conn = sqlite3.connect('pesan_irma.db', check_same_thread=False)
-    try:
-        df_resp = pd.read_sql_query('SELECT * FROM responses ORDER BY id DESC', conn)
-    except:
-        df_resp = pd.DataFrame(columns=['id', 'topik', 'jawaban', 'waktu'])
-    conn.close()
-    return df_resp
 
 # Konfigurasi Halaman
 st.set_page_config(
@@ -58,7 +15,7 @@ wib_offset = datetime.timezone(datetime.timedelta(hours=7))
 now_wib = datetime.datetime.now(wib_offset)
 current_hour = now_wib.hour
 
-# Custom CSS & Tema Biru Putih yang Elegan (Proporsional & Rapi)
+# Custom CSS & Tema Biru Putih yang Elegan (Responsive & Proporsional untuk HP)
 css_template = """
     <style>
     .stApp {
@@ -71,26 +28,26 @@ css_template = """
         color: #0369a1;
         font-family: 'Georgia', serif;
         font-weight: 900;
-        font-size: 2.1em;
+        font-size: 1.8em;
         padding-top: 10px;
-        text-shadow: 0 2px 8px rgba(255,255,255,0.9);
+        text-shadow: 0 2px 6px rgba(255,255,255,0.9);
     }
     .subtitle {
         text-align: center;
         color: #0284c7;
         font-style: italic;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         font-weight: 700;
-        font-size: 1.05em;
+        font-size: 0.95em;
     }
     .love-card {
         background: #ffffff !important;
-        padding: 22px;
-        border-radius: 18px;
-        box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.08);
+        padding: 18px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.06);
         border: 2px solid #38bdf8;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         color: #0f172a !important;
         position: relative;
         z-index: 2;
@@ -98,62 +55,49 @@ css_template = """
     .love-card h3 {
         color: #0369a1 !important;
         font-weight: 800 !important;
-        font-size: 1.35em !important;
+        font-size: 1.2em !important;
     }
     .love-card h4 {
         color: #0284c7 !important;
         font-weight: 700 !important;
-        font-size: 1.15em !important;
+        font-size: 1.05em !important;
     }
     .love-card p, .love-card label, .love-card span {
         color: #334155 !important;
         font-weight: 600 !important;
-        font-size: 1em !important;
+        font-size: 0.95em !important;
     }
     .message-box {
         background-color: #f8fafc;
         border: 2px solid #bae6fd;
-        border-radius: 12px;
-        padding: 16px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        border-radius: 10px;
+        padding: 14px;
+        margin-top: 8px;
+        margin-bottom: 8px;
         text-align: left;
         color: #1e293b !important;
-        font-size: 1.02em;
+        font-size: 0.95em;
         font-weight: 600;
         line-height: 1.5;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-    .stTextInput input, .stTextArea textarea {
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-        font-weight: 600 !important;
-        border: 2px solid #38bdf8 !important;
-        border-radius: 10px !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
     .img-frame {
         background: #ffffff;
-        padding: 10px;
-        border-radius: 14px;
-        box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
-        border: 3px solid #0ea5e9;
-        margin-bottom: 12px;
-    }
-    div[data-baseweb="select"] > div {
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-        font-weight: 600 !important;
-        border: 2px solid #38bdf8 !important;
+        padding: 8px;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2);
+        border: 2px solid #0ea5e9;
+        margin-bottom: 10px;
     }
     div.stButton > button {
         background: #0284c7;
         color: #ffffff !important;
-        border-radius: 12px;
+        border-radius: 10px;
         font-weight: 700;
-        font-size: 15px;
-        padding: 12px 20px;
+        font-size: 14px;
+        padding: 10px 16px;
         border: 2px solid #ffffff;
-        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
         width: 100%;
         cursor: pointer;
     }
@@ -166,7 +110,7 @@ css_template = """
         0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }
         15% { opacity: 0.95; }
         85% { opacity: 0.95; }
-        100% { transform: translateY(105vh) scale(1.15) rotate(360deg); opacity: 0; }
+        100% { transform: translateY(105vh) scale(1.1) rotate(360deg); opacity: 0; }
     }
     .floating-bg {
         position: fixed;
@@ -175,7 +119,7 @@ css_template = """
     }
     .floating-item {
         position: absolute; top: -60px;
-        font-size: 26px; font-weight: 800;
+        font-size: 22px; font-weight: 800;
         color: #0284c7;
         text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
         animation: floatDown 10s infinite linear;
@@ -215,7 +159,7 @@ if 'welcomed_irma' not in st.session_state:
 st.markdown("<h1 class='romantic-title'>Happy Birthday Irma Kristiani Ginting! 🎂💙</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>A very special day for a very special person! ✨</p>", unsafe_allow_html=True)
 
-# --- 1. SOUNDTRACK ULANG TAHUN (DIPINDAH KE PALING ATAS DI BAWAH JUDUL) ---
+# --- 1. SOUNDTRACK ULANG TAHUN (POSISI DI ATAS) ---
 url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
 
 st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu spesial penuh berkat untuk menemani harimu:</p>", unsafe_allow_html=True)
@@ -224,7 +168,7 @@ st.video(url_lagu_irma)
 
 st.markdown(f"""
     <a href="{url_lagu_irma}" target="_blank">
-        <button style="margin-top: 8px; width: 100%; background: #ef4444; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">
+        <button style="margin-top: 6px; width: 100%; background: #ef4444; color: white; padding: 8px 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">
             ▶️ Buka YouTube Langsung (Jika Video Tidak Berputar)
         </button>
     </a>
@@ -249,17 +193,17 @@ if os.path.exists("foto_irma.jpeg"):
     st.markdown('<div class="img-frame">', unsafe_allow_html=True)
     st.image("foto_irma.jpeg", use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.95em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
 elif os.path.exists("foto_irma.jpg"):
     st.markdown('<div class="img-frame">', unsafe_allow_html=True)
     st.image("foto_irma.jpg", use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.95em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
 elif os.path.exists("foto_irma.png"):
     st.markdown('<div class="img-frame">', unsafe_allow_html=True)
     st.image("foto_irma.png", use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.95em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-weight: 600; color: #0369a1; font-style: italic; font-size: 0.9em;">"Senyuman terbaik untuk hari yang luar biasa. Stay wonderful, Irma!" 💙</p>', unsafe_allow_html=True)
 else:
     st.info("💡 Letakkan foto dengan nama 'foto_irma.jpeg' di GitHub agar fotonya tampil di sini ya!")
 
@@ -280,9 +224,9 @@ if not st.session_state['open_gift']:
 else:
     st.balloons()
     st.markdown("""
-        <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 20px; border-radius: 14px; color: #ffffff; text-align: center; box-shadow: 0 6px 20px rgba(2,132,199,0.3);">
-            <h3 style="margin-bottom: 8px; color: #fde047 !important;">🎉 SURPRISE! YOU'RE AMAZING! 🎉</h3>
-            <p style="font-size: 1.05em; font-weight: 600; color: #f8fafc !important; line-height: 1.6;">
+        <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3);">
+            <h3 style="margin-bottom: 6px; color: #fde047 !important; font-size: 1.1em !important;">🎉 SURPRISE! YOU'RE AMAZING! 🎉</h3>
+            <p style="font-size: 0.95em; font-weight: 600; color: #f8fafc !important; line-height: 1.5;">
                 "Semoga di tahun ini semua impian terbesarmu tercapai, dilancarkan segala urusannya, dan selalu dikelilingi orang-orang tulus. Have the happiest birthday ever, Irma Kristiani Ginting!" 🤍✨
             </p>
         </div>
@@ -290,19 +234,7 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 5. KOTAK UCAPAN / BALASAN DARI IRMA ---
-st.markdown("<div class='love-card'><h3>✍️ Kirim Balasan / Pesan</h3><p>Ketik kesan atau pesan balasanmu di sini (pesannya akan langsung masuk ke sistem Zefanya):</p>", unsafe_allow_html=True)
-pesan_irma = st.text_area("Tulis pesan atau ucapan terima kasih di sini...")
-if st.button("Kirim Pesan"):
-    if pesan_irma.strip():
-        save_response("Pesan Ulang Tahun Irma", pesan_irma)
-        st.success("Yeay! Pesan dan ucapanmu berhasil tersimpan! 💙✨")
-        st.balloons()
-    else:
-        st.warning("Tulis dulu pesannya ya, Irma.")
-st.markdown("</div>", unsafe_allow_html=True)
-
-# --- 6. KONFIRMASI WHATSAPP ---
+# --- 5. KONFIRMASI WHATSAPP ---
 st.markdown("<div class='love-card'><h3>✅ Konfirmasi ke Zefanya</h3><p>Udah buka kejutannya? Kirim kabar ke WhatsApp Zefanya yuk:</p>", unsafe_allow_html=True)
 nomor_wa = "6281216464994" 
 pesan_wa = "Halo Zefanya, makasih banyak ya buat kejutan website ulang tahun bertema biru putih ini! 🎉✨"
@@ -310,43 +242,13 @@ link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
 
 st.markdown(f"""
     <a href="{link_wa}" target="_blank">
-        <button style="width: 100%; background-color: #22c55e; color: white; padding: 12px 18px; border: none; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer;">
+        <button style="width: 100%; background-color: #22c55e; color: white; padding: 10px 16px; border: none; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;">
             📲 Kirim Ucapan Terima Kasih via WhatsApp
         </button>
     </a>
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA
-# ==========================================
-st.markdown("<br><hr>", unsafe_allow_html=True)
-with st.expander("🔒 Panel Khusus Zefanya"):
-    st.markdown("Masukkan PIN rahasia:")
-    pin_input = st.text_input("PIN Rahasia:", type="password")
-    PIN_RAHASIA = "2021" 
-    
-    if pin_input == PIN_RAHASIA:
-        st.success("PIN benar! Selamat datang, Bos.")
-        df_data = get_responses()
-        if not df_data.empty:
-            st.dataframe(df_data, use_container_width=True)
-            
-            st.markdown("---")
-            st.markdown("🗑️ **Hapus Pesan:**")
-            id_to_delete = st.number_input("Masukkan Nomor ID:", min_value=1, step=1)
-            if st.button("❌ Hapus Pesan Ini"):
-                if id_to_delete in df_data['id'].values:
-                    delete_response(id_to_delete)
-                    st.success(f"ID {id_to_delete} berhasil dihapus!")
-                    st.rerun()
-                else:
-                    st.error("ID tidak ditemukan.")
-        else:
-            st.info("Belum ada pesan tersimpan dari Irma.")
-    elif pin_input:
-        st.error("PIN salah.")
-
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #0369a1; font-size: 0.85em; font-weight: bold;'>Created with pure sincerity for Irma Kristiani Ginting's Birthday 🎂💙</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #0369a1; font-size: 0.8em; font-weight: bold;'>Created with pure sincerity for Irma Kristiani Ginting's Birthday 🎂💙</p>", unsafe_allow_html=True)
