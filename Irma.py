@@ -287,7 +287,7 @@ else:
         """, unsafe_allow_html=True)
         
         # Link Video Ucapan Selamat Ulang Tahun dari YouTube
-        url_video_ucapan_kado = "https://youtu.be/AEKRXpBMa2w?si=0d44nYIBrNer_yBB"
+        url_video_ucapan_kado = "https://youtube.com/shorts/DwpDkQRDfvI?si=feYryi5yAX8YvMlf"
         
         st.markdown("""
             <div style="background: linear-gradient(135deg, #0284c7 100%, #0369a1 0%); padding: 16px; border-radius: 12px; color: #ffffff; text-align: center; box-shadow: 0 4px 16px rgba(2,132,199,0.3); margin-bottom: 12px;">
