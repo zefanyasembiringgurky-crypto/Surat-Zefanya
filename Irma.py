@@ -213,14 +213,7 @@ else:
     st.markdown("**♪ Happy Birthday Tuhan Berkati — Maranatha Singer**")
     st.video(url_lagu_irma)
 
-    st.markdown(f"""
-        <a href="{url_lagu_irma}" target="_blank">
-            <button style="margin-top: 6px; width: 100%; background: #ef4444; color: white; padding: 8px 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;">
-                ▶️ Buka YouTube Langsung (Jika Video Tidak Berputar)
-            </button>
-        </a>
-    """, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
+
 
     # --- 2. UCAPAN & SURAT SPESIAL UNTUK GURU ---
     st.markdown("<div class='love-card'><h3>💌 Pesan Spesial Hari Ini</h3>", unsafe_allow_html=True)
