@@ -165,18 +165,32 @@ css_template = """
     }
     .floating-item {
         position: absolute; top: -60px;
-        font-size: 32px; font-weight: bold;
-        animation: floatDown 9s infinite linear;
+        font-size: 32px; font-weight: 900;
+        color: #7209b7;
+        text-shadow: 0 2px 5px rgba(255, 255, 255, 0.9);
+        animation: floatDown 10s infinite linear;
     }
     </style>
     <div class="floating-bg">
-        <div class="floating-item" style="left: 5%; animation-duration: 8s; animation-delay: 0s;">🎉</div>
-        <div class="floating-item" style="left: 15%; animation-duration: 10s; animation-delay: 2s;">🎂</div>
-        <div class="floating-item" style="left: 25%; animation-duration: 7s; animation-delay: 1s;">✨</div>
-        <div class="floating-item" style="left: 40%; animation-duration: 11s; animation-delay: 3s;">💖</div>
-        <div class="floating-item" style="left: 60%; animation-duration: 8.5s; animation-delay: 0.5s;">🎁</div>
-        <div class="floating-item" style="left: 75%; animation-duration: 9.5s; animation-delay: 2.5s;">🌟</div>
-        <div class="floating-item" style="left: 90%; animation-duration: 10s; animation-delay: 1.5s;">🥳</div>
+        <div class="floating-item" style="left: 4%; animation-duration: 9s; animation-delay: 0s;">H</div>
+        <div class="floating-item" style="left: 9%; animation-duration: 11s; animation-delay: 2s;">A</div>
+        <div class="floating-item" style="left: 14%; animation-duration: 8s; animation-delay: 1s;">P</div>
+        <div class="floating-item" style="left: 19%; animation-duration: 12s; animation-delay: 3s;">P</div>
+        <div class="floating-item" style="left: 24%; animation-duration: 9.5s; animation-delay: 0.5s;">Y</div>
+        <div class="floating-item" style="left: 31%; animation-duration: 10s; animation-delay: 2s;">🎂</div>
+        <div class="floating-item" style="left: 38%; animation-duration: 11.5s; animation-delay: 1.5s;">B</div>
+        <div class="floating-item" style="left: 43%; animation-duration: 8.5s; animation-delay: 3.5s;">I</div>
+        <div class="floating-item" style="left: 48%; animation-duration: 10s; animation-delay: 0.8s;">R</div>
+        <div class="floating-item" style="left: 53%; animation-duration: 9s; animation-delay: 2.2s;">T</div>
+        <div class="floating-item" style="left: 58%; animation-duration: 10.5s; animation-delay: 1.2s;">H</div>
+        <div class="floating-item" style="left: 63%; animation-duration: 8.5s; animation-delay: 0.2s;">D</div>
+        <div class="floating-item" style="left: 68%; animation-duration: 11s; animation-delay: 2.8s;">A</div>
+        <div class="floating-item" style="left: 73%; animation-duration: 9.2s; animation-delay: 1.8s;">Y</div>
+        <div class="floating-item" style="left: 80%; animation-duration: 10.5s; animation-delay: 0.5s;">✨</div>
+        <div class="floating-item" style="left: 86%; animation-duration: 8s; animation-delay: 2.5s;">I</div>
+        <div class="floating-item" style="left: 91%; animation-duration: 11.5s; animation-delay: 1.1s;">R</div>
+        <div class="floating-item" style="left: 95%; animation-duration: 9s; animation-delay: 3.2s;">M</div>
+        <div class="floating-item" style="left: 98%; animation-duration: 10.2s; animation-delay: 0.7s;">A</div>
     </div>
 """
 
@@ -229,8 +243,8 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- 3. SOUNDTRACK ULANG TAHUN ---
-url_lagu_irma = "https://www.youtube.com/watch?v=F07l3K-U69E" # Link YouTube Maranatha Singer
+# --- 3. SOUNDTRACK ULANG TAHUN (LINK RESMI MARANATHA SINGER) ---
+url_lagu_irma = "https://www.youtube.com/watch?v=4oxarzdbEuw" 
 
 st.markdown("<div class='love-card'><h3>🎵 Soundtrack Ulang Tahun</h3><p>Lagu pilihan penuh doa untuk menemani hari bahagiamu:</p>", unsafe_allow_html=True)
 st.markdown("**♪ Happy Birthday Tuhan Berkati — Maranatha Singer**")
@@ -239,7 +253,7 @@ st.video(url_lagu_irma)
 st.markdown(f"""
     <a href="{url_lagu_irma}" target="_blank">
         <button style="margin-top: 10px; width: 100%; background: #ff0000; color: white; padding: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
-            ▶️ Klik di Sini Jika Video di Atas Diblokir (Buka YouTube Langsung)
+            ▶️ Klik di Sini Jika Video di Atas Tidak Bisa Diputar (Buka YouTube Langsung)
         </button>
     </a>
 """, unsafe_allow_html=True)
