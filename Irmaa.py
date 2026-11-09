@@ -220,7 +220,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 2. JUDUL UTAMA
-st.markdown("<h1 class='main-title'>🚨 SITUASI DARURAT: Misi Nekat Ajak Bu Guru Makan Bareng 🍽️</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='main-title'>🚨 SITUASI DARURAT: IRMA KRISTIANI GINTING 🍽️</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Tolong dibaca sampai habis ya, jangan di-skip! 😆</p>", unsafe_allow_html=True)
 
 # 3. VIDEO BACKSOUND TEGANG
