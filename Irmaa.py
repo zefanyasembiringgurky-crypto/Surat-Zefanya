@@ -4,6 +4,9 @@ import sqlite3
 import pandas as pd
 import os
 
+# --- ZONA WAKTU WIB (UTC+7) ---
+wib_offset = datetime.timezone(datetime.timedelta(hours=7))
+
 # --- INISIALISASI DATABASE SQLITE UNTUK IRMA ---
 def init_db():
     conn = sqlite3.connect('jawaban_irma.db', check_same_thread=False)
@@ -24,7 +27,8 @@ init_db()
 def save_response(topik, jawaban):
     conn = sqlite3.connect('jawaban_irma.db', check_same_thread=False)
     c = conn.cursor()
-    waktu_str = datetime.datetime.now().strftime("%d %B %Y - %H:%M:%S")
+    # Menggunakan waktu WIB
+    waktu_str = datetime.datetime.now(wib_offset).strftime("%d %B %Y - %H:%M:%S WIB")
     c.execute('INSERT INTO responses (topik, jawaban, waktu) VALUES (?, ?, ?)', (topik, jawaban, waktu_str))
     conn.commit()
     conn.close()
@@ -148,7 +152,7 @@ st.markdown("""
 st.markdown("<h1 class='main-title'>🚨 SITUASI DARURAT: Misi Nekat Ajak Bu Guru Makan Bareng 🍽️</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Tolong dibaca sampai habis ya, jangan di-skip! 😆</p>", unsafe_allow_html=True)
 
-# 3. VIDEO BACKSOUND TEGANG (DIKEMBALIKAN KE SEMULA)
+# 3. VIDEO BACKSOUND TEGANG
 url_video_ucapan = "https://youtu.be/OPhoNbL7kJc?si=U8tZ9whkI3IscVXA" 
 
 with st.container():
@@ -228,7 +232,7 @@ with st.container():
         if jawaban_final == "Belum memilih":
             st.warning("⚠️ Pilih dulu salah satu jawabannya ya sebelum dikirim! 😄")
         else:
-            # Simpan langsung ke database SQLite
+            # Simpan langsung ke database SQLite dengan waktu WIB
             save_response("Pilihan Ajakan Makan", jawaban_final)
             save_response("Jadwal Luang", f"Tanggal: {tanggal_pilihan} | Waktu: {waktu_final}")
             
