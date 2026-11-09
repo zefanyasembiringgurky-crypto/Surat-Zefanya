@@ -167,7 +167,7 @@ with st.container():
     st.markdown("""
         <div class='gray-card'>
             <h3 style='margin-top: 0; font-size: 1.15em;'>🎵 Suasana Hati Saat Ini</h3>
-            <p style='color: #94a3b8; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawaban kam...</p>
+            <p style='color: #94a3b8; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawaban kam, putar dulu musiknya ya...</p>
         </div>
     """, unsafe_allow_html=True)
     st.video(url_video_ucapan)
