@@ -51,7 +51,7 @@ def get_responses():
 
 # Konfigurasi Halaman
 st.set_page_config(
-    page_title="Misi Ajak Irma Makan Bareng 🍽️",
+    page_title="Yok Makan Bareng Ir🍽️",
     page_icon="🍽️",
     layout="centered"
 )
@@ -159,7 +159,7 @@ with st.container():
     st.markdown("""
         <div class='gray-card'>
             <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>🎵 Suasana Hati Saat Ini</h3>
-            <p style='color: #4b5563; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawabannya...</p>
+            <p style='color: #4b5563; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawaban kam...</p>
         </div>
     """, unsafe_allow_html=True)
     st.video(url_video_ucapan)
@@ -187,7 +187,7 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
     
-    pilihan_list = ["✨ Belum memilih (Silakan klik salah satu)", "Mauuu", "Gak mau kalau ga jadi", "Yaudah iya"]
+    pilihan_list = ["✨ Belum memilih (Silakan klik salah satu)", "Mauuu", "Gak mau", "Yaudah iya"]
     
     pilihan = st.radio(
         "Pilih jawaban:",
@@ -203,7 +203,7 @@ with st.container():
     st.markdown("""
         <div class='gray-card'>
             <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>📅 Atur Jadwal Kapan Kamu Bisa</h3>
-            <p style='color: #4b5563; font-size: 0.95em;'>Kapan pun waktu luangmu (jam pulang sekolah atau weekend), silakan isi di bawah ya:</p>
+            <p style='color: #4b5563; font-size: 0.95em;'>waktu kam, silakan isi di bawah ya:</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -211,7 +211,7 @@ with st.container():
     with col1:
         tanggal_pilihan = st.date_input("Pilih Tanggal:", key="input_tanggal")
     with col2:
-        waktu_pilihan = st.text_input("Pilih Waktu (misal: Selesai jam sekolah / Sore):", key="input_waktu", placeholder="Contoh: Selesai jam sekolah")
+        waktu_pilihan = st.text_input("Pilih Waktu:", key="input_waktu", placeholder="Contoh: Selesai jam sekolah")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
