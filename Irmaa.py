@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS Tema Abu-Abu Putih (Gray & White Theme) dengan perbaikan warna teks radio
+# Custom CSS Tema Abu-Abu Putih yang Lebih Cantik & Elegan
 css_template = """
     <style>
     .stApp {
@@ -18,9 +18,9 @@ css_template = """
     }
     .gray-card {
         background: #ffffff !important;
-        padding: 22px;
-        border-radius: 14px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        padding: 24px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
         border: 1px solid #d1d5db;
         margin-bottom: 20px;
     }
@@ -28,41 +28,58 @@ css_template = """
         text-align: center;
         color: #111827;
         font-weight: 800;
-        font-size: 1.7em;
+        font-size: 1.6em;
         margin-bottom: 5px;
+        letter-spacing: -0.5px;
     }
     .subtitle {
         text-align: center;
         color: #4b5563;
         font-style: italic;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
+        font-size: 0.95em;
     }
-    /* Memastikan teks pilihan radio menjadi hitam pekat dan jelas */
-    .stRadio label p, .stRadio div {
-        color: #111827 !important;
-        font-weight: 700 !important;
+    /* Mempercantik tampilan pilihan radio agar lebih rapi dan elegan */
+    .stRadio label p {
+        color: #1f2937 !important;
+        font-weight: 600 !important;
         font-size: 1.05em !important;
+        padding: 4px 0;
     }
     div.stButton > button {
         background: #374151;
         color: #ffffff !important;
-        border-radius: 8px;
+        border-radius: 10px;
         font-weight: 600;
-        padding: 10px 20px;
+        padding: 12px 20px;
         border: none;
         width: 100%;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
     }
     div.stButton > button:hover {
         background: #111827;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    .welcome-note {
+        text-align: center;
+        color: #4b5563;
+        font-size: 0.95em;
+        margin-bottom: 16px;
+        font-weight: 600;
+        background: #e5e7eb;
+        padding: 8px 16px;
+        border-radius: 20px;
+        display: inline-block;
+        width: 100%;
     }
     </style>
 """
 st.markdown(css_template, unsafe_allow_html=True)
 
-# Inisialisasi Session State di awal jika belum ada
+# Inisialisasi Session State
 if 'radio_jawaban' not in st.session_state:
-    st.session_state.radio_jawaban = "Mauuu"
+    st.session_state.radio_jawaban = "✨ Belum memilih (Silakan klik salah satu)"
 if 'input_tanggal' not in st.session_state:
     st.session_state.input_tanggal = datetime.date.today()
 if 'input_waktu' not in st.session_state:
@@ -70,12 +87,12 @@ if 'input_waktu' not in st.session_state:
 
 # 1. UCAPAN TERIMA KASIH DI AWAL SEBELUM JUDUL
 st.markdown("""
-    <div style="text-align: center; color: #4b5563; font-size: 0.95em; margin-bottom: 12px; font-weight: 600;">
-        ✨ Hai Ir, makasih banyak ya udah mau nyempetin waktu buat membuka link ini... ✨
+    <div style="text-align: center;">
+        <span class="welcome-note">✨ Hai Ir, makasih banyak ya udah mau nyempetin waktu buat membuka link ini... ✨</span>
     </div>
 """, unsafe_allow_html=True)
 
-# 2. JUDUL UTAMA YANG LUCU
+# 2. JUDUL UTAMA
 st.markdown("<h1 class='main-title'>🚨 SITUASI DARURAT: Misi Nekat Ajak Bu Guru Makan Bareng 🍽️</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Tolong dibaca sampai habis ya, jangan di-skip! 😆</p>", unsafe_allow_html=True)
 
@@ -83,11 +100,10 @@ st.markdown("<p class='subtitle'>Tolong dibaca sampai habis ya, jangan di-skip! 
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0;'>🎵 Suasana Hati Saat Ini</h3>
-            <p style='color: #4b5563; font-weight: 600;'>Disini aku yang tegang nunggu jawabannya...</p>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>🎵 Suasana Hati Saat Ini</h3>
+            <p style='color: #4b5563; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawabannya...</p>
         </div>
     """, unsafe_allow_html=True)
-    
     st.video("https://youtu.be/OPhoNbL7kJc?si=U8tZ9whkI3IscVXA")
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -96,35 +112,38 @@ st.markdown("<br>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0;'>💌 Pesan Penting Buat Irma</h3>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>💌 Pesan Penting Buat Irma</h3>
             <p style='color: #1f2937; line-height: 1.6; font-size: 1.05em; font-weight: 500;'>
                 "Ir, ehmm aku mau ajak kam makan bareng, untuk tempat makannya udah tau dan ini kam pernah makan, sebenarnya aku dari kemaren mikirin ini tapi takut kam ga mau tapi setelah kupikir-pikir daripada belum kucoba, gimana ya bilangnya aku deg-degan........ soalnya aku ngarep kali kam mau tapi kembali ke kam 🥺"
             </p>
         </div>
     """, unsafe_allow_html=True)
 
-# 5. PANEL PILIHAN TOMBOL JAWABAN
+# 5. PANEL PILIHAN TOMBOL JAWABAN (Bersih tanpa ada yang terpilih di awal)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0;'>👇 Silakan Pilih Jawabannya di Bawah Ya:</h3>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>👇 Silakan Pilih Jawabannya di Bawah Ya:</h3>
         </div>
     """, unsafe_allow_html=True)
     
+    pilihan_list = ["✨ Belum memilih (Silakan klik salah satu)", "Mauuu", "Gak mau kalau ga jadi", "Yaudah iya"]
+    
     pilihan = st.radio(
         "Pilih jawaban:",
-        ("Mauuu", "Gak mau kalau ga jadi", "Yaudah iya"),
+        pilihan_list,
+        index=0,
         key="radio_jawaban",
         label_visibility="collapsed"
     )
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 6. PANEL WAKTU NGEDATE (Tanpa input tempat)
+# 6. PANEL WAKTU NGEDATE
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0;'>📅 Atur Jadwal Kapan Kamu Bisa</h3>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>📅 Atur Jadwal Kapan Kamu Bisa</h3>
             <p style='color: #4b5563; font-size: 0.95em;'>Kapan pun waktu luangmu (jam pulang sekolah atau weekend), silakan isi di bawah ya:</p>
         </div>
     """, unsafe_allow_html=True)
@@ -148,13 +167,14 @@ with st.container():
     """, unsafe_allow_html=True)
     
     nomor_wa = "6281216464994"
+    jawaban_final = pilihan if pilihan != "✨ Belum memilih (Silakan klik salah satu)" else "Belum memilih"
     waktu_final = waktu_pilihan if waktu_pilihan else "Tidak diisi"
-    pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {pilihan}. Jadwal luangku: {tanggal_pilihan} ({waktu_final})."
+    pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {jawaban_final}. Jadwal luangku: {tanggal_pilihan} ({waktu_final})."
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
     
     st.markdown(f"""
         <a href="{link_wa}" target="_blank">
-            <button style="width: 100%; background-color: #374151; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; text-align: center; display: block; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <button style="width: 100%; background-color: #374151; color: white; padding: 12px 20px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px; text-align: center; display: block; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
                 📲 Kirim Jawaban & Jadwal ke WhatsApp Zefanya
             </button>
         </a>
@@ -179,9 +199,9 @@ with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
         
         # Tombol untuk mereset data
         if st.button("🗑️ Hapus / Reset Jawaban Ini"):
-            for key in ['radio_jawaban', 'input_tanggal', 'input_waktu']:
-                if key in st.session_state:
-                    del st.session_state[key]
+            st.session_state.radio_jawaban = "✨ Belum memilih (Silakan klik salah satu)"
+            st.session_state.input_tanggal = datetime.date.today()
+            st.session_state.input_waktu = ""
             st.success("Data jawaban berhasil dihapus/direset!")
             st.rerun()
             
