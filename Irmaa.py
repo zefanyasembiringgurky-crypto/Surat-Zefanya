@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS Tema Abu-Abu Putih (Gray & White Theme)
+# Custom CSS Tema Abu-Abu Putih (Gray & White Theme) dengan perbaikan warna teks radio
 css_template = """
     <style>
     .stApp {
@@ -37,6 +37,12 @@ css_template = """
         font-style: italic;
         margin-bottom: 20px;
     }
+    /* Memastikan teks pilihan radio menjadi hitam pekat dan jelas */
+    .stRadio label p, .stRadio div {
+        color: #111827 !important;
+        font-weight: 700 !important;
+        font-size: 1.05em !important;
+    }
     div.stButton > button {
         background: #374151;
         color: #ffffff !important;
@@ -54,9 +60,19 @@ css_template = """
 """
 st.markdown(css_template, unsafe_allow_html=True)
 
+# Inisialisasi session state untuk menyimpan jawaban Irma
+if 'jawaban_irma' not in st.session_state:
+    st.session_state['jawaban_irma'] = "Belum memilih"
+if 'tanggal_irma' not in st.session_state:
+    st.session_state['tanggal_irma'] = str(datetime.date.today())
+if 'waktu_irma' not in st.session_state:
+    st.session_state['waktu_irma'] = "Selesai jam sekolah"
+if 'catatan_irma' not in st.session_state:
+    st.session_state['catatan_irma'] = "-"
+
 # 1. UCAPAN TERIMA KASIH DI AWAL SEBELUM JUDUL
 st.markdown("""
-    <div style="text-align: center; color: #6b7280; font-size: 0.95em; margin-bottom: 12px; font-weight: 500;">
+    <div style="text-align: center; color: #4b5563; font-size: 0.95em; margin-bottom: 12px; font-weight: 600;">
         ✨ Hai Ir, makasih banyak ya udah mau nyempetin waktu buat membuka link ini... ✨
     </div>
 """, unsafe_allow_html=True)
@@ -84,7 +100,7 @@ with st.container():
     st.markdown("""
         <div class='gray-card'>
             <h3 style='color: #374151; margin-top: 0;'>💌 Pesan Penting Buat Irma</h3>
-            <p style='color: #1f2937; line-height: 1.6; font-size: 1.05em;'>
+            <p style='color: #1f2937; line-height: 1.6; font-size: 1.05em; font-weight: 500;'>
                 "Ir, ehmm aku mau ajak kam makan bareng, untuk tempat makannya udah tau dan ini kam pernah makan, sebenarnya aku dari kemaren mikirin ini tapi takut kam ga mau tapi setelah kupikir-pikir daripada belum kucoba, gimana ya bilangnya aku deg-degan........ soalnya aku ngarep kali kam mau tapi kembali ke kam 🥺"
             </p>
         </div>
@@ -94,7 +110,7 @@ with st.container():
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0;'>👇 Silakan Klik Tombol Jawabannya di Bawah Ya:</h3>
+            <h3 style='color: #374151; margin-top: 0;'>👇 Silakan Pilih Jawabannya di Bawah Ya:</h3>
         </div>
     """, unsafe_allow_html=True)
     
@@ -104,6 +120,9 @@ with st.container():
         label_visibility="collapsed"
     )
     
+    # Simpan ke session state secara otomatis
+    st.session_state['jawaban_irma'] = pilihan
+
     if pilihan == "Mauuu":
         st.success("Yeeay! Bakal seneng banget kalau kam mau! 🎉")
     elif pilihan == "Yaudah iya":
@@ -130,13 +149,18 @@ with st.container():
     
     catatan_tempat = st.text_input("Catatan / usulan tempat (opsional):", "")
 
+    # Simpan ke session state secara otomatis
+    st.session_state['tanggal_irma'] = str(tanggal_pilihan)
+    st.session_state['waktu_irma'] = waktu_pilihan
+    st.session_state['catatan_irma'] = catatan_tempat if catatan_tempat else "-"
+
 st.markdown("<br>", unsafe_allow_html=True)
 
 # 7. PANEL PENUTUP & KIRIM KE WHATSAPP
 with st.container():
     st.markdown("""
         <div class='gray-card' style='text-align: center;'>
-            <p style='color: #1f2937; font-size: 1.05em; line-height: 1.5;'>
+            <p style='color: #1f2937; font-size: 1.05em; line-height: 1.5; font-weight: 500;'>
                 "Terima kasih ya Ir, pilihan kam aku hargain kok, kalau mau aku senang banget tapi semisal kam ga mau gak papa 🥺"
             </p>
         </div>
@@ -154,6 +178,24 @@ with st.container():
             </button>
         </a>
     """, unsafe_allow_html=True)
+
+# ==========================================
+# 🔒 PANEL KHUSUS ZEFANYA (DENGAN KODE 2021)
+# ==========================================
+st.markdown("<br><hr>", unsafe_allow_html=True)
+with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
+    st.markdown("Masukkan PIN rahasia untuk melihat jawaban Irma:")
+    pin_input = st.text_input("PIN Rahasia:", type="password")
+    PIN_RAHASIA = "2021" 
+    
+    if pin_input == PIN_RAHASIA:
+        st.success("PIN benar! Berikut adalah respons yang terekam:")
+        st.write(f"👉 **Pilihan Jawaban Irma:** {st.session_state['jawaban_irma']}")
+        st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state['tanggal_irma']}")
+        st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state['waktu_irma']}")
+        st.write(f"📍 **Catatan / Tempat:** {st.session_state['catatan_irma']}")
+    elif pin_input:
+        st.error("PIN salah.")
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
