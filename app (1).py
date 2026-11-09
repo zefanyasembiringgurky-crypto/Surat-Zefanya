@@ -3,7 +3,6 @@ import datetime
 import sqlite3
 import pandas as pd
 import os
-import time
 
 # --- INISIALISASI DATABASE SQLITE UNTUK IRMA ---
 def init_db():
@@ -53,6 +52,10 @@ st.set_page_config(
     layout="centered"
 )
 
+# Inisialisasi status login panel Zefanya
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
+
 # Custom CSS Tema Abu-Abu Putih Elegan (Gray & White Theme)
 css_template = """
     <style>
@@ -84,7 +87,6 @@ css_template = """
         margin-bottom: 24px;
         font-size: 0.95em;
     }
-    /* Mempercantik tampilan pilihan radio */
     .stRadio label p {
         color: #111827 !important;
         font-weight: 600 !important;
@@ -146,7 +148,7 @@ st.markdown("""
 st.markdown("<h1 class='main-title'>🚨 SITUASI DARURAT: Misi Nekat Ajak Bu Guru Makan Bareng 🍽️</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Tolong dibaca sampai habis ya, jangan di-skip! 😆</p>", unsafe_allow_html=True)
 
-# 3. VIDEO UCAPAN YOUTUBE (Sesuai link pilihanmu)
+# 3. VIDEO UCAPAN YOUTUBE
 url_video_ucapan = "https://youtu.be/AEKRXpBMa2w?si=0d44nYIBrNer_yBB" 
 
 with st.container():
@@ -244,16 +246,26 @@ with st.container():
             """, unsafe_allow_html=True)
 
 # ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (DENGAN SQLITE, TABEL, GRAFIK, & HAPUS ID)
+# 🔒 PANEL KHUSUS ZEFANYA (DENGAN SESSION STATE PIN)
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
 with st.expander("🔒 Panel Khusus Zefanya"):
-    st.markdown("Masukkan PIN rahasia:")
-    pin_input = st.text_input("PIN Rahasia:", type="password")
-    PIN_RAHASIA = "2021" 
-    
-    if pin_input == PIN_RAHASIA:
+    if not st.session_state.authenticated:
+        st.markdown("Masukkan PIN rahasia:")
+        pin_input = st.text_input("PIN Rahasia:", type="password", key="pin_input_box")
+        PIN_RAHASIA = "2021" 
+        
+        if pin_input == PIN_RAHASIA:
+            st.session_state.authenticated = True
+            st.rerun()
+        elif pin_input:
+            st.error("PIN salah.")
+    else:
         st.success("PIN benar! Selamat datang, Bos.")
+        if st.button("🔒 Kunci Kembali Panel"):
+            st.session_state.authenticated = False
+            st.rerun()
+            
         df_data = get_responses()
         if not df_data.empty:
             st.dataframe(df_data, use_container_width=True)
@@ -265,7 +277,7 @@ with st.expander("🔒 Panel Khusus Zefanya"):
             
             st.markdown("---")
             st.markdown("🗑️ **Hapus Jawaban Berdasarkan ID:**")
-            id_to_delete = st.number_input("Masukkan Nomor ID:", min_value=1, step=1)
+            id_to_delete = st.number_input("Masukkan Nomor ID:", min_value=1, step=1, key="del_id_input")
             if st.button("❌ Hapus Jawaban Ini"):
                 if id_to_delete in df_data['id'].values:
                     delete_response(id_to_delete)
@@ -275,8 +287,6 @@ with st.expander("🔒 Panel Khusus Zefanya"):
                     st.error("ID tidak ditemukan dalam database.")
         else:
             st.info("Belum ada data respons tersimpan di database.")
-    elif pin_input:
-        st.error("PIN salah.")
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
