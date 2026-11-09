@@ -245,7 +245,7 @@ with st.container():
             <div class='message-box'>
                 "Ir, ehmm... sebenarnya aku udah mikirin hal ini dari kemarin-kemarin dan bolak-balik ragu mau mulai ngomongnya dari mana. Aku pengen banget ngajak kam makan bareng, luangin waktu sebentar aja. Untuk tempat makannya, tenang aja, aku udah tau tempatnya dan makanan di situ pasti kam suka atau pernah makan sebelumnya, walau mungkin tempatnya baru buat kam.<br><br>
                 Oh iya, tujuan atau alasan aku ngajak kam makan bareng nanti bakal aku kasih tahu kalau kam mau ya! 😉<br><br>
-                Jujur, dari kemarin aku mikir panjang karena sempat takut kam nolak atau risih, tapi setelah kupikir-pikir lagi, daripada aku penasaran dan nggak pernah nyoba ngomong, ya udah aku nekat bikin ini. Duh, ngetik atau ngomong gini aja rasanya deg-degan kali... Soalnya aku jujur ngarep kali kam mau terima ajakannya dan nemenin aku sebentar. Tapi tenang ya, aku hargai apapun keputusan kam, jadi semua balik ke kam lagi kok 🥺🤍"
+                Jujur, dari kemarin aku mikir panjang karena sempat takut kam nolak atau risih, tapi setelah kupikir-pikir lagi, daripada aku penasaran dan nggak pernah nyoba ngomong, ya udah aku nekat bikin ini. Duh, ngetik atau ngomong gini aja rasanya deg-degan kali... Soalnya aku jujur ngarep kali kam mau terima ajakanku. Tapi tenang ya, aku hargai apapun keputusan kam, jadi semua balik ke kam lagi kok 🥺🤍"
             </div>
         </div>
     """, unsafe_allow_html=True)
