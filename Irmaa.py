@@ -50,7 +50,7 @@ def get_responses():
 
 # Konfigurasi Halaman
 st.set_page_config(
-    page_title="Irma Kristiani Ginting",
+    page_title="Irma Kristiani",
     page_icon="🍽️",
     layout="centered"
 )
