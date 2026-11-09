@@ -60,7 +60,7 @@ css_template = """
 """
 st.markdown(css_template, unsafe_allow_html=True)
 
-# Inisialisasi Session State agar nilainya bisa dikontrol dan di-reset
+# Inisialisasi Session State di awal jika belum ada
 if 'radio_jawaban' not in st.session_state:
     st.session_state.radio_jawaban = "Mauuu"
 if 'input_tanggal' not in st.session_state:
@@ -90,7 +90,6 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
     
-    # Video backsound tegang
     st.video("https://youtu.be/OPhoNbL7kJc?si=U8tZ9whkI3IscVXA")
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -152,7 +151,6 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
     
-    # Tombol Kirim Jawaban ke WhatsApp Zefanya
     nomor_wa = "6281216464994"
     waktu_final = waktu_pilihan if waktu_pilihan else "Tidak diisi"
     catatan_final = catatan_tempat if catatan_tempat else "-"
@@ -168,7 +166,7 @@ with st.container():
     """, unsafe_allow_html=True)
 
 # ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (DENGAN TOMBOL HAPUS/RESET YANG BERFUNGSI)
+# 🔒 PANEL KHUSUS ZEFANYA
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
 with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
@@ -178,20 +176,19 @@ with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
     
     if pin_input == PIN_RAHASIA:
         st.success("PIN benar! Berikut adalah respons yang terekam:")
-        st.write(f"👉 **Pilihan Jawaban Irma:** {st.session_state.radio_jawaban}")
-        st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state.input_tanggal}")
-        st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state.input_waktu if st.session_state.input_waktu else '(Kosong)'}")
-        st.write(f"📍 **Catatan / Tempat:** {st.session_state.input_catatan if st.session_state.input_catatan else '(Kosong)'}")
+        st.write(f"👉 **Pilihan Jawaban Irma:** {st.session_state.get('radio_jawaban', 'Belum memilih')}")
+        st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state.get('input_tanggal', '-')}")
+        st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state.get('input_waktu', '-') if st.session_state.get('input_waktu') else '(Kosong)'}")
+        st.write(f"📍 **Catatan / Tempat:** {st.session_state.get('input_catatan', '-') if st.session_state.get('input_catatan') else '(Kosong)'}")
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Tombol untuk mereset data jawaban ke kondisi kosong/bawaan
+        # Tombol untuk mereset data dengan menghapus key dari session_state secara aman
         if st.button("🗑️ Hapus / Reset Jawaban Ini"):
-            st.session_state.radio_jawaban = "Mauuu"
-            st.session_state.input_tanggal = datetime.date.today()
-            st.session_state.input_waktu = ""
-            st.session_state.input_catatan = ""
-            st.success("Data jawaban berhasil dikosongkan/direset!")
+            for key in ['radio_jawaban', 'input_tanggal', 'input_waktu', 'input_catatan']:
+                if key in st.session_state:
+                    del st.session_state[key]
+            st.success("Data jawaban berhasil dihapus/direset!")
             st.rerun()
             
     elif pin_input:
