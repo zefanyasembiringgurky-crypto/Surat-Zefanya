@@ -60,6 +60,16 @@ css_template = """
 """
 st.markdown(css_template, unsafe_allow_html=True)
 
+# Inisialisasi Session State agar nilainya bisa dikontrol dan di-reset
+if 'radio_jawaban' not in st.session_state:
+    st.session_state.radio_jawaban = "Mauuu"
+if 'input_tanggal' not in st.session_state:
+    st.session_state.input_tanggal = datetime.date.today()
+if 'input_waktu' not in st.session_state:
+    st.session_state.input_waktu = ""
+if 'input_catatan' not in st.session_state:
+    st.session_state.input_catatan = ""
+
 # 1. UCAPAN TERIMA KASIH DI AWAL SEBELUM JUDUL
 st.markdown("""
     <div style="text-align: center; color: #4b5563; font-size: 0.95em; margin-bottom: 12px; font-weight: 600;">
@@ -96,7 +106,7 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
 
-# 5. PANEL PILIHAN TOMBOL JAWABAN (Menggunakan key agar statusnya bisa diatur)
+# 5. PANEL PILIHAN TOMBOL JAWABAN
 with st.container():
     st.markdown("""
         <div class='gray-card'>
@@ -113,7 +123,7 @@ with st.container():
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 6. PANEL WAKTU NGEDATE (Menggunakan key agar statusnya bisa diatur)
+# 6. PANEL WAKTU NGEDATE
 with st.container():
     st.markdown("""
         <div class='gray-card'>
@@ -124,11 +134,11 @@ with st.container():
     
     col1, col2 = st.columns(2)
     with col1:
-        tanggal_pilihan = st.date_input("Pilih Tanggal:", datetime.date.today(), key="input_tanggal")
+        tanggal_pilihan = st.date_input("Pilih Tanggal:", key="input_tanggal")
     with col2:
-        waktu_pilihan = st.text_input("Pilih Waktu (misal: Selesai jam sekolah / Sore):", "Selesai jam sekolah", key="input_waktu")
+        waktu_pilihan = st.text_input("Pilih Waktu (misal: Selesai jam sekolah / Sore):", key="input_waktu", placeholder="Contoh: Selesai jam sekolah")
     
-    catatan_tempat = st.text_input("Catatan / usulan tempat (opsional):", key="input_catatan")
+    catatan_tempat = st.text_input("Catatan / usulan tempat (opsional):", key="input_catatan", placeholder="Contoh: Tempat biasa / cafe X")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -144,7 +154,9 @@ with st.container():
     
     # Tombol Kirim Jawaban ke WhatsApp Zefanya
     nomor_wa = "6281216464994"
-    pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {pilihan}. Jadwal luangku: {tanggal_pilihan} ({waktu_pilihan}). {catatan_tempat if catatan_tempat else '-'}"
+    waktu_final = waktu_pilihan if waktu_pilihan else "Tidak diisi"
+    catatan_final = catatan_tempat if catatan_tempat else "-"
+    pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {pilihan}. Jadwal luangku: {tanggal_pilihan} ({waktu_final}). Catatan: {catatan_final}"
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
     
     st.markdown(f"""
@@ -166,19 +178,20 @@ with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
     
     if pin_input == PIN_RAHASIA:
         st.success("PIN benar! Berikut adalah respons yang terekam:")
-        st.write(f"👉 **Pilihan Jawaban Irma:** {st.session_state.get('radio_jawaban', 'Belum memilih')}")
-        st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state.get('input_tanggal', datetime.date.today())}")
-        st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state.get('input_waktu', '-')}")
-        st.write(f"📍 **Catatan / Tempat:** {st.session_state.get('input_catatan', '-')}")
+        st.write(f"👉 **Pilihan Jawaban Irma:** {st.session_state.radio_jawaban}")
+        st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state.input_tanggal}")
+        st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state.input_waktu if st.session_state.input_waktu else '(Kosong)'}")
+        st.write(f"📍 **Catatan / Tempat:** {st.session_state.input_catatan if st.session_state.input_catatan else '(Kosong)'}")
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Tombol untuk menghapus/mereset data jawaban yang tersimpan
+        # Tombol untuk mereset data jawaban ke kondisi kosong/bawaan
         if st.button("🗑️ Hapus / Reset Jawaban Ini"):
-            for key in ['radio_jawaban', 'input_tanggal', 'input_waktu', 'input_catatan']:
-                if key in st.session_state:
-                    del st.session_state[key]
-            st.success("Data jawaban berhasil dihapus/direset!")
+            st.session_state.radio_jawaban = "Mauuu"
+            st.session_state.input_tanggal = datetime.date.today()
+            st.session_state.input_waktu = ""
+            st.session_state.input_catatan = ""
+            st.success("Data jawaban berhasil dikosongkan/direset!")
             st.rerun()
             
     elif pin_input:
