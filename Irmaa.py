@@ -67,8 +67,6 @@ if 'input_tanggal' not in st.session_state:
     st.session_state.input_tanggal = datetime.date.today()
 if 'input_waktu' not in st.session_state:
     st.session_state.input_waktu = ""
-if 'input_catatan' not in st.session_state:
-    st.session_state.input_catatan = ""
 
 # 1. UCAPAN TERIMA KASIH DI AWAL SEBELUM JUDUL
 st.markdown("""
@@ -122,7 +120,7 @@ with st.container():
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 6. PANEL WAKTU NGEDATE
+# 6. PANEL WAKTU NGEDATE (Tanpa input tempat)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
@@ -136,8 +134,6 @@ with st.container():
         tanggal_pilihan = st.date_input("Pilih Tanggal:", key="input_tanggal")
     with col2:
         waktu_pilihan = st.text_input("Pilih Waktu (misal: Selesai jam sekolah / Sore):", key="input_waktu", placeholder="Contoh: Selesai jam sekolah")
-    
-    catatan_tempat = st.text_input("Catatan / usulan tempat (opsional):", key="input_catatan", placeholder="Contoh: Tempat biasa / cafe X")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -153,8 +149,7 @@ with st.container():
     
     nomor_wa = "6281216464994"
     waktu_final = waktu_pilihan if waktu_pilihan else "Tidak diisi"
-    catatan_final = catatan_tempat if catatan_tempat else "-"
-    pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {pilihan}. Jadwal luangku: {tanggal_pilihan} ({waktu_final}). Catatan: {catatan_final}"
+    pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {pilihan}. Jadwal luangku: {tanggal_pilihan} ({waktu_final})."
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
     
     st.markdown(f"""
@@ -179,13 +174,12 @@ with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
         st.write(f"👉 **Pilihan Jawaban Irma:** {st.session_state.get('radio_jawaban', 'Belum memilih')}")
         st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state.get('input_tanggal', '-')}")
         st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state.get('input_waktu', '-') if st.session_state.get('input_waktu') else '(Kosong)'}")
-        st.write(f"📍 **Catatan / Tempat:** {st.session_state.get('input_catatan', '-') if st.session_state.get('input_catatan') else '(Kosong)'}")
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Tombol untuk mereset data dengan menghapus key dari session_state secara aman
+        # Tombol untuk mereset data
         if st.button("🗑️ Hapus / Reset Jawaban Ini"):
-            for key in ['radio_jawaban', 'input_tanggal', 'input_waktu', 'input_catatan']:
+            for key in ['radio_jawaban', 'input_tanggal', 'input_waktu']:
                 if key in st.session_state:
                     del st.session_state[key]
             st.success("Data jawaban berhasil dihapus/direset!")
