@@ -183,7 +183,7 @@ with st.container():
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>👇 Silakan Pilih Jawabannya di Bawah Ya:</h3>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>👇 Pilih ya Ir:</h3>
         </div>
     """, unsafe_allow_html=True)
     
@@ -202,7 +202,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>📅 Atur Jadwal Kapan Kamu Bisa</h3>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>📅 Pilih waktu kapan kam bisa Ir</h3>
             <p style='color: #4b5563; font-size: 0.95em;'>waktu kam, silakan isi di bawah ya:</p>
         </div>
     """, unsafe_allow_html=True)
