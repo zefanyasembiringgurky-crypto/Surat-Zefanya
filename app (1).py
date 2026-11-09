@@ -209,7 +209,7 @@ with st.container():
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 7. PANEL PENUTUP & SIMPAN KE DATABASE + WHATSAPP
+# 7. PANEL PENUTUP & TOMBOL SIMPAN KE DATABASE (TANPA WHATSAPP)
 with st.container():
     st.markdown("""
         <div class='gray-card' style='text-align: center;'>
@@ -219,34 +219,22 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
     
-    nomor_wa = "6281216464994"
     jawaban_final = pilihan if pilihan != "✨ Belum memilih (Silakan klik salah satu)" else "Belum memilih"
     waktu_final = waktu_pilihan if waktu_pilihan else "Tidak diisi"
     
-    if st.button("📲 Simpan Jawaban & Kirim ke WhatsApp Zefanya"):
+    if st.button("💾 Kirim & Simpan Jawabannya"):
         if jawaban_final == "Belum memilih":
             st.warning("⚠️ Pilih dulu salah satu jawabannya ya sebelum dikirim! 😄")
         else:
-            # Simpan ke database SQLite
+            # Simpan langsung ke database SQLite
             save_response("Pilihan Ajakan Makan", jawaban_final)
             save_response("Jadwal Luang", f"Tanggal: {tanggal_pilihan} | Waktu: {waktu_final}")
             
-            pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {jawaban_final}. Jadwal luangku: {tanggal_pilihan} ({waktu_final})."
-            link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
-            
-            st.success("🎉 Respons dan jadwalmu berhasil direkam dan dikirim ke Zefanya! Terima kasih ya, Ir!")
-            st.markdown(f"""
-                <div style="text-align: center; margin-top: 15px;">
-                    <a href="{link_wa}" target="_blank">
-                        <button style="background-color: #22c55e; color: white; padding: 12px 20px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer;">
-                            Klik di Sini Jika WhatsApp Tidak Terbuka Otomatis 🟢
-                        </button>
-                    </a>
-                </div>
-            """, unsafe_allow_html=True)
+            st.success("🎉 Terima kasih ya, Ir! Jawabannya sudah berhasil dikirim dan tersimpan rapi.")
+            st.balloons()
 
 # ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (DENGAN SESSION STATE PIN)
+# 🔒 PANEL KHUSUS ZEFANYA
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
 with st.expander("🔒 Panel Khusus Zefanya"):
