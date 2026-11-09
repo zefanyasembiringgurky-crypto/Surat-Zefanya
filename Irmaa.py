@@ -106,7 +106,7 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
 
-# 5. PANEL PILIHAN TOMBOL JAWABAN (Tanpa teks respons otomatis di bawahnya)
+# 5. PANEL PILIHAN TOMBOL JAWABAN
 with st.container():
     st.markdown("""
         <div class='gray-card'>
@@ -173,7 +173,7 @@ with st.container():
     """, unsafe_allow_html=True)
 
 # ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (KEMBALI DISEDIAKAN)
+# 🔒 PANEL KHUSUS ZEFANYA (DENGAN TOMBOL HAPUS/RESET)
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
 with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
@@ -187,6 +187,18 @@ with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
         st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state['tanggal_irma']}")
         st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state['waktu_irma']}")
         st.write(f"📍 **Catatan / Tempat:** {st.session_state['catatan_irma']}")
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # Tombol untuk menghapus/mereset data jawaban yang tersimpan
+        if st.button("🗑️ Hapus / Reset Jawaban Ini"):
+            st.session_state['jawaban_irma'] = "Belum memilih"
+            st.session_state['tanggal_irma'] = str(datetime.date.today())
+            st.session_state['waktu_irma'] = "Selesai jam sekolah"
+            st.session_state['catatan_irma'] = "-"
+            st.success("Data jawaban berhasil dihapus/direset!")
+            st.rerun()
+            
     elif pin_input:
         st.error("PIN salah.")
 
