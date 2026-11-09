@@ -60,16 +60,6 @@ css_template = """
 """
 st.markdown(css_template, unsafe_allow_html=True)
 
-# Inisialisasi session state untuk menyimpan jawaban Irma
-if 'jawaban_irma' not in st.session_state:
-    st.session_state['jawaban_irma'] = "Belum memilih"
-if 'tanggal_irma' not in st.session_state:
-    st.session_state['tanggal_irma'] = str(datetime.date.today())
-if 'waktu_irma' not in st.session_state:
-    st.session_state['waktu_irma'] = "Selesai jam sekolah"
-if 'catatan_irma' not in st.session_state:
-    st.session_state['catatan_irma'] = "-"
-
 # 1. UCAPAN TERIMA KASIH DI AWAL SEBELUM JUDUL
 st.markdown("""
     <div style="text-align: center; color: #4b5563; font-size: 0.95em; margin-bottom: 12px; font-weight: 600;">
@@ -106,7 +96,7 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
 
-# 5. PANEL PILIHAN TOMBOL JAWABAN
+# 5. PANEL PILIHAN TOMBOL JAWABAN (Tanpa teks respons/feedback di bawahnya)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
@@ -119,16 +109,6 @@ with st.container():
         ("Mauuu", "Gak mau kalau ga jadi", "Yaudah iya"),
         label_visibility="collapsed"
     )
-    
-    # Simpan ke session state secara otomatis
-    st.session_state['jawaban_irma'] = pilihan
-
-    if pilihan == "Mauuu":
-        st.success("Yeeay! Bakal seneng banget kalau kam mau! 🎉")
-    elif pilihan == "Yaudah iya":
-        st.success("Hahaha, yang penting mau! Makasih ya Ir! 😄")
-    else:
-        st.warning("Waduh... sedih banget kalau gak jadi 🥺 Tapi gak papa, keputusannya tetap dihargai kok!")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -148,11 +128,6 @@ with st.container():
         waktu_pilihan = st.text_input("Pilih Waktu (misal: Selesai jam sekolah / Sore):", "Selesai jam sekolah")
     
     catatan_tempat = st.text_input("Catatan / usulan tempat (opsional):", "")
-
-    # Simpan ke session state secara otomatis
-    st.session_state['tanggal_irma'] = str(tanggal_pilihan)
-    st.session_state['waktu_irma'] = waktu_pilihan
-    st.session_state['catatan_irma'] = catatan_tempat if catatan_tempat else "-"
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -178,24 +153,6 @@ with st.container():
             </button>
         </a>
     """, unsafe_allow_html=True)
-
-# ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (DENGAN KODE 2021)
-# ==========================================
-st.markdown("<br><hr>", unsafe_allow_html=True)
-with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
-    st.markdown("Masukkan PIN rahasia untuk melihat jawaban Irma:")
-    pin_input = st.text_input("PIN Rahasia:", type="password")
-    PIN_RAHASIA = "2021" 
-    
-    if pin_input == PIN_RAHASIA:
-        st.success("PIN benar! Berikut adalah respons yang terekam:")
-        st.write(f"👉 **Pilihan Jawaban Irma:** {st.session_state['jawaban_irma']}")
-        st.write(f"📅 **Tanggal yang Dipilih:** {st.session_state['tanggal_irma']}")
-        st.write(f"⏰ **Waktu yang Dipilih:** {st.session_state['waktu_irma']}")
-        st.write(f"📍 **Catatan / Tempat:** {st.session_state['catatan_irma']}")
-    elif pin_input:
-        st.error("PIN salah.")
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
