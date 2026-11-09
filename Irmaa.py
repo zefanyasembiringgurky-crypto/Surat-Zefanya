@@ -1,5 +1,49 @@
 import streamlit as st
 import datetime
+import sqlite3
+import pandas as pd
+import os
+
+# --- INISIALISASI DATABASE SQLITE UNTUK IRMA ---
+def init_db():
+    conn = sqlite3.connect('jawaban_irma.db', check_same_thread=False)
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS responses (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            topik TEXT,
+            jawaban TEXT,
+            waktu TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+init_db()
+
+def save_response(topik, jawaban):
+    conn = sqlite3.connect('jawaban_irma.db', check_same_thread=False)
+    c = conn.cursor()
+    waktu_str = datetime.datetime.now().strftime("%d %B %Y - %H:%M:%S")
+    c.execute('INSERT INTO responses (topik, jawaban, waktu) VALUES (?, ?, ?)', (topik, jawaban, waktu_str))
+    conn.commit()
+    conn.close()
+
+def delete_response(resp_id):
+    conn = sqlite3.connect('jawaban_irma.db', check_same_thread=False)
+    c = conn.cursor()
+    c.execute('DELETE FROM responses WHERE id = ?', (resp_id,))
+    conn.commit()
+    conn.close()
+
+def get_responses():
+    conn = sqlite3.connect('jawaban_irma.db', check_same_thread=False)
+    try:
+        df_resp = pd.read_sql_query('SELECT * FROM responses ORDER BY id DESC', conn)
+    except:
+        df_resp = pd.DataFrame(columns=['id', 'topik', 'jawaban', 'waktu'])
+    conn.close()
+    return df_resp
 
 # Konfigurasi Halaman
 st.set_page_config(
@@ -8,82 +52,86 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- INISIALISASI SESSION STATE UNTUK RIWAYAT JAWABAN ---
-if 'riwayat_jawaban' not in st.session_state:
-    st.session_state.riwayat_jawaban = []
+# Inisialisasi status login panel Zefanya
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
 
-# Custom CSS Tema Abu-Abu Putih Super Elegan & Estetis
+# Custom CSS Tema Abu-Abu Putih Elegan (Gray & White Theme)
 css_template = """
     <style>
     .stApp {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        color: #1e293b;
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        color: #1f2937;
         font-family: 'Inter', sans-serif;
     }
     .gray-card {
         background: #ffffff !important;
-        padding: 26px;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-        border: 1px solid #cbd5e1;
-        margin-bottom: 22px;
+        padding: 24px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        border: 1px solid #d1d5db;
+        margin-bottom: 20px;
     }
     .main-title {
         text-align: center;
-        color: #0f172a;
+        color: #111827;
         font-weight: 800;
-        font-size: 1.65em;
-        margin-bottom: 8px;
+        font-size: 1.6em;
+        margin-bottom: 5px;
         letter-spacing: -0.5px;
     }
     .subtitle {
         text-align: center;
-        color: #64748b;
+        color: #4b5563;
         font-style: italic;
-        margin-bottom: 28px;
+        margin-bottom: 24px;
         font-size: 0.95em;
     }
-    /* Mempercantik tampilan pilihan radio */
     .stRadio label p {
-        color: #1e293b !important;
+        color: #111827 !important;
         font-weight: 600 !important;
         font-size: 1.05em !important;
-        padding: 6px 0;
+        padding: 4px 0;
     }
     div.stButton > button {
-        background: #334155;
+        background: #374151;
         color: #ffffff !important;
-        border-radius: 12px;
+        border-radius: 10px;
         font-weight: 600;
-        padding: 12px 24px;
+        padding: 12px 20px;
         border: none;
         width: 100%;
-        box-shadow: 0 4px 12px rgba(51, 65, 85, 0.2);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
     }
     div.stButton > button:hover {
-        background: #0f172a;
-        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.3);
+        background: #111827;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
     }
-    .welcome-badge {
+    .welcome-note {
         text-align: center;
-        color: #475569;
-        font-size: 0.9em;
-        margin-bottom: 20px;
+        color: #4b5563;
+        font-size: 0.95em;
+        margin-bottom: 16px;
         font-weight: 600;
-        background: #e2e8f0;
-        padding: 8px 18px;
-        border-radius: 30px;
+        background: #e5e7eb;
+        padding: 8px 16px;
+        border-radius: 20px;
         display: inline-block;
         width: 100%;
-        border: 1px solid #cbd5e1;
     }
-    .history-item {
-        background: #f8fafc;
-        border: 1px solid #cbd5e1;
-        padding: 14px 18px;
+    .message-box {
+        background-color: #f8fafc;
+        border: 2px solid #cbd5e1;
         border-radius: 12px;
-        margin-bottom: 12px;
+        padding: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: left;
+        color: #1f2937 !important;
+        font-size: 1.05em;
+        font-weight: 500;
+        line-height: 1.6;
     }
     </style>
 """
@@ -92,7 +140,7 @@ st.markdown(css_template, unsafe_allow_html=True)
 # 1. UCAPAN TERIMA KASIH DI AWAL
 st.markdown("""
     <div style="text-align: center;">
-        <span class="welcome-badge">✨ Hai Ir, makasih banyak ya udah mau nyempetin waktu buat membuka link ini... ✨</span>
+        <span class="welcome-note">✨ Hai Ir, makasih banyak ya udah mau nyempetin waktu buat membuka link ini... ✨</span>
     </div>
 """, unsafe_allow_html=True)
 
@@ -100,26 +148,29 @@ st.markdown("""
 st.markdown("<h1 class='main-title'>🚨 SITUASI DARURAT: Misi Nekat Ajak Bu Guru Makan Bareng 🍽️</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Tolong dibaca sampai habis ya, jangan di-skip! 😆</p>", unsafe_allow_html=True)
 
-# 3. PANEL MASUK TEGANG & VIDEO YOUTUBE
+# 3. VIDEO UCAPAN YOUTUBE
+url_video_ucapan = "https://youtu.be/AEKRXpBMa2w?si=0d44nYIBrNer_yBB" 
+
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #334155; margin-top: 0; font-size: 1.15em; font-weight: 700;'>🎵 Suasana Hati Saat Ini</h3>
-            <p style='color: #64748b; font-weight: 500; margin-bottom: 16px;'>Disini aku yang tegang nunggu jawabannya...</p>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>🎥 Video Ucapan & Suasana Hati</h3>
+            <p style='color: #4b5563; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawabannya...</p>
         </div>
     """, unsafe_allow_html=True)
-    st.video("https://youtu.be/OPhoNbL7kJc?si=U8tZ9whkI3IscVXA")
+    st.video(url_video_ucapan)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 4. PANEL KALIMAT AJAKAN JUMPA
+# 4. PESAN PENTING BUAT IRMA (Sudah diperbarui sesuai gaya bahasa & tambahan tujuan)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #334155; margin-top: 0; font-size: 1.15em; font-weight: 700;'>💌 Pesan Penting Buat Irma</h3>
-            <p style='color: #1e293b; line-height: 1.65; font-size: 1.05em; font-weight: 500;'>
-                "Ir, ehmm aku mau ajak kam makan bareng, untuk tempat makannya udah tau dan ini kam pernah makan, sebenarnya aku dari kemaren mikirin ini tapi takut kam ga mau tapi setelah kupikir-pikir daripada belum kucoba, gimana ya bilangnya aku deg-degan........ soalnya aku ngarep kali kam mau tapi kembali ke kam 🥺"
-            </p>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>💌 Pesan Penting Buat Irma</h3>
+            <div class='message-box'>
+                "Ir, ehmm... sebenarnya aku udah mikirin hal ini dari kemarin-kemarin dan bolak-balik ragu mau mulai ngomongnya dari mana. Aku pengen banget ngajak kam makan bareng, luangin waktu sebentar aja. Untuk tempat makannya, tenang aja, aku udah tau tempatnya dan makanan di situ pasti kam suka atau pernah makan sebelumnya, walau mungkin tempatnya baru buat kam. Oh iya, tujuan aku ngajak kam makan nanti aku kasih tau kalau kam mau makan bareng! 😉<br><br>
+                Jujur, dari kemarin aku mikir panjang karena sempat takut kam nolak atau risih, tapi setelah kupikir-pikir lagi, daripada aku penasaran dan nggak pernah nyoba ngomong, ya udah aku nekat bikin ini. Duh, ngetik atau ngomong gini aja rasanya deg-degan kali... Soalnya aku ngarep kali kam mau dan nemenin aku sebentar. Tapi tenang ya, aku hargai apapun keputusan kam, jadi semua balik ke kam lagi kok 🥺🤍"
+            </div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -127,7 +178,7 @@ with st.container():
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #334155; margin-top: 0; font-size: 1.15em; font-weight: 700;'>👇 Silakan Pilih Jawabannya di Bawah Ya:</h3>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>👇 Silakan Pilih Jawabannya di Bawah Ya:</h3>
         </div>
     """, unsafe_allow_html=True)
     
@@ -146,8 +197,8 @@ st.markdown("<br>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #334155; margin-top: 0; font-size: 1.15em; font-weight: 700;'>📅 Atur Jadwal Kapan Kamu Bisa</h3>
-            <p style='color: #64748b; font-size: 0.95em; margin-bottom: 15px;'>Kapan pun waktu luangmu (jam pulang sekolah atau weekend), silakan isi di bawah ya:</p>
+            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>📅 Atur Jadwal Kapan Kamu Bisa</h3>
+            <p style='color: #4b5563; font-size: 0.95em;'>Kapan pun waktu luangmu (jam pulang sekolah atau weekend), silakan isi di bawah ya:</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -159,95 +210,73 @@ with st.container():
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 7. PANEL PENUTUP & TOMBOL KIRIM / SIMPAN JAWABAN
+# 7. PANEL PENUTUP & TOMBOL SIMPAN KE DATABASE (Fokus Database Saja)
 with st.container():
     st.markdown("""
         <div class='gray-card' style='text-align: center;'>
-            <p style='color: #1e293b; font-size: 1.05em; line-height: 1.6; font-weight: 500; margin-bottom: 20px;'>
+            <p style='color: #1f2937; font-size: 1.05em; line-height: 1.5; font-weight: 500;'>
                 "Terima kasih ya Ir, pilihan kam aku hargain kok, kalau mau aku senang banget tapi semisal kam ga mau gak papa 🥺"
             </p>
         </div>
     """, unsafe_allow_html=True)
     
-    nomor_wa = "6281216464994"
     jawaban_final = pilihan if pilihan != "✨ Belum memilih (Silakan klik salah satu)" else "Belum memilih"
     waktu_final = waktu_pilihan if waktu_pilihan else "Tidak diisi"
     
-    # Tombol Simpan ke Riwayat & Kirim ke WhatsApp
-    if st.button("📲 Simpan Jawaban & Kirim ke WhatsApp Zefanya"):
+    if st.button("💾 Kirim & Simpan Jawabannya"):
         if jawaban_final == "Belum memilih":
-            st.warning("⚠️ Hei, pilih dulu salah satu jawabannya ya sebelum dikirim! 😄")
+            st.warning("⚠️ Pilih dulu salah satu jawabannya ya sebelum dikirim! 😄")
         else:
-            # Simpan data ke dalam daftar riwayat (history)
-            data_baru = {
-                "pilihan": jawaban_final,
-                "tanggal": str(tanggal_pilihan),
-                "waktu": waktu_final,
-                "timestamp": datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
-            }
-            st.session_state.riwayat_jawaban.append(data_baru)
+            # Simpan langsung ke database SQLite
+            save_response("Pilihan Ajakan Makan", jawaban_final)
+            save_response("Jadwal Luang", f"Tanggal: {tanggal_pilihan} | Waktu: {waktu_final}")
             
-            # Buat link WhatsApp
-            pesan_wa = f"Halo Zefanya, aku udah baca webnya nih. Jawabanku: {jawaban_final}. Jadwal luangku: {tanggal_pilihan} ({waktu_final})."
-            link_wa = f"https://wa.me/{nomor_wa}?text={pesan_wa.replace(' ', '%20')}"
-            
-            st.success("🎉 Jawaban berhasil direkam dan dikirim! Terima kasih ya, Ir!")
-            st.markdown(f"""
-                <script>
-                    window.open('{link_wa}', '_blank');
-                </script>
-                <div style="text-align: center; margin-top: 15px;">
-                    <a href="{link_wa}" target="_blank">
-                        <button style="background-color: #16a34a; color: white; padding: 10px 20px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer;">
-                            Klik di Sini Jika WhatsApp Tidak Terbuka Otomatis 🟢
-                        </button>
-                    </a>
-                </div>
-            """, unsafe_allow_html=True)
+            st.success("🎉 Terima kasih ya, Ir! Jawabannya sudah berhasil dikirim dan tersimpan rapi.")
+            st.balloons()
 
 # ==========================================
-# 🔒 PANEL KHUSUS ZEFANYA (DENGAN PILIHAN HAPUS PER ITEM)
+# 🔒 PANEL KHUSUS ZEFANYA
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
-with st.expander("🔒 Panel Khusus Zefanya (Riwayat Pilihan & Jadwal Irma)"):
-    st.markdown("Masukkan PIN rahasia untuk melihat semua riwayat jawaban Irma:")
-    pin_input = st.text_input("PIN Rahasia:", type="password")
-    PIN_RAHASIA = "2021" 
-    
-    if pin_input == PIN_RAHASIA:
-        st.success("PIN benar! Berikut adalah daftar riwayat respons yang terekam:")
+with st.expander("🔒 Panel Khusus Zefanya"):
+    if not st.session_state.authenticated:
+        st.markdown("Masukkan PIN rahasia:")
+        pin_input = st.text_input("PIN Rahasia:", type="password", key="pin_input_box")
+        PIN_RAHASIA = "2021" 
         
-        if len(st.session_state.riwayat_jawaban) == 0:
-            st.info("Belum ada respons atau jawaban yang tersimpan di riwayat.")
-        else:
-            st.markdown(f"**Total Respons Masuk: {len(st.session_state.riwayat_jawaban)}**")
+        if pin_input == PIN_RAHASIA:
+            st.session_state.authenticated = True
+            st.rerun()
+        elif pin_input:
+            st.error("PIN salah.")
+    else:
+        st.success("PIN benar! Selamat datang, Bos.")
+        if st.button("🔒 Kunci Kembali Panel"):
+            st.session_state.authenticated = False
+            st.rerun()
             
-            # Tampilkan setiap item riwayat dengan tombol hapus masing-masing
-            for idx, item in enumerate(st.session_state.riwayat_jawaban):
-                st.markdown(f"""
-                    <div class='history-item'>
-                        <b>Respon ke-{idx + 1}</b> ({item['timestamp']})<br>
-                        👉 <b>Pilihan:</b> {item['pilihan']}<br>
-                        📅 <b>Tanggal:</b> {item['tanggal']}<br>
-                        ⏰ <b>Waktu:</b> {item['waktu']}
-                    </div>
-                """, unsafe_allow_html=True)
-                
-                # Tombol hapus spesifik untuk item ini
-                if st.button(f"🗑️ Hapus Respons #{idx + 1}", key=f"del_{idx}"):
-                    st.session_state.riwayat_jawaban.pop(idx)
-                    st.success(f"Respons #{idx + 1} berhasil dihapus!")
+        df_data = get_responses()
+        if not df_data.empty:
+            st.dataframe(df_data, use_container_width=True)
+            
+            st.markdown("---")
+            st.markdown("📊 **Grafik Statistik Respons Irma:**")
+            topic_counts = df_data['topik'].value_counts()
+            st.bar_chart(topic_counts)
+            
+            st.markdown("---")
+            st.markdown("🗑️ **Hapus Jawaban Berdasarkan ID:**")
+            id_to_delete = st.number_input("Masukkan Nomor ID:", min_value=1, step=1, key="del_id_input")
+            if st.button("❌ Hapus Jawaban Ini"):
+                if id_to_delete in df_data['id'].values:
+                    delete_response(id_to_delete)
+                    st.success(f"ID {id_to_delete} berhasil dihapus dari database!")
                     st.rerun()
-            
-            st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("🗑️ Hapus / Reset Semua Riwayat"):
-                st.session_state.riwayat_jawaban = []
-                st.success("Semua riwayat berhasil dikosongkan!")
-                st.rerun()
-                
-    elif pin_input:
-        st.error("PIN salah.")
+                else:
+                    st.error("ID tidak ditemukan dalam database.")
+        else:
+            st.info("Belum ada data respons tersimpan di database.")
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #64748b; font-size: 0.8em;'>Dibuat dengan penuh ketegangan dan ketulusan khusus buat Irma 💙</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #4b5563; font-size: 0.8em;'>Dibuat dengan penuh ketegangan dan ketulusan khusus buat Irma 🎂💙</p>", unsafe_allow_html=True)
