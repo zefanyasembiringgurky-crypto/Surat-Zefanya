@@ -27,7 +27,6 @@ init_db()
 def save_response(topik, jawaban):
     conn = sqlite3.connect('jawaban_irma.db', check_same_thread=False)
     c = conn.cursor()
-    # Menggunakan waktu WIB
     waktu_str = datetime.datetime.now(wib_offset).strftime("%d %B %Y - %H:%M:%S WIB")
     c.execute('INSERT INTO responses (topik, jawaban, waktu) VALUES (?, ?, ?)', (topik, jawaban, waktu_str))
     conn.commit()
@@ -51,34 +50,39 @@ def get_responses():
 
 # Konfigurasi Halaman
 st.set_page_config(
-    page_title="Yok Makan Bareng Ir🍽️",
+    page_title="Yok Makan Bareng Ir 🍽️",
     page_icon="🍽️",
     layout="centered"
 )
 
-# Inisialisasi status login panel Zefanya
+# Inisialisasi status login panel Zefanya & sambutan balon pertama kali
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 
-# Custom CSS Tema Abu-Abu Putih Elegan (Gray & White Theme)
+if 'welcomed' not in st.session_state:
+    st.balloons()
+    st.session_state.welcomed = True
+
+# Custom CSS Tema Biru Navy Elegan (Navy Blue Theme)
 css_template = """
     <style>
     .stApp {
-        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-        color: #1f2937;
+        background: linear-gradient(135deg, #0f172a 1-0%, #1e293b 100%), #0f172a;
+        background-color: #0f172a;
+        color: #f8fafc;
         font-family: 'Inter', sans-serif;
     }
     .gray-card {
-        background: #ffffff !important;
+        background: #1e293b !important;
         padding: 24px;
         border-radius: 16px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-        border: 1px solid #d1d5db;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        border: 1px solid #334155;
         margin-bottom: 20px;
     }
     .main-title {
         text-align: center;
-        color: #111827;
+        color: #f8fafc;
         font-weight: 800;
         font-size: 1.6em;
         margin-bottom: 5px;
@@ -86,56 +90,60 @@ css_template = """
     }
     .subtitle {
         text-align: center;
-        color: #4b5563;
+        color: #94a3b8;
         font-style: italic;
         margin-bottom: 24px;
         font-size: 0.95em;
     }
     .stRadio label p {
-        color: #111827 !important;
+        color: #f8fafc !important;
         font-weight: 600 !important;
         font-size: 1.05em !important;
         padding: 4px 0;
     }
     div.stButton > button {
-        background: #374151;
+        background: #3b82f6;
         color: #ffffff !important;
         border-radius: 10px;
         font-weight: 600;
         padding: 12px 20px;
         border: none;
         width: 100%;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         transition: all 0.3s ease;
     }
     div.stButton > button:hover {
-        background: #111827;
-        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        background: #2563eb;
+        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
     }
     .welcome-note {
         text-align: center;
-        color: #4b5563;
+        color: #e2e8f0;
         font-size: 0.95em;
         margin-bottom: 16px;
         font-weight: 600;
-        background: #e5e7eb;
+        background: #334151;
         padding: 8px 16px;
         border-radius: 20px;
         display: inline-block;
         width: 100%;
+        border: 1px solid #475569;
     }
     .message-box {
-        background-color: #f8fafc;
-        border: 2px solid #cbd5e1;
+        background-color: #0f172a;
+        border: 2px solid #475569;
         border-radius: 12px;
         padding: 18px;
         margin-top: 10px;
         margin-bottom: 10px;
         text-align: left;
-        color: #1f2937 !important;
+        color: #f8fafc !important;
         font-size: 1.05em;
         font-weight: 500;
         line-height: 1.6;
+    }
+    h3, h4, p, label {
+        color: #f8fafc !important;
     }
     </style>
 """
@@ -158,8 +166,8 @@ url_video_ucapan = "https://youtu.be/OPhoNbL7kJc?si=U8tZ9whkI3IscVXA"
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>🎵 Suasana Hati Saat Ini</h3>
-            <p style='color: #4b5563; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawaban kam...</p>
+            <h3 style='margin-top: 0; font-size: 1.15em;'>🎵 Suasana Hati Saat Ini</h3>
+            <p style='color: #94a3b8; font-weight: 500; margin-bottom: 15px;'>Disini aku yang tegang nunggu jawaban kam...</p>
         </div>
     """, unsafe_allow_html=True)
     st.video(url_video_ucapan)
@@ -170,7 +178,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>💌 Pesan Penting Buat Irma</h3>
+            <h3 style='margin-top: 0; font-size: 1.15em;'>💌 Pesan Penting Buat Irma</h3>
             <div class='message-box'>
                 "Ir, ehmm... sebenarnya aku udah mikirin hal ini dari kemarin-kemarin dan bolak-balik ragu mau mulai ngomongnya dari mana. Aku pengen banget ngajak kam makan bareng, luangin waktu sebentar aja. Untuk tempat makannya, tenang aja, aku udah tau tempatnya dan makanan di situ pasti kam suka atau pernah makan sebelumnya, walau mungkin tempatnya baru buat kam.<br><br>
                 Oh iya, tujuan atau alasan aku ngajak kam makan bareng nanti bakal aku kasih tahu kalau kam mau ya! 😉<br><br>
@@ -183,7 +191,7 @@ with st.container():
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>👇 Pilih ya Ir:</h3>
+            <h3 style='margin-top: 0; font-size: 1.15em;'>👇 Pilih ya Ir:</h3>
         </div>
     """, unsafe_allow_html=True)
     
@@ -202,8 +210,8 @@ st.markdown("<br>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='color: #374151; margin-top: 0; font-size: 1.15em;'>📅 Pilih waktu kapan kam bisa Ir</h3>
-            <p style='color: #4b5563; font-size: 0.95em;'>waktu kam, silakan isi di bawah ya:</p>
+            <h3 style='margin-top: 0; font-size: 1.15em;'>📅 Pilih waktu kapan kam bisa Ir</h3>
+            <p style='color: #94a3b8; font-size: 0.95em;'>waktu kam, silakan isi di bawah ya:</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -219,7 +227,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
         <div class='gray-card' style='text-align: center;'>
-            <p style='color: #1f2937; font-size: 1.05em; line-height: 1.5; font-weight: 500;'>
+            <p style='font-size: 1.05em; line-height: 1.5; font-weight: 500;'>
                 "Terima kasih ya Ir, pilihan kam aku hargain kok, kalau mau aku senang banget tapi semisal kam ga mau gak papa 🥺"
             </p>
         </div>
@@ -232,7 +240,6 @@ with st.container():
         if jawaban_final == "Belum memilih":
             st.warning("⚠️ Pilih dulu salah satu jawabannya ya sebelum dikirim! 😄")
         else:
-            # Simpan langsung ke database SQLite dengan waktu WIB
             save_response("Pilihan Ajakan Makan", jawaban_final)
             save_response("Jadwal Luang", f"Tanggal: {tanggal_pilihan} | Waktu: {waktu_final}")
             
@@ -284,4 +291,4 @@ with st.expander("🔒 Panel Khusus Zefanya"):
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #4b5563; font-size: 0.8em;'>Dibuat dengan penuh ketegangan dan ketulusan khusus buat Irma 🎂💙</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #94a3b8; font-size: 0.8em;'>Dibuat dengan penuh ketegangan dan ketulusan khusus buat Irma 🎂💙</p>", unsafe_allow_html=True)
