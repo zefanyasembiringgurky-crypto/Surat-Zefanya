@@ -63,7 +63,7 @@ if 'welcomed' not in st.session_state:
     st.balloons()
     st.session_state.welcomed = True
 
-# Custom CSS Tema Biru Navy Elegan & Animasi Jatuh (Floating Items)
+# Custom CSS Tema Biru Navy Elegan & Responsif untuk HP
 css_template = """
     <style>
     .stApp {
@@ -173,6 +173,30 @@ css_template = """
         color: #38bdf8;
         text-shadow: 0 2px 6px rgba(56, 189, 248, 0.5);
         animation: floatDown 10s infinite linear;
+    }
+
+    /* --- RESPONSIVE UNTUK HP / LAYAR KECIL --- */
+    @media (max-width: 768px) {
+        .main-title {
+            font-size: 1.35em !important;
+            padding: 0 5px;
+        }
+        .subtitle {
+            font-size: 0.88em !important;
+        }
+        .gray-card {
+            padding: 16px !important;
+            margin-bottom: 15px !important;
+            border-radius: 12px;
+        }
+        .message-box {
+            padding: 14px !important;
+            font-size: 0.98em !important;
+        }
+        .welcome-note {
+            font-size: 0.88em !important;
+            padding: 6px 12px;
+        }
     }
     </style>
     <div class="floating-bg">
