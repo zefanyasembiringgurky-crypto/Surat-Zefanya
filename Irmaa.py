@@ -63,14 +63,15 @@ if 'welcomed' not in st.session_state:
     st.balloons()
     st.session_state.welcomed = True
 
-# Custom CSS Tema Biru Navy Elegan (Navy Blue Theme)
+# Custom CSS Tema Biru Navy Elegan & Animasi Jatuh (Floating Items)
 css_template = """
     <style>
     .stApp {
-        background: linear-gradient(135deg, #0f172a 1-0%, #1e293b 100%), #0f172a;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         background-color: #0f172a;
         color: #f8fafc;
         font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
     }
     .gray-card {
         background: #1e293b !important;
@@ -79,6 +80,8 @@ css_template = """
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         border: 1px solid #334155;
         margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
     }
     .main-title {
         text-align: center;
@@ -87,6 +90,8 @@ css_template = """
         font-size: 1.6em;
         margin-bottom: 5px;
         letter-spacing: -0.5px;
+        position: relative;
+        z-index: 2;
     }
     .subtitle {
         text-align: center;
@@ -94,6 +99,8 @@ css_template = """
         font-style: italic;
         margin-bottom: 24px;
         font-size: 0.95em;
+        position: relative;
+        z-index: 2;
     }
     .stRadio label p {
         color: #f8fafc !important;
@@ -111,6 +118,8 @@ css_template = """
         width: 100%;
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
     }
     div.stButton > button:hover {
         background: #2563eb;
@@ -128,6 +137,8 @@ css_template = """
         display: inline-block;
         width: 100%;
         border: 1px solid #475569;
+        position: relative;
+        z-index: 2;
     }
     .message-box {
         background-color: #0f172a;
@@ -145,7 +156,35 @@ css_template = """
     h3, h4, p, label {
         color: #f8fafc !important;
     }
+    @keyframes floatDown {
+        0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; }
+        15% { opacity: 0.95; }
+        85% { opacity: 0.95; }
+        100% { transform: translateY(105vh) scale(1.25) rotate(360deg); opacity: 0; }
+    }
+    .floating-bg {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        overflow: hidden; pointer-events: none; z-index: 1;
+    }
+    .floating-item {
+        position: absolute; top: -60px;
+        font-size: 34px; font-weight: bold;
+        color: #38bdf8;
+        text-shadow: 0 2px 6px rgba(56, 189, 248, 0.5);
+        animation: floatDown 10s infinite linear;
+    }
     </style>
+    <div class="floating-bg">
+        <div class="floating-item" style="left: 8%; animation-duration: 9s; animation-delay: 0s;">I</div>
+        <div class="floating-item" style="left: 20%; animation-duration: 11s; animation-delay: 2s;">🌸</div>
+        <div class="floating-item" style="left: 32%; animation-duration: 8s; animation-delay: 1s;">R</div>
+        <div class="floating-item" style="left: 44%; animation-duration: 12s; animation-delay: 3s;">🦋</div>
+        <div class="floating-item" style="left: 56%; animation-duration: 9.5s; animation-delay: 0.5s;">M</div>
+        <div class="floating-item" style="left: 68%; animation-duration: 10.5s; animation-delay: 2.5s;">🌸</div>
+        <div class="floating-item" style="left: 80%; animation-duration: 11.5s; animation-delay: 1.5s;">A</div>
+        <div class="floating-item" style="left: 90%; animation-duration: 8.5s; animation-delay: 3.5s;">🦋</div>
+    </div>
 """
 st.markdown(css_template, unsafe_allow_html=True)
 
@@ -291,4 +330,4 @@ with st.expander("🔒 Panel Khusus Zefanya"):
 
 # Footer
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #94a3b8; font-size: 0.8em;'>Dibuat dengan penuh ketegangan dan ketulusan khusus buat Irma 🎂💙</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #94a3b8; font-size: 0.8em;'>Dibuat dengan penuh ketegangan dan ketulusan khusus buat Irma 💙</p>", unsafe_allow_html=True)
