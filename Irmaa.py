@@ -8,6 +8,14 @@ st.set_page_config(
     layout="centered"
 )
 
+# --- PENANGANAN RESET STATE DI AWAL (Mencegah Error) ---
+if st.session_state.get('do_reset', False):
+    for key in ['radio_jawaban', 'input_tanggal', 'input_waktu']:
+        if key in st.session_state:
+            del st.session_state[key]
+    st.session_state.do_reset = False
+    st.rerun()
+
 # Custom CSS Tema Abu-Abu Putih yang Lebih Cantik & Elegan
 css_template = """
     <style>
@@ -77,14 +85,6 @@ css_template = """
 """
 st.markdown(css_template, unsafe_allow_html=True)
 
-# Inisialisasi Session State
-if 'radio_jawaban' not in st.session_state:
-    st.session_state.radio_jawaban = "✨ Belum memilih (Silakan klik salah satu)"
-if 'input_tanggal' not in st.session_state:
-    st.session_state.input_tanggal = datetime.date.today()
-if 'input_waktu' not in st.session_state:
-    st.session_state.input_waktu = ""
-
 # 1. UCAPAN TERIMA KASIH DI AWAL SEBELUM JUDUL
 st.markdown("""
     <div style="text-align: center;">
@@ -119,7 +119,7 @@ with st.container():
         </div>
     """, unsafe_allow_html=True)
 
-# 5. PANEL PILIHAN TOMBOL JAWABAN (Bersih tanpa ada yang terpilih di awal)
+# 5. PANEL PILIHAN TOMBOL JAWABAN (Tanpa langsung terpilih di awal)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
@@ -132,7 +132,6 @@ with st.container():
     pilihan = st.radio(
         "Pilih jawaban:",
         pilihan_list,
-        index=0,
         key="radio_jawaban",
         label_visibility="collapsed"
     )
@@ -199,10 +198,7 @@ with st.expander("🔒 Panel Khusus Zefanya (Hasil Pilihan & Jadwal Irma)"):
         
         # Tombol untuk mereset data
         if st.button("🗑️ Hapus / Reset Jawaban Ini"):
-            st.session_state.radio_jawaban = "✨ Belum memilih (Silakan klik salah satu)"
-            st.session_state.input_tanggal = datetime.date.today()
-            st.session_state.input_waktu = ""
-            st.success("Data jawaban berhasil dihapus/direset!")
+            st.session_state.do_reset = True
             st.rerun()
             
     elif pin_input:
