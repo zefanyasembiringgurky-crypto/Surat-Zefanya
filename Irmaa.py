@@ -50,7 +50,7 @@ def get_responses():
 
 # Konfigurasi Halaman
 st.set_page_config(
-    page_title="Yok Makan Bareng Ir 🍽️",
+    page_title="Irma Kristiani Ginting",
     page_icon="🍽️",
     layout="centered"
 )
@@ -191,7 +191,7 @@ with st.container():
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='margin-top: 0; font-size: 1.15em;'>👇 Pilih ya Ir:</h3>
+            <h3 style='margin-top: 0; font-size: 1.15em;'>👇 Pilih ya Irma:</h3>
         </div>
     """, unsafe_allow_html=True)
     
@@ -210,7 +210,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
         <div class='gray-card'>
-            <h3 style='margin-top: 0; font-size: 1.15em;'>📅 Pilih waktu kapan kam bisa Ir</h3>
+            <h3 style='margin-top: 0; font-size: 1.15em;'>📅 Pilih waktu kapan kam bisa Irma</h3>
             <p style='color: #94a3b8; font-size: 0.95em;'>waktu kam, silakan isi di bawah ya:</p>
         </div>
     """, unsafe_allow_html=True)
@@ -228,7 +228,7 @@ with st.container():
     st.markdown("""
         <div class='gray-card' style='text-align: center;'>
             <p style='font-size: 1.05em; line-height: 1.5; font-weight: 500;'>
-                "Terima kasih ya Ir, pilihan kam aku hargain kok, kalau mau aku senang banget tapi semisal kam ga mau gak papa 🥺"
+                "Terima kasih ya Irma, pilihan kam aku hargain kok, kalau mau aku senang banget tapi semisal kam ga mau gak papa 🥺"
             </p>
         </div>
     """, unsafe_allow_html=True)
